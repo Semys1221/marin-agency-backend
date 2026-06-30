@@ -1,0 +1,5 @@
+{
+  "overrides": [
+    { "source": "/config/(.*)", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+  ]
+}

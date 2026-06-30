@@ -1,0 +1,36 @@
+{
+  "system": "loop",
+  "id": "indecision",
+  "label": "Indecision",
+  "trigger": "Post-call undecided status",
+  "steps": [
+    {
+      "step": 1,
+      "delay": 1,
+      "delay_unit": "days",
+      "subject": "Suite \u00e0 notre \u00e9change \u2014 {{prenom}}",
+      "body": "Bonjour {{prenom}},\n\nMerci pour l'\u00e9change qu'on a eu. Je comprends parfaitement que vous vouliez prendre le temps de r\u00e9fl\u00e9chir \u2014 c'est une d\u00e9cision importante pour {{entreprise}}.\n\nCe qui revient souvent chez nos clients avant de se lancer, c'est la question du r\u00e9sultat. C'est pour \u00e7a que notre offre inclut une garantie : si on n'atteint pas les objectifs convenus, on continue jusqu'\u00e0 y arriver \u2014 sans frais suppl\u00e9mentaires.\n\nVoici ce que \u00e7a donne concr\u00e8tement :\n\u2022 Setup complet de votre tunnel de vente en 15 jours\n\u2022 Accompagnement sur 90 jours\n\u2022 Objectif clair et garanti\n\u2022 Vous ne payez que si \u00e7a marche\n\nSi vous avez des questions qui pourraient vous aider \u00e0 d\u00e9cider, je suis l\u00e0.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 2,
+      "delay": 2,
+      "delay_unit": "days",
+      "subject": "{{prenom}}, l'histoire d'un client qui h\u00e9sitait comme vous",
+      "body": "Bonjour {{prenom}},\n\nJ'ai pens\u00e9 \u00e0 un client qu'on a accompagn\u00e9 le mois dernier. M\u00eame profil que {{entreprise}}, m\u00eame h\u00e9sitation au d\u00e9part.\n\nVoici ce qu'il nous a dit apr\u00e8s les 15 premiers jours :\n\"J'aurais d\u00fb me lancer plus t\u00f4t. Vous g\u00e9rez tout, moi je n'ai plus qu'\u00e0 r\u00e9pondre aux appels.\"\n\nAujourd'hui, il re\u00e7oit des leads qualifi\u00e9s chaque semaine sans avoir \u00e0 prospecter lui-m\u00eame.\n\nSi \u00e7a vous rassure, on peut faire un second appel de 15 min pour r\u00e9pondre \u00e0 vos derni\u00e8res questions avant de vous d\u00e9cider.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 3,
+      "delay": 4,
+      "delay_unit": "days",
+      "subject": "Les 3 questions qu'on nous pose le plus souvent",
+      "body": "Bonjour {{prenom}},\n\nJe voulais r\u00e9pondre aux questions les plus fr\u00e9quentes que se posent nos clients avant de commencer :\n\n**1. Combien de temps avant les premiers r\u00e9sultats ?**\nLes premi\u00e8res prises de contact arrivent d\u00e8s la premi\u00e8re semaine. Les premi\u00e8res ventes concr\u00e8tes se font g\u00e9n\u00e9ralement dans les 30 \u00e0 60 jours.\n\n**2. Je n'ai pas de budget pour du mat\u00e9riel ?**\nTout est inclus : casque, logiciels, abonnements. Vous n'avez rien \u00e0 acheter \u00e0 c\u00f4t\u00e9.\n\n**3. Et si \u00e7a ne marche pas ?**\nNotre garantie est claire : on continue jusqu'\u00e0 atteindre les objectifs. Vous ne perdez rien \u00e0 essayer.\n\n{{prenom}}, si ces r\u00e9ponses vous rassurent, je vous invite \u00e0 r\u00e9server votre onboarding. Sinon, dites-moi ce qui vous bloque et je vous r\u00e9ponds honn\u00eatement.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 4,
+      "delay": 23,
+      "delay_unit": "days",
+      "subject": "{{prenom}}, on garde le contact ?",
+      "body": "Bonjour {{prenom}},\n\nJe ne vous ai pas relanc\u00e9 pour vous laisser le temps de r\u00e9fl\u00e9chir. Si vous \u00eates pr\u00eat \u00e0 passer \u00e0 l'action pour {{entreprise}}, notre offre tient toujours.\n\nDerni\u00e8re chose : on ne reprend pas les inscriptions tous les mois, donc si le projet vous int\u00e9resse, c'est le bon moment.\n\nSi ce n'est pas le moment, aucun souci \u2014 je reste disponible quand vous voulez.\n\n{{gmail_signature}}"
+    }
+  ]
+}

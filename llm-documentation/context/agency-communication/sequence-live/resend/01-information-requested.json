@@ -1,0 +1,9 @@
+{
+  "system": "resend",
+  "id": "information-requested",
+  "label": "Information Requested",
+  "trigger": "AI responder handles inquiry",
+  "subject": "Suite \u00e0 votre demande d'information \u2014 {{entreprise}}",
+  "body": "Bonjour {{nom_prospect}},\n\nVous avez demand\u00e9 plus d'informations sur nos services pour {{entreprise}}. Je vous remercie pour votre int\u00e9r\u00eat.\n\nVoici ce que nous proposons aux {{niche}} :\n\u2022 {{benefice_1}}\n\u2022 {{benefice_2}}\n\u2022 {{benefice_3}}\n\nCes solutions sont con\u00e7ues pour vous permettre d'atteindre vos objectifs sans complexit\u00e9 inutile.\n\nSouhaitez-vous que je vous booke un cr\u00e9neau {{rdv_date}} pour qu'on en parle en d\u00e9tail ? Un \u00e9change de 15 minutes suffit pour voir si notre accompagnement correspond \u00e0 vos besoins.\n\n{{gmail_signature}}",
+  "variables": ["nom_prospect", "entreprise", "niche", "benefice_1", "benefice_2", "benefice_3", "rdv_date"]
+}

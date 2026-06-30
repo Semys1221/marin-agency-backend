@@ -1,0 +1,9 @@
+{
+  "system": "resend",
+  "id": "call-reminder",
+  "label": "Call Reminder",
+  "trigger": "Upcoming scheduled call",
+  "subject": "Rappel : votre appel {{entreprise}} \u2014 {{rdv_date}}",
+  "body": "Bonjour {{nom_prospect}},\n\nRappel : votre appel {{entreprise}} est pr\u00e9vu {{rdv_date}}.\n\nLien de l'appel : {{call_link}}\n\nOn se retrouve tout \u00e0 l'heure pour \u00e9changer ! Si vous avez besoin de d\u00e9placer le cr\u00e9neau, vous pouvez le faire directement depuis le lien de confirmation.\n\n{{gmail_signature}}",
+  "variables": ["nom_prospect", "entreprise", "rdv_date", "call_link"]
+}

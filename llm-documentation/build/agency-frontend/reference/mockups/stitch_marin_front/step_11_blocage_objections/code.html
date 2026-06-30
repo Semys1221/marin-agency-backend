@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marin - Step 11: Blocage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "tertiary": "#984629",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-variant": "#dee4e1",
+                            "secondary-fixed-dim": "#93d3c8",
+                            "on-error": "#ffffff",
+                            "on-tertiary": "#ffffff",
+                            "primary-container": "#49c5b6",
+                            "tertiary-fixed": "#ffdbd0",
+                            "surface-container-high": "#e4e9e7",
+                            "inverse-on-surface": "#ecf2f0",
+                            "outline": "#6d7a77",
+                            "on-background": "#171d1c",
+                            "background": "#f5fbf8",
+                            "on-surface-variant": "#3d4947",
+                            "primary-fixed-dim": "#61daca",
+                            "inverse-primary": "#61daca",
+                            "surface": "#f5fbf8",
+                            "tertiary-fixed-dim": "#ffb59d",
+                            "surface-container-low": "#eff5f2",
+                            "primary": "#006a61",
+                            "on-secondary-container": "#2e6f66",
+                            "on-surface": "#171d1c",
+                            "primary-fixed": "#7ff6e6",
+                            "surface-container-highest": "#dee4e1",
+                            "surface-container": "#e9efed",
+                            "secondary-container": "#aeefe4",
+                            "secondary": "#276860",
+                            "tertiary-container": "#ff9774",
+                            "surface-dim": "#d5dbd9",
+                            "secondary-fixed": "#aeefe4",
+                            "inverse-surface": "#2c3230",
+                            "on-tertiary-container": "#772e13",
+                            "on-secondary-fixed": "#00201c",
+                            "error": "#ba1a1a",
+                            "on-primary": "#ffffff",
+                            "on-tertiary-fixed-variant": "#7a3015",
+                            "on-secondary": "#ffffff",
+                            "outline-variant": "#bcc9c6",
+                            "on-primary-fixed-variant": "#005049",
+                            "on-primary-fixed": "#00201c",
+                            "on-primary-container": "#004e47",
+                            "on-secondary-fixed-variant": "#015048",
+                            "surface-bright": "#f5fbf8",
+                            "error-container": "#ffdad6",
+                            "on-error-container": "#93000a",
+                            "on-tertiary-fixed": "#390c00",
+                            "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                    },
+                    "spacing": {
+                            "sm": "1rem",
+                            "xl": "3rem",
+                            "lg": "2rem",
+                            "md": "1.5rem",
+                            "xs": "0.5rem",
+                            "container-max": "1280px",
+                            "base": "4px",
+                            "gutter": "24px"
+                    },
+                    "fontFamily": {
+                            "label-sm": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "display-phase": ["Inter"],
+                            "headline-md": ["Inter"],
+                            "headline-lg": ["Inter"],
+                            "step-indicator": ["Inter"],
+                            "headline-lg-mobile": ["Inter"],
+                            "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                            "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                            "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom Checkbox Style */
+        .custom-checkbox {
+            appearance: none;
+            background-color: transparent;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.25em;
+            height: 1.25em;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.125em;
+            display: grid;
+            place-content: center;
+        }
+        .custom-checkbox::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            background-color: white;
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .custom-checkbox:checked {
+            background-color: #49C5B6;
+            border-color: #49C5B6;
+        }
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
+        /* Input Focus Glow */
+        .input-glow:focus {
+            outline: none;
+            border-color: #49C5B6;
+            box-shadow: 0 0 0 3px rgba(73, 197, 182, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                Marin
+            </div>
+<div class="hidden md:flex gap-4">
+<button class="hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">help</span>
+</button>
+<button class="hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden h-[calc(100vh-73px)]">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full w-64 bg-surface-container-low dark:bg-inverse-surface py-md shadow-sm dark:shadow-none shrink-0 z-40">
+<div class="px-md mb-6">
+<div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Sales Pipeline</div>
+<div class="text-headline-md font-headline-md font-bold text-primary">22-Step Storyboard</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-2 px-2">
+<!-- Entry -->
+<li>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-full transition-colors group" href="#">
+<span class="material-symbols-outlined">login</span>
+<span class="text-label-sm font-label-sm font-medium">Entry</span>
+</a>
+</li>
+<!-- Discovery (Active Phase) -->
+<li>
+<div class="px-4 py-2 mt-4 text-[10px] font-bold text-primary/70 uppercase tracking-widest">Current Phase</div>
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-3 translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined filled">search</span>
+<span class="text-label-sm font-label-sm font-medium">Discovery</span>
+</a>
+<!-- Mini Step Rail for Active Phase -->
+<div class="pl-10 pr-4 py-2 space-y-3 relative before:content-[''] before:absolute before:left-[19px] before:top-4 before:bottom-4 before:w-[2px] before:bg-surface-dim">
+<div class="flex items-center gap-3 relative z-10">
+<div class="w-4 h-4 rounded-full bg-primary flex items-center justify-center shadow-[0_0_0_2px_#f5fbf8]">
+<span class="material-symbols-outlined text-[10px] text-white">check</span>
+</div>
+<span class="text-xs text-on-surface-variant">Step 9 — Pain</span>
+</div>
+<div class="flex items-center gap-3 relative z-10">
+<div class="w-4 h-4 rounded-full bg-primary flex items-center justify-center shadow-[0_0_0_2px_#f5fbf8]">
+<span class="material-symbols-outlined text-[10px] text-white">check</span>
+</div>
+<span class="text-xs text-on-surface-variant">Step 10 — Impact</span>
+</div>
+<div class="flex items-center gap-3 relative z-10">
+<div class="w-4 h-4 rounded-full border-2 border-primary bg-surface shadow-[0_0_0_2px_#f5fbf8,0_0_8px_rgba(73,197,182,0.4)]"></div>
+<span class="text-xs font-bold text-primary">Step 11 — Blocage</span>
+</div>
+<div class="flex items-center gap-3 relative z-10">
+<div class="w-4 h-4 rounded-full border-2 border-surface-dim bg-surface shadow-[0_0_0_2px_#f5fbf8]"></div>
+<span class="text-xs text-on-surface-variant opacity-60">Step 12 — Vision</span>
+</div>
+</div>
+</li>
+<!-- Proposal -->
+<li>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-full transition-colors group mt-4" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-sm font-label-sm font-medium">Proposal</span>
+</a>
+</li>
+<!-- Closing -->
+<li>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-full transition-colors group" href="#">
+<span class="material-symbols-outlined">verified</span>
+<span class="text-label-sm font-label-sm font-medium">Closing</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="px-md mt-auto">
+<button class="w-full bg-surface border border-primary text-primary hover:bg-surface-container-low transition-colors py-2 rounded text-label-sm font-label-sm font-medium mb-4 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                    Export PDF
+                </button>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-full transition-colors group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-sm font-label-sm font-medium">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-surface">
+<div class="max-w-5xl mx-auto p-4 md:p-gutter">
+<!-- Aspect Ratio Container (16:9 for presentation feel) -->
+<div class="w-full aspect-[16/9] min-h-[600px] bg-white rounded-xl shadow-[0px_1px_3px_rgba(0,0,0,0.1),_0px_1px_2px_rgba(0,0,0,0.06)] flex flex-col relative overflow-hidden border border-outline-variant/30">
+<!-- Decorative background element -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-secondary-container/20 to-transparent pointer-events-none"></div>
+<!-- Phase Badge & Step Indicator -->
+<div class="px-md py-6 flex justify-between items-start z-10">
+<div>
+<div class="inline-block px-3 py-1 bg-secondary-container/30 border border-secondary-container text-secondary text-[10px] font-bold uppercase tracking-widest rounded-full mb-3">
+                                Discovery Phase
+                            </div>
+<h2 class="text-step-indicator font-step-indicator text-on-surface-variant uppercase mb-1">Step 11 — Blocage</h2>
+<h1 class="text-display-phase font-display-phase text-primary leading-tight max-w-2xl">
+                                Qu'est-ce qui vous freine ?
+                            </h1>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="flex-1 px-md pb-md grid grid-cols-1 lg:grid-cols-2 gap-gutter z-10">
+<!-- Left Column: Common Objections (Bento-style list) -->
+<div class="flex flex-col">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-6">Objections Courantes</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Checkbox 1 -->
+<label class="flex items-start gap-3 p-4 bg-surface rounded-lg border border-outline-variant hover:border-primary/50 transition-colors cursor-pointer shadow-sm group">
+<input class="custom-checkbox mt-0.5" type="checkbox"/>
+<div>
+<span class="block text-body-md font-body-md font-medium text-on-surface group-hover:text-primary transition-colors">Budget</span>
+<span class="block text-label-sm font-label-sm text-on-surface-variant mt-1">Pas de budget alloué pour ce trimestre.</span>
+</div>
+</label>
+<!-- Checkbox 2 -->
+<label class="flex items-start gap-3 p-4 bg-surface rounded-lg border border-outline-variant hover:border-primary/50 transition-colors cursor-pointer shadow-sm group">
+<input class="custom-checkbox mt-0.5" type="checkbox"/>
+<div>
+<span class="block text-body-md font-body-md font-medium text-on-surface group-hover:text-primary transition-colors">Timing</span>
+<span class="block text-label-sm font-label-sm text-on-surface-variant mt-1">C'est pas le bon moment, recontactez-moi en Q4.</span>
+</div>
+</label>
+<!-- Checkbox 3 -->
+<label class="flex items-start gap-3 p-4 bg-surface rounded-lg border border-outline-variant hover:border-primary/50 transition-colors cursor-pointer shadow-sm group">
+<input class="custom-checkbox mt-0.5" type="checkbox"/>
+<div>
+<span class="block text-body-md font-body-md font-medium text-on-surface group-hover:text-primary transition-colors">Concurrence</span>
+<span class="block text-label-sm font-label-sm text-on-surface-variant mt-1">Déjà engagé avec un autre prestataire.</span>
+</div>
+</label>
+<!-- Checkbox 4 -->
+<label class="flex items-start gap-3 p-4 bg-surface rounded-lg border border-outline-variant hover:border-primary/50 transition-colors cursor-pointer shadow-sm group">
+<input class="custom-checkbox mt-0.5" type="checkbox"/>
+<div>
+<span class="block text-body-md font-body-md font-medium text-on-surface group-hover:text-primary transition-colors">Autorité</span>
+<span class="block text-label-sm font-label-sm text-on-surface-variant mt-1">Je dois en parler à mon associé/CODIR.</span>
+</div>
+</label>
+<!-- Checkbox 5 -->
+<label class="flex items-start gap-3 p-4 bg-surface rounded-lg border border-outline-variant hover:border-primary/50 transition-colors cursor-pointer shadow-sm group">
+<input class="custom-checkbox mt-0.5" type="checkbox"/>
+<div>
+<span class="block text-body-md font-body-md font-medium text-on-surface group-hover:text-primary transition-colors">Valeur perçue</span>
+<span class="block text-label-sm font-label-sm text-on-surface-variant mt-1">Je ne vois pas le ROI immédiat.</span>
+</div>
+</label>
+<!-- Checkbox 6 -->
+<label class="flex items-start gap-3 p-4 bg-surface rounded-lg border border-outline-variant hover:border-primary/50 transition-colors cursor-pointer shadow-sm group">
+<input class="custom-checkbox mt-0.5" type="checkbox"/>
+<div>
+<span class="block text-body-md font-body-md font-medium text-on-surface group-hover:text-primary transition-colors">Complexité</span>
+<span class="block text-label-sm font-label-sm text-on-surface-variant mt-1">Semble trop lourd à implémenter.</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Right Column: Specific Fears & Blockers -->
+<div class="flex flex-col gap-6">
+<!-- Glassmorphism Card for Textareas -->
+<div class="bg-white/60 backdrop-blur-md border border-white/80 p-6 rounded-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.05)] flex-1 flex flex-col relative overflow-hidden">
+<!-- Subtle teal accent line top -->
+<div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                                    Peurs Spécifiques
+                                </h3>
+<div class="space-y-5 flex-1 flex flex-col">
+<div class="flex flex-col flex-1">
+<label class="text-label-sm font-label-sm text-on-surface-variant mb-2" for="fears">Risque perçu par le prospect (personnel ou entreprise)</label>
+<textarea class="w-full flex-1 min-h-[100px] bg-surface rounded-lg border border-outline-variant p-3 text-body-md font-body-md input-glow resize-none" id="fears" placeholder="Ex: Peur que le déploiement perturbe la production actuelle..."></textarea>
+</div>
+<div class="flex flex-col flex-1">
+<label class="text-label-sm font-label-sm text-on-surface-variant mb-2" for="blockers">Bloqueurs techniques ou structurels</label>
+<textarea class="w-full flex-1 min-h-[100px] bg-surface rounded-lg border border-outline-variant p-3 text-body-md font-body-md input-glow resize-none" id="blockers" placeholder="Ex: Contrat d'exclusivité en cours jusqu'en décembre..."></textarea>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions inside the slide -->
+<div class="border-t border-outline-variant/30 px-md py-4 flex justify-between items-center bg-surface-container-lowest z-10 mt-auto">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Step 10: Impact
+                        </button>
+<button class="bg-[#49C5B6] hover:bg-[#3ba89a] text-white px-6 py-2.5 rounded shadow-sm hover:shadow-md transition-all flex items-center gap-2 text-label-sm font-label-sm font-medium">
+                            Step 12: Vision
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Global Footer -->
+<footer class="bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline mt-8">
+<div class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto">
+<div class="text-label-sm font-bold text-on-surface">
+                        Marin
+                    </div>
+<div class="text-label-sm font-label-sm text-on-surface-variant dark:text-surface-variant">
+                        © 2024 Marin Sales Systems. Confidential.
+                    </div>
+<div class="flex gap-4">
+<a class="text-label-sm font-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Documentation</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

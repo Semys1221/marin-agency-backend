@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-key="name">Marin — Dashboard</title>
+  <script src="/config/client.js"></script>
+  <style>
+    :root {
+      --accent: #49C5B6;
+      --accent-dark: #015048;
+      --bg: #FAFAFA;
+      --text: #000000;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      padding: 40px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 4px; }
+    .subtitle { color: #666; font-size: 0.875rem; margin-bottom: 32px; }
+    section { margin-bottom: 32px; }
+    h2 { font-size: 1rem; margin-bottom: 12px; color: var(--accent-dark); border-bottom: 1px solid #e0e0e0; padding-bottom: 6px; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .links a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 8px;
+      background: white; border: 1px solid #e0e0e0;
+      color: var(--text); text-decoration: none;
+      font-size: 0.875rem; transition: all 0.15s;
+    }
+    .links a:hover { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(73,197,182,0.2); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; }
+    th { font-weight: 600; color: var(--accent-dark); }
+    .status-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 12px;
+      font-size: 0.75rem; font-weight: 500;
+    }
+    .status-ok { background: #d4edda; color: #155724; }
+    .status-warn { background: #fff3cd; color: #856404; }
+    .status-err { background: #f8d7da; color: #721c24; }
+    .double-tap { display: flex; gap: 6px; }
+    .double-tap button {
+      padding: 2px 8px; border-radius: 6px; border: 1px solid #ccc;
+      font-size: 0.75rem; cursor: pointer; background: white;
+    }
+    .double-tap button:hover { background: #f0f0f0; }
+    .loading { color: #999; font-style: italic; font-size: 0.875rem; }
+    .error { color: #721c24; font-size: 0.875rem; }
+    @media (max-width: 640px) {
+      body { padding: 20px 12px; }
+      .links { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="client-name"></h1>
+  <p class="subtitle">Dashboard client — <span id="client-domain"></span></p>
+
+  <section>
+    <h2>Services</h2>
+    <div class="links" id="service-links"></div>
+  </section>
+
+  <section>
+    <h2>Pipeline leads</h2>
+    <div id="leads-table"><p class="loading">Chargement…</p></div>
+  </section>
+
+  <section>
+    <h2>Campagnes</h2>
+    <div id="campaigns-table"><p class="loading">Chargement…</p></div>
+  </section>
+
+  <section>
+    <h2>État des clés API</h2>
+    <div id="keys-status"><p class="loading">Chargement…</p></div>
+  </section>
+
+  <section>
+    <h2>Performance séquences</h2>
+    <div id="sequences-perf"><p class="loading">Chargement…</p></div>
+  </section>
+
+  <section>
+    <h2>Prospects CRM</h2>
+    <div id="crm-prospects"><p class="loading">Chargement…</p></div>
+  </section>
+
+  <script>
+    const cfg = typeof ClientConfig !== 'undefined' ? ClientConfig : {}
+    const API_BASE = cfg.apiBase || '/api'
+    const POLL_INTERVAL = 30000
+
+    document.getElementById('client-name').textContent = cfg.name || 'Marin'
+    document.getElementById('client-domain').textContent = cfg.domain || ''
+
+    const linkDefs = [
+      { key: 'microsoft', label: 'Compte Microsoft', url: cfg.links?.microsoft },
+      { key: 'quo', label: 'Quo.com', url: cfg.links?.quo },
+      { key: 'looker', label: 'Looker Studio', url: cfg.links?.looker },
+      { key: 'calendly', label: 'Calendly', url: cfg.tokens?.calendlyUrl || cfg.links?.calendly },
+      { key: 'stripe', label: 'Stripe', url: cfg.links?.stripeDashboard },
+    ].filter(l => l.url)
+    const container = document.getElementById('service-links')
+    linkDefs.forEach(l => {
+      const a = document.createElement('a')
+      a.href = l.url
+      a.target = '_blank'
+      a.rel = 'noopener'
+      a.textContent = l.label
+      container.appendChild(a)
+    })
+
+    async function getJSON(url) {
+      const res = await fetch(url)
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+      return res.json()
+    }
+
+    function table(headers, rows) {
+      if (!rows.length) return '<p class="loading">Aucune donnée</p>'
+      let html = '<table><thead><tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr></thead><tbody>'
+      rows.forEach(r => { html += '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>' })
+      html += '</tbody></table>'
+      return html
+    }
+
+    function badge(status) {
+      if (status === 'ok' || status === 'healthy') return '<span class="status-badge status-ok">OK</span>'
+      if (status === 'warn' || status === 'exhausted') return '<span class="status-badge status-warn">Attention</span>'
+      return '<span class="status-badge status-err">' + status + '</span>'
+    }
+
+    async function loadLeads() {
+      const el = document.getElementById('leads-table')
+      try {
+        const data = await getJSON(API_BASE + '/leads')
+        el.innerHTML = table(
+          ['Email', 'Société', 'Statut', 'Action'],
+          (data.leads || data || []).map(l => [
+            l.email || '-',
+            l.company || '-',
+            l.status || 'new',
+            `<div class="double-tap">
+              <button onclick="updateLeadStatus('${l.id}','no-show')">No show</button>
+              <button onclick="updateLeadStatus('${l.id}','indecis')">Indécis</button>
+              <button onclick="updateLeadStatus('${l.id}','closed')">Vendu</button>
+            </div>`
+          ])
+        )
+      } catch (e) { el.innerHTML = `<p class="error">Erreur : ${e.message}</p>` }
+    }
+
+    async function updateLeadStatus(id, status) {
+      try {
+        await fetch(API_BASE + '/leads/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, status })
+        })
+        loadLeads()
+      } catch (e) { alert('Erreur : ' + e.message) }
+    }
+
+    async function loadCampaigns() {
+      const el = document.getElementById('campaigns-table')
+      try {
+        const data = await getJSON(API_BASE + '/campaigns/health')
+        el.innerHTML = table(
+          ['Campagne', 'Reply rate', 'Statut'],
+          (data.campaigns || data || []).map(c => [
+            c.name || '-',
+            (c.replyRate != null ? c.replyRate + '%' : '-'),
+            badge(c.status)
+          ])
+        )
+      } catch (e) { el.innerHTML = `<p class="error">Erreur : ${e.message}</p>` }
+    }
+
+    async function loadKeys() {
+      const el = document.getElementById('keys-status')
+      try {
+        const data = await getJSON(API_BASE + '/keys/status')
+        el.innerHTML = table(
+          ['Service', 'Statut'],
+          Object.entries(data.keys || data || {}).map(([k, v]) => [k, badge(v)])
+        )
+      } catch (e) { el.innerHTML = `<p class="error">Erreur : ${e.message}</p>` }
+    }
+
+    async function loadSequences() {
+      const el = document.getElementById('sequences-perf')
+      try {
+        const data = await getJSON(API_BASE + '/sequences/perf')
+        el.innerHTML = table(
+          ['Séquence', 'Open rate', 'Reply rate'],
+          (data.sequences || data || []).map(s => [
+            s.name || '-',
+            (s.openRate != null ? s.openRate + '%' : '-'),
+            (s.replyRate != null ? s.replyRate + '%' : '-')
+          ])
+        )
+      } catch (e) { el.innerHTML = `<p class="error">Erreur : ${e.message}</p>` }
+    }
+
+    async function loadCRM() {
+      const el = document.getElementById('crm-prospects')
+      try {
+        const data = await getJSON(API_BASE + '/crm/prospects')
+        el.innerHTML = table(
+          ['Email', 'Téléphone', 'Statut'],
+          (data.prospects || data || []).map(p => [
+            p.email || '-',
+            p.phone || '-',
+            p.status || 'new'
+          ])
+        )
+      } catch (e) { el.innerHTML = `<p class="error">Erreur : ${e.message}</p>` }
+    }
+
+    loadLeads(); loadCampaigns(); loadKeys(); loadSequences(); loadCRM()
+    setInterval(() => { loadLeads(); loadCampaigns(); loadKeys(); loadSequences(); loadCRM() }, POLL_INTERVAL)
+  </script>
+</body>
+</html>

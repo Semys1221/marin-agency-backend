@@ -1,0 +1,30 @@
+{
+  "system": "loop",
+  "id": "upsell",
+  "label": "Upsell",
+  "trigger": "Cross-sell opportunity",
+  "stop_conditions": ["purchase", "explicit_refusal"],
+  "steps": [
+    {
+      "step": 1,
+      "delay": 0,
+      "delay_unit": "days",
+      "subject": "{{prenom}}, une offre qui pourrait vous int\u00e9resser pour {{entreprise}}",
+      "body": "Bonjour {{prenom}},\n\nJe me demandais si {{entreprise}} \u00e9tait pr\u00eate \u00e0 passer au niveau sup\u00e9rieur.\n\nNos clients les plus performants nous demandent r\u00e9guli\u00e8rement des options compl\u00e9mentaires pour maximiser leurs r\u00e9sultats. Voici ce qu'on peut activer pour vous :\n\n**Option Branding & \u00c9quipement**\n\u2022 Refonte de votre identit\u00e9 visuelle (logo, charte graphique, CSS)\n\u2022 Casque professionnel Jabra Evolve2 75 offert\n\u2022 Templates d'emails personnalis\u00e9s \u00e0 votre marque\n\n**Option Conseil Financier**\n\u2022 Analyse de votre structure de co\u00fbts\n\u2022 Optimisation fiscale et conseil sur votre r\u00e9mun\u00e9ration\n\u2022 Accompagnement mensuel personnalis\u00e9\n\nCes options sont disponibles pour les clients existants uniquement. Je peux vous faire une d\u00e9mo si vous voulez.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 2,
+      "delay": 3,
+      "delay_unit": "days",
+      "subject": "Comment un client a doubl\u00e9 ses r\u00e9sultats avec l'option Branding",
+      "body": "Bonjour {{prenom}},\n\nUn client nous a r\u00e9cemment dit : \"Depuis que j'ai refait mon image de marque, les prospects me prennent plus au s\u00e9rieux. Mes appels sont plus faciles.\"\n\nC'est exactement ce que fait l'option Branding : vos prospects vous voient comme un professionnel \u00e9tabli avant m\u00eame de vous parler.\n\n**Ce que \u00e7a change concr\u00e8tement :**\n\u2022 Un logo et une charte professionnelle\n\u2022 Des templates email qui ressemblent \u00e0 une vraie entreprise\n\u2022 Un site dashboard au nom de {{entreprise}}\n\nLe tout livr\u00e9 sous 7 jours ouvr\u00e9s.\n\nSi \u00e7a vous int\u00e9resse, je vous envoie la fiche d\u00e9taill\u00e9e de l'offre.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 3,
+      "delay": 4,
+      "delay_unit": "days",
+      "subject": "{{prenom}}, derni\u00e8re chance pour activer l'option",
+      "body": "Bonjour {{prenom}},\n\nJe voulais m'assurer que vous aviez bien re\u00e7u les informations sur nos options compl\u00e9mentaires.\n\nOn garde ces offres r\u00e9serv\u00e9es \u00e0 nos clients actifs, donc si {{entreprise}} est int\u00e9ress\u00e9e, c'est le moment.\n\n**Pour rappel :**\n\u2022 Option Branding & \u00c9quipement \u2014 donnez une image pro \u00e0 votre entreprise\n\u2022 Option Conseil Financier \u2014 optimisez votre structure et votre fiscalit\u00e9\n\nSi vous voulez en discuter, r\u00e9pondez simplement \u00e0 cet email et je vous explique tout en d\u00e9tail.\n\nSi ce n'est pas pour tout de suite, pas de souci \u2014 l'offre reste sur la table quand vous serez pr\u00eat.\n\n{{gmail_signature}}"
+    }
+  ]
+}

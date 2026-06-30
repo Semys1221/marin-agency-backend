@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wholesale Pipeline - Step 7</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-container-low": "#f4f3f3",
+                        "on-primary-fixed": "#00201c",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "surface-dim": "#dadad9",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#61daca",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#181c1d",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#7ff6e6",
+                        "tertiary-fixed-dim": "#c4c7c7",
+                        "on-surface-variant": "#3d4947",
+                        "inverse-primary": "#61daca",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeed",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#e0e3e3",
+                        "tertiary-container": "#b0b3b3",
+                        "secondary-container": "#aeefe4",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#006a61",
+                        "on-secondary-fixed-variant": "#015048",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed-variant": "#434748",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#414546",
+                        "on-secondary-container": "#2e6f66",
+                        "primary-container": "#49c5b6",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#5b5f5f",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bcc9c6",
+                        "background": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#aeefe4",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary": "#276860",
+                        "primary": "#006a61",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#004e47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex items-center justify-center p-md">
+<!-- 16:9 Aspect Ratio Container for Presentation Slide -->
+<div class="relative w-full max-w-[1280px] aspect-video bg-surface-container-lowest border border-outline-variant shadow-sm rounded-lg overflow-hidden flex flex-col">
+<!-- Top Bar Indicator -->
+<div class="absolute top-0 left-0 w-full h-1 bg-surface-container-high">
+<div class="h-full bg-primary" style="width: 63%;"></div>
+</div>
+<!-- Content Area -->
+<div class="flex-1 flex px-xl py-lg relative z-10">
+<!-- Left Side: Form Content -->
+<div class="flex-1 flex flex-col max-w-[800px]">
+<!-- Slide Header -->
+<div class="mb-lg">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-sm inline-block">Step 7 — Objectif</span>
+<h1 class="font-display-lg text-display-lg text-on-surface">Quel est votre objectif?</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-sm">Définissez vos cibles de volume et vos attentes budgétaires.</p>
+</div>
+<!-- Main Form Layout -->
+<div class="grid grid-cols-2 gap-x-gutter gap-y-md w-full">
+<!-- Volume Target -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="target_volume">Target Volume (Units/Mo)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">inventory_2</span>
+<input class="w-full pl-[40px] pr-sm py-[10px] bg-surface-bright border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body-md text-on-surface outline-none transition-all" id="target_volume" placeholder="e.g., 5000" type="number"/>
+</div>
+</div>
+<!-- Monthly Budget -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="monthly_budget">Monthly Budget (€)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">euro_symbol</span>
+<input class="w-full pl-[40px] pr-sm py-[10px] bg-surface-bright border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body-md text-on-surface outline-none transition-all" id="monthly_budget" placeholder="e.g., 15000" type="number"/>
+</div>
+</div>
+<!-- Delivery Expectations -->
+<div class="flex flex-col gap-xs col-span-2 mt-sm">
+<label class="font-label-md text-label-md text-on-surface" for="delivery_expectations">Delivery Expectations</label>
+<div class="relative">
+<select class="w-full pl-sm pr-lg py-[10px] bg-surface-bright border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-body-md text-on-surface appearance-none outline-none transition-all cursor-pointer" id="delivery_expectations">
+<option disabled="" selected="" value="">Select an option...</option>
+<option value="standard">Standard (5-7 Business Days)</option>
+<option value="expedited">Expedited (2-3 Business Days)</option>
+<option value="scheduled">Scheduled / Just-in-Time</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Specific Needs (Checkboxes) -->
+<div class="col-span-2 mt-md">
+<label class="font-label-md text-label-md text-on-surface block mb-sm">Specific Requirements</label>
+<div class="grid grid-cols-2 gap-sm">
+<label class="flex items-center gap-sm p-sm border border-outline-variant rounded hover:border-primary cursor-pointer transition-colors group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Custom Packaging</span>
+</label>
+<label class="flex items-center gap-sm p-sm border border-outline-variant rounded hover:border-primary cursor-pointer transition-colors group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Dedicated Account Manager</span>
+</label>
+<label class="flex items-center gap-sm p-sm border border-outline-variant rounded hover:border-primary cursor-pointer transition-colors group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">White-label Shipping</span>
+</label>
+<label class="flex items-center gap-sm p-sm border border-outline-variant rounded hover:border-primary cursor-pointer transition-colors group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">API Integration for Orders</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Progression Arrow / Graphic -->
+<div class="w-[300px] flex flex-col justify-center items-end ml-auto relative">
+<!-- Abstract corporate graphic indicating forward motion -->
+<div class="w-full aspect-square bg-surface-container rounded-full relative overflow-hidden flex items-center justify-center opacity-80 mix-blend-multiply border border-outline-variant">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-secondary-container/50 via-transparent to-transparent"></div>
+<span class="material-symbols-outlined text-[120px] text-primary/20 absolute -right-4 -bottom-4">trending_up</span>
+<button class="w-[80px] h-[80px] bg-primary text-on-primary rounded-full flex items-center justify-center hover:bg-on-primary-fixed-variant transition-colors shadow-sm group z-10">
+<span class="material-symbols-outlined text-[32px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<div class="mt-sm text-right">
+<span class="font-label-md text-label-md text-primary">Next Step</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Review &amp; Finalize</p>
+</div>
+</div>
+</div>
+<!-- Subtle Footer for context -->
+<div class="absolute bottom-0 left-0 w-full p-md flex justify-between items-center text-on-surface-variant font-body-sm text-body-sm z-0">
+<span>WholesaleCommerce AI Platform</span>
+<span>Confidential &amp; Proprietary</span>
+</div>
+</div>
+</body></html>

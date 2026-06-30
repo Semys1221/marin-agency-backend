@@ -1,0 +1,134 @@
+{
+  "system": "instantly",
+  "label": "Cold Contact (7-step multi-variant)",
+  "days": [0, 3, 6, 9, 12, 15, 18],
+  "steps": [
+    {
+      "sequence": 1,
+      "delay": 0,
+      "variants": ["A", "B", "C"],
+      "subjects": {
+        "A": "Question {niche_keyword_1}",
+        "B": "Question {niche_keyword_2}",
+        "C": "Question {niche_keyword_3}"
+      },
+      "bodies": {
+        "A": "Cher,\n\nJe comptais vous appeler au {{phone_number}}, mais un email m'a sembl\u00e9 plus appropri\u00e9.\n\nNous aidons les {niche} \u00e0 {objectif} sans {pain_point} en {timeline}.\n\nPuis-je vous envoyer plus d'informations ?\n\n{{gmail_signature}}",
+        "B": "Bonjour,\n\nJ'allais vous joindre au {{phone_number}} trouv\u00e9 dans l'annuaire, mais un email me permettait d'\u00eatre plus clair.\n\nNous aidons les {niche} \u00e0 {objectif} sans {pain_point} en {timeline}.\n\nSouhaitez-vous en savoir plus ?\n\n{{gmail_signature}}",
+        "C": "Bonjour \u00e0 vous,\n\nJ'h\u00e9sitais \u00e0 vous appeler au {{phone_number}}, j'ai finalement opt\u00e9 pour un email plus adapt\u00e9.\n\nNous aidons les {niche} \u00e0 {objectif} sans {pain_point} gr\u00e2ce \u00e0 {methode}.\n\nSeriez-vous int\u00e9ress\u00e9 pour en savoir plus ?\n\n{{gmail_signature}}"
+      }
+    },
+    {
+      "sequence": 2,
+      "delay": 3,
+      "variants": ["A", "B", "C"],
+      "subjects": {
+        "A": "RE: {niche_keyword_1}",
+        "B": "RE: {niche_keyword_2}",
+        "C": "RE: {niche_keyword_3}"
+      },
+      "bodies": {
+        "A": "Si nous pouvions vous montrer comment {objectif}, cela vous int\u00e9resserait-il ?\n\n{{gmail_signature}}",
+        "B": "Vous {pain_point}. Nous pouvons inverser cette tendance en {timeline}. Souhaitez-vous en savoir plus ?\n\n{{gmail_signature}}",
+        "C": "Si nous pouvions vous montrer comment {objectif} sans {pain_point}, cela vous int\u00e9resserait-il ?\n\n{{gmail_signature}}"
+      }
+    },
+    {
+      "sequence": 3,
+      "delay": 3,
+      "variants": ["A", "B"],
+      "subjects": {
+        "A": "Pr\u00e9cision",
+        "B": "Pr\u00e9cision"
+      },
+      "bodies": {
+        "A": "Pour pr\u00e9cision,\n\nNous montrons directement aux {niche} comment {objectif} en {timeline}, sans {pain_point}, gr\u00e2ce \u00e0 {methode}. Le plus simple est de r\u00e9server un court \u00e9change de 15 min pour voir si vous \u00eates \u00e9ligible.\n\nSeriez-vous disponible demain ou apr\u00e8s-demain pour un court appel de 15 min ?\n\n{{gmail_signature}}",
+        "B": "Bonjour,\n\nLa m\u00e9canique repose sur {methode} de {niche}, mais c'est visuel et impossible \u00e0 r\u00e9sumer proprement par mail. C'est exactement ce que nous vous pr\u00e9sentons dans un court appel de 15 min.\n\nSeriez-vous disponible demain ou apr\u00e8s-demain \u00e0 9h ?\n\n{{gmail_signature}}"
+      }
+    },
+    {
+      "sequence": 4,
+      "delay": 3,
+      "variants": ["A"],
+      "subjects": {
+        "A": "Relance"
+      },
+      "bodies": {
+        "A": "Je n'ai pas re\u00e7u de r\u00e9ponse de votre part. Vous trouverez ici un lien pour r\u00e9server un cr\u00e9neau \u00e0 votre convenance :\n\n[R\u00e9server un court appel](https://engine-20m5.onrender.com/book)\n\n{{gmail_signature}}"
+      }
+    },
+    {
+      "sequence": 5,
+      "delay": 3,
+      "variants": ["A"],
+      "subjects": {
+        "A": "Suivi"
+      },
+      "bodies": {
+        "A": "Bonjour,\n\nSi nous pouvions vous accompagner pour {objectif}, cela vous int\u00e9resserait-il ?\n\n{{gmail_signature}}"
+      }
+    },
+    {
+      "sequence": 6,
+      "delay": 3,
+      "variants": ["A"],
+      "subjects": {
+        "A": "T\u00e9moignage"
+      },
+      "bodies": {
+        "A": "En seulement {timeline}, nous avons d\u00e9j\u00e0 aid\u00e9 un {niche_member} comme vous \u00e0 {objectif}, tout en \u00e9vitant {pain_point}.\n\nSi vous souhaitez en savoir plus, cliquez ici : [Voir les avis](https://engine-20m5.onrender.com/book)\n\n{{gmail_signature}}"
+      }
+    },
+    {
+      "sequence": 7,
+      "delay": 3,
+      "variants": ["A"],
+      "subjects": {
+        "A": "Derni\u00e8re relance"
+      },
+      "bodies": {
+        "A": "N'ayant pas re\u00e7u de r\u00e9ponse de votre part, je consid\u00e8re que {objectif} ne figure pas dans vos priorit\u00e9s actuelles.\n\nCeci sera par cons\u00e9quent mon dernier message.\n\n{{gmail_signature}}"
+      }
+    }
+  ],
+  "positive_reply": {
+    "label": "Positive Reply Follow-up (3-step)",
+    "trigger": "reply_detection",
+    "action": "move_to_sequence",
+    "steps": [
+      {
+        "sequence": 1,
+        "delay": 1,
+        "variants": ["A"],
+        "subjects": {
+          "A": "RE: {sujet_step_1}"
+        },
+        "bodies": {
+          "A": "Bonjour {{first_name}},\n\nMerci pour votre retour, je suis ravi que cela vous intéresse.\n\nLe plus simple pour que je vous présente la solution en détail est de réserver un court créneau de 15 min.\n\nQuand seriez-vous disponible ?\n\n{{gmail_signature}}"
+        }
+      },
+      {
+        "sequence": 2,
+        "delay": 3,
+        "variants": ["A"],
+        "subjects": {
+          "A": "Suite de notre échange"
+        },
+        "bodies": {
+          "A": "Bonjour {{first_name}},\n\nPour vous donner un ordre d'idée de ce que nous faisons :\n\nUn {niche_member} comme vous a atteint {objectif} en {timeline} grâce à notre accompagnement. Sans {pain_point}, sans prise de tête.\n\nJe reste à votre disposition pour en parler.\n\n{{gmail_signature}}"
+        }
+      },
+      {
+        "sequence": 3,
+        "delay": 3,
+        "variants": ["A"],
+        "subjects": {
+          "A": "Pour donner suite"
+        },
+        "bodies": {
+          "A": "Bonjour {{first_name}},\n\nN'ayant pas eu de suite à mes précédents messages, je passe la main à notre équipe qui pourra échanger avec vous directement par téléphone si vous le souhaitez.\n\nBonne journée,\n\n{{gmail_signature}}"
+        }
+      }
+    ]
+  }
+}

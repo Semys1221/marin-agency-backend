@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Step 8 — Historique | Marin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#984629",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee4e1",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#49c5b6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-high": "#e4e9e7",
+                        "inverse-on-surface": "#ecf2f0",
+                        "outline": "#6d7a77",
+                        "on-background": "#171d1c",
+                        "background": "#f5fbf8",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed-dim": "#61daca",
+                        "inverse-primary": "#61daca",
+                        "surface": "#f5fbf8",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#eff5f2",
+                        "primary": "#006a61",
+                        "on-secondary-container": "#2e6f66",
+                        "on-surface": "#171d1c",
+                        "primary-fixed": "#7ff6e6",
+                        "surface-container-highest": "#dee4e1",
+                        "surface-container": "#e9efed",
+                        "secondary-container": "#aeefe4",
+                        "secondary": "#276860",
+                        "tertiary-container": "#ff9774",
+                        "surface-dim": "#d5dbd9",
+                        "secondary-fixed": "#aeefe4",
+                        "inverse-surface": "#2c3230",
+                        "on-tertiary-container": "#772e13",
+                        "on-secondary-fixed": "#00201c",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7a3015",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201c",
+                        "on-primary-container": "#004e47",
+                        "on-secondary-fixed-variant": "#015048",
+                        "surface-bright": "#f5fbf8",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "xl": "3rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-phase": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "step-indicator": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ambient-shadow-card {
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+        }
+        .ambient-shadow-hover:hover {
+            box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        /* Custom radio button styles for Teal theme */
+        input[type="radio"]:checked {
+            background-color: #49C5B6 !important;
+            border-color: #49C5B6 !important;
+            color: #49C5B6 !important;
+        }
+        input[type="radio"]:focus {
+            box-shadow: 0 0 0 2px #e9efed, 0 0 0 4px #49C5B6 !important;
+            border-color: #49C5B6 !important;
+        }
+        .form-input:focus, .form-textarea:focus {
+            border-color: #49C5B6 !important;
+            box-shadow: 0 0 0 2px rgba(73, 197, 182, 0.2) !important;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<span class="text-headline-md font-headline-md font-bold text-primary">Marin</span>
+</div>
+<div class="hidden md:flex items-center gap-md">
+<!-- Navigation items suppressed due to linear task-focused flow (Storyboard) -->
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-xs bg-secondary-container bg-opacity-5 px-3 py-1 rounded-full border border-secondary border-opacity-20">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                    DISCOVERY PHASE
+                </span>
+</div>
+<div class="flex items-center gap-sm">
+<button aria-label="help" class="p-xs text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button aria-label="account_circle" class="p-xs text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full">
+<!-- SideNavBar - Suppressed for task-focused linear flow (Storyboard step) -->
+<!-- However, providing a modified Rail as requested in Layout & Spacing: "The Storyboard Rail" -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-65px)] sticky top-[65px] left-0 w-64 bg-surface border-r border-outline-variant py-md px-sm overflow-y-auto">
+<div class="mb-lg px-2">
+<h2 class="text-headline-md font-headline-md text-primary font-bold">Sales Pipeline</h2>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">22-Step Storyboard</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<!-- Phase 1: Entry (Completed) -->
+<div class="mb-4">
+<div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-2 px-2">Entry</div>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-3 py-2 rounded-lg hover:bg-surface-container-low transition-colors" href="#">
+<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-primary-container bg-primary-container text-on-primary">
+<span class="material-symbols-outlined text-[14px]" data-icon="check">check</span>
+</div>
+<span class="text-label-sm font-label-sm">Step 1-4</span>
+</a>
+</div>
+<!-- Phase 2: Discovery (Current - 5% opacity bg wrapper) -->
+<div class="mb-4 bg-secondary bg-opacity-5 rounded-xl p-2 border border-secondary border-opacity-10">
+<div class="text-label-sm font-label-sm text-primary uppercase tracking-wider mb-2 px-2 font-bold">Discovery</div>
+<a class="flex items-center gap-3 text-on-surface-variant px-3 py-2 rounded-lg hover:bg-surface-container-low transition-colors mb-1" href="#">
+<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-primary-container bg-primary-container text-on-primary">
+<span class="material-symbols-outlined text-[14px]" data-icon="check">check</span>
+</div>
+<span class="text-label-sm font-label-sm">Step 5-7</span>
+</a>
+<a class="flex items-center gap-3 bg-surface-container-high text-primary px-3 py-2 rounded-lg transition-colors border border-primary-container shadow-sm relative overflow-hidden" href="#">
+<div class="absolute inset-0 bg-primary opacity-5"></div>
+<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-primary-container relative">
+<div class="absolute inset-0 rounded-full border border-primary-container animate-ping opacity-50"></div>
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+</div>
+<span class="text-label-sm font-label-sm font-bold">Step 8 — Historique</span>
+</a>
+</div>
+<!-- Phase 3 & 4: Upcoming -->
+<div class="mb-4">
+<div class="text-label-sm font-label-sm text-outline-variant uppercase tracking-wider mb-2 px-2">Proposal</div>
+<div class="flex items-center gap-3 text-outline-variant mx-2 px-3 py-2">
+<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-outline-variant"></div>
+<span class="text-label-sm font-label-sm">Step 9-15</span>
+</div>
+</div>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<button class="w-full bg-surface border border-primary-container text-primary-container hover:bg-surface-container-low py-2 px-4 rounded-lg text-label-sm font-label-sm transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                    Export PDF
+                </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full bg-surface p-sm md:p-lg relative">
+<!-- 16:9 Presentation Container -->
+<div class="w-full max-w-5xl mx-auto aspect-video bg-surface-container-lowest ambient-shadow-card rounded-xl overflow-hidden flex flex-col relative border border-outline-variant">
+<!-- Decorative background elements -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-surface-container-low to-transparent pointer-events-none"></div>
+<div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-primary-container opacity-5 blur-3xl pointer-events-none"></div>
+<!-- Card Header -->
+<div class="px-gutter py-md border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest z-10 relative">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-label-sm font-label-sm px-2 py-1 bg-surface-container text-on-surface-variant rounded font-bold tracking-wider">STEP 8</span>
+<span class="text-label-sm font-label-sm text-outline">/ 22</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface">Votre historique de prospection</h1>
+</div>
+<div class="hidden md:flex items-center gap-2 text-outline bg-surface-container-low px-3 py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="timer">timer</span>
+<span class="text-label-sm font-label-sm">Est. 3 min</span>
+</div>
+</div>
+<!-- Card Body - Scrollable if content exceeds 16:9 -->
+<div class="flex-1 overflow-y-auto p-gutter z-10 relative custom-scrollbar">
+<form class="max-w-3xl mx-auto space-y-xl pb-12">
+<!-- Question 1: Agency Experience -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant ambient-shadow-hover transition-shadow duration-300">
+<div class="flex items-start gap-4 mb-4">
+<div class="bg-secondary-container text-on-secondary-container w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-bold text-sm">1</span>
+</div>
+<div>
+<h3 class="text-body-lg font-body-lg text-on-surface font-semibold mb-1">Avez-vous déjà travaillé avec une agence ?</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Cette information nous aide à comprendre votre niveau de maturité avec les prestataires externes.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 ml-12">
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant p-4 hover:bg-surface-container-low focus:outline-none has-[:checked]:border-primary-container has-[:checked]:bg-surface-container has-[:checked]:ring-1 has-[:checked]:ring-primary-container transition-all">
+<input class="sr-only" name="agency_exp" type="radio" value="yes"/>
+<div class="flex w-full items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full border border-outline flex items-center justify-center ring-primary-container">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container hidden group-has-[:checked]:block"></div>
+</div>
+<span class="text-body-md font-body-md font-medium text-on-surface">Oui, avec succès</span>
+</div>
+</div>
+</label>
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant p-4 hover:bg-surface-container-low focus:outline-none has-[:checked]:border-primary-container has-[:checked]:bg-surface-container has-[:checked]:ring-1 has-[:checked]:ring-primary-container transition-all">
+<input class="sr-only" name="agency_exp" type="radio" value="mixed"/>
+<div class="flex w-full items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full border border-outline flex items-center justify-center ring-primary-container">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container hidden group-has-[:checked]:block"></div>
+</div>
+<span class="text-body-md font-body-md font-medium text-on-surface">Expérience mitigée</span>
+</div>
+</div>
+</label>
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant p-4 hover:bg-surface-container-low focus:outline-none has-[:checked]:border-primary-container has-[:checked]:bg-surface-container has-[:checked]:ring-1 has-[:checked]:ring-primary-container transition-all">
+<input class="sr-only" name="agency_exp" type="radio" value="no"/>
+<div class="flex w-full items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full border border-outline flex items-center justify-center ring-primary-container">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container hidden group-has-[:checked]:block"></div>
+</div>
+<span class="text-body-md font-body-md font-medium text-on-surface">Non, jamais</span>
+</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Question 2: CRM Method -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant ambient-shadow-hover transition-shadow duration-300">
+<div class="flex items-start gap-4 mb-4">
+<div class="bg-secondary-container text-on-secondary-container w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-bold text-sm">2</span>
+</div>
+<div>
+<h3 class="text-body-lg font-body-lg text-on-surface font-semibold mb-1">Comment gérez-vous vos prospects actuellement ?</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Identifiez l'outil principal utilisé par votre équipe commerciale.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 ml-12">
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant p-3 hover:bg-surface-container-low focus:outline-none has-[:checked]:border-primary-container has-[:checked]:bg-surface-container has-[:checked]:ring-1 has-[:checked]:ring-primary-container transition-all">
+<input class="sr-only" name="crm_method" type="radio" value="crm"/>
+<div class="flex w-full items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="database">database</span>
+<span class="text-label-sm font-label-sm font-medium text-on-surface">Logiciel CRM</span>
+</div>
+</label>
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant p-3 hover:bg-surface-container-low focus:outline-none has-[:checked]:border-primary-container has-[:checked]:bg-surface-container has-[:checked]:ring-1 has-[:checked]:ring-primary-container transition-all">
+<input class="sr-only" name="crm_method" type="radio" value="excel"/>
+<div class="flex w-full items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="table_chart">table_chart</span>
+<span class="text-label-sm font-label-sm font-medium text-on-surface">Fichiers Excel/Sheets</span>
+</div>
+</label>
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant p-3 hover:bg-surface-container-low focus:outline-none has-[:checked]:border-primary-container has-[:checked]:bg-surface-container has-[:checked]:ring-1 has-[:checked]:ring-primary-container transition-all">
+<input class="sr-only" name="crm_method" type="radio" value="nothing"/>
+<div class="flex w-full items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="block">block</span>
+<span class="text-label-sm font-label-sm font-medium text-on-surface">Rien structuré</span>
+</div>
+</label>
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant p-3 hover:bg-surface-container-low focus:outline-none has-[:checked]:border-primary-container has-[:checked]:bg-surface-container has-[:checked]:ring-1 has-[:checked]:ring-primary-container transition-all">
+<input class="sr-only" name="crm_method" type="radio" value="other"/>
+<div class="flex w-full items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="more_horiz">more_horiz</span>
+<span class="text-label-sm font-label-sm font-medium text-on-surface">Autre méthode</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Question 3: Process Description -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant ambient-shadow-hover transition-shadow duration-300">
+<div class="flex items-start gap-4 mb-4">
+<div class="bg-secondary-container text-on-secondary-container w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-bold text-sm">3</span>
+</div>
+<div class="w-full">
+<div class="flex justify-between items-end mb-1">
+<h3 class="text-body-lg font-body-lg text-on-surface font-semibold">Décrivez brièvement votre processus actuel</h3>
+<span class="text-label-sm font-label-sm text-outline">Optionnel</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Comment un contact passe-t-il de prospect à client aujourd'hui ?</p>
+<div class="relative">
+<textarea class="form-textarea w-full rounded-lg border-outline-variant bg-surface text-on-surface placeholder:text-outline p-3 min-h-[120px] focus:ring-0 transition-all resize-y" placeholder="Ex: Nous recevons des demandes via notre site web, puis un commercial les rappelle dans les 48h..."></textarea>
+<div class="absolute bottom-3 right-3 flex items-center justify-center w-6 h-6 text-outline-variant pointer-events-none">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Fixed Footer Actions inside 16:9 container -->
+<div class="mt-auto px-gutter py-md bg-surface border-t border-outline-variant flex items-center justify-between z-20">
+<button class="flex items-center gap-2 text-on-secondary-fixed-variant hover:text-primary transition-colors text-label-sm font-label-sm font-semibold py-2 px-4 rounded-lg">
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span>
+                        Previous Step
+                    </button>
+<button class="bg-primary-container text-on-primary hover:bg-[#3db0a2] transition-colors py-2 px-6 rounded-lg text-label-sm font-label-sm font-bold flex items-center gap-2 shadow-sm">
+                        Continue to Proposal
+                        <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface border-t border-outline-variant docked full-width bottom-0 z-50">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto gap-4 md:gap-0">
+<div class="text-label-sm font-bold text-on-surface">Marin</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant text-center">© 2024 Marin Sales Systems. Confidential.</div>
+<div class="flex items-center gap-4">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Documentation</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+<style>
+        /* Custom scrollbar for the internal 16:9 container to maintain clean look */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #d5dbd9;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #bcc9c6;
+        }
+    </style>
+<script>
+        // Simple script to handle radio button visual state updates if needed beyond CSS
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                // Remove visual active state from all siblings in same group
+                const name = e.target.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(sibling => {
+                    const container = sibling.closest('label');
+                    if (sibling.checked) {
+                        // Tailwind peer/has classes handle most of this, but we can add specific logic here if needed
+                    }
+                });
+            });
+        });
+    </script>
+</body></html>

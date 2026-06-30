@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WholesaleCommerce - Step 8 Solution</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-container-low": "#f4f3f3",
+                        "on-primary-fixed": "#00201c",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "surface-dim": "#dadad9",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#61daca",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#181c1d",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#7ff6e6",
+                        "tertiary-fixed-dim": "#c4c7c7",
+                        "on-surface-variant": "#3d4947",
+                        "inverse-primary": "#61daca",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeed",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#e0e3e3",
+                        "tertiary-container": "#b0b3b3",
+                        "secondary-container": "#aeefe4",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#006a61",
+                        "on-secondary-fixed-variant": "#015048",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed-variant": "#434748",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#414546",
+                        "on-secondary-container": "#2e6f66",
+                        "primary-container": "#49c5b6",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#5b5f5f",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bcc9c6",
+                        "background": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#aeefe4",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary": "#276860",
+                        "primary": "#006a61",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#004e47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .slide-container {
+            aspect-ratio: 16 / 9;
+            max-width: 1440px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low min-h-screen flex items-center justify-center p-md">
+<!-- Slide Container (16:9 Aspect Ratio) -->
+<main class="slide-container bg-surface w-full shadow-sm rounded-xl flex flex-col border border-outline-variant relative">
+<!-- Header Section -->
+<header class="w-full flex justify-between items-center px-lg pt-lg">
+<div>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest block mb-sm">Step 8 — Solution</span>
+<h1 class="font-display-lg text-display-lg text-on-surface">Notre offre pour votre activité</h1>
+</div>
+<!-- Company Logo/Brand -->
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">widgets</span>
+                WholesaleCommerce
+            </div>
+</header>
+<!-- Main Content Canvas -->
+<div class="flex-1 flex px-lg py-xl gap-xl relative z-10">
+<!-- Features Showcase Bento Grid -->
+<div class="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-md content-start">
+<!-- Feature 1: Catalog -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md hover:shadow-md transition-all duration-300 group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center mb-md group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container">inventory_2</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Accès Catalogue Complet</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Plus de 10,000 références B2B disponibles immédiatement en stock.</p>
+</div>
+<!-- Feature 2: Negotiated Prices -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md hover:shadow-md transition-all duration-300 group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center mb-md group-hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-secondary-container">sell</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Tarifs Négociés</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Grilles tarifaires exclusives adaptées à vos volumes d'achat.</p>
+</div>
+<!-- Feature 3: Logistics -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md hover:shadow-md transition-all duration-300 group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center mb-md group-hover:bg-tertiary-container transition-colors">
+<span class="material-symbols-outlined text-tertiary group-hover:text-on-tertiary-container">local_shipping</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Logistique Intégrée</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Livraison express J+1 sur palette avec suivi en temps réel.</p>
+</div>
+<!-- Feature 4: Support -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md hover:shadow-md transition-all duration-300 group cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center mb-md group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container">support_agent</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Support Dédié</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Un account manager exclusif pour suivre votre croissance.</p>
+</div>
+<!-- Feature 5: Shopify Dashboard -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md hover:shadow-md transition-all duration-300 group cursor-pointer col-span-2 lg:col-span-2 flex items-center gap-md">
+<div class="w-16 h-16 rounded-full bg-secondary-container/20 flex-shrink-0 flex items-center justify-center group-hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-secondary text-3xl group-hover:text-on-secondary-container">storefront</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Intégration Dashboard Shopify</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Synchronisation automatique de vos commandes, stocks et factures directement dans votre interface e-commerce.</p>
+</div>
+</div>
+</div>
+<!-- Visual Decoration / Abstract Image -->
+<div class="hidden lg:block w-1/3 h-full relative rounded-xl overflow-hidden border border-outline-variant">
+<div class="w-full h-full bg-cover bg-center absolute inset-0" data-alt="A modern, abstract digital composition representing seamless business operations and logistics. The scene features glowing, interconnected geometric nodes and soft lines over a clean, bright white and teal gradient background, evoking a sense of corporate efficiency and technological advancement. High-key lighting, professional aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYn0FZgbR4QWdkhF1OpHqs26lOesMhh4gr_idedLqTSCvhB8xXsYaWOgDyZeDqZ-Gqll1b0TnIXkGFhk6QwrwFnqNCNPQt3bQdD7S7BYoM7q-wRpnzIY65rp5s4ChVrItSTGA9l0GZBAJbrVM4rZO6rLc1ydoP0aP3VqFnFygIBTSXq19rVBiGvaXh_0LJ2lad4e1oQDFjMOexBwFyLSiG5nhbeNTaYCdqBjwd3_bPMiT6dz00tjqK5s1msor3yFAk6MkC_iQvjaM')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
+</div>
+</div>
+<!-- Footer / CTA Section -->
+<footer class="w-full px-lg pb-lg flex justify-between items-end relative z-20">
+<!-- Progression Indicator -->
+<div class="flex items-center gap-xs">
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-16 h-2 bg-primary rounded-full"></div> <!-- Current Step 8 -->
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-2 bg-surface-container-high rounded-full"></div>
+</div>
+<!-- Call to Action -->
+<button class="h-[48px] px-xl bg-primary text-on-primary font-label-md text-label-md rounded hover:bg-primary-container hover:text-on-primary-container transition-colors flex items-center gap-sm shadow-sm hover:shadow-md">
+                Cette offre m'intéresse — voir le devis
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</footer>
+<!-- Giant Right Progression Arrow -->
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined" style="font-size: 400px; font-variation-settings: 'wght' 200;">arrow_forward_ios</span>
+</div>
+</main>
+</body></html>

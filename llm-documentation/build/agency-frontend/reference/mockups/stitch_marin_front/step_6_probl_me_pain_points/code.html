@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marin - Step 6: Problème</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#984629",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee4e1",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#49c5b6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-high": "#e4e9e7",
+                        "inverse-on-surface": "#ecf2f0",
+                        "outline": "#6d7a77",
+                        "on-background": "#171d1c",
+                        "background": "#f5fbf8",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed-dim": "#61daca",
+                        "inverse-primary": "#61daca",
+                        "surface": "#f5fbf8",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#eff5f2",
+                        "primary": "#006a61",
+                        "on-secondary-container": "#2e6f66",
+                        "on-surface": "#171d1c",
+                        "primary-fixed": "#7ff6e6",
+                        "surface-container-highest": "#dee4e1",
+                        "surface-container": "#e9efed",
+                        "secondary-container": "#aeefe4",
+                        "secondary": "#276860",
+                        "tertiary-container": "#ff9774",
+                        "surface-dim": "#d5dbd9",
+                        "secondary-fixed": "#aeefe4",
+                        "inverse-surface": "#2c3230",
+                        "on-tertiary-container": "#772e13",
+                        "on-secondary-fixed": "#00201c",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7a3015",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201c",
+                        "on-primary-container": "#004e47",
+                        "on-secondary-fixed-variant": "#015048",
+                        "surface-bright": "#f5fbf8",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "xl": "3rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-phase": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "step-indicator": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .aspect-16-9 {
+            aspect-ratio: 16 / 9;
+        }
+        
+        /* Custom Checkbox Styling */
+        .challenge-checkbox:checked + div {
+            border-color: #49c5b6;
+            background-color: #eff5f2; /* surface-container-low */
+        }
+        .challenge-checkbox:checked + div .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .challenge-checkbox:checked + div .box-outline {
+            border-color: #49c5b6;
+            background-color: #49c5b6;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant w-full z-10 flex justify-between items-center px-lg py-sm max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<span class="text-headline-md font-headline-md font-bold text-primary">Marin</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant">
+<button aria-label="help" class="p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button aria-label="account_circle" class="p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden w-full max-w-container-max mx-auto">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low shadow-sm h-full w-64 flex flex-col py-md hidden md:flex flex-shrink-0">
+<div class="px-4 mb-xl">
+<div class="flex items-center gap-xs mb-xs">
+<img alt="Sales Representative" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, professional headshot avatar of a sales representative smiling confidently. The lighting is bright and modern, set against a neutral light grey background, fitting a sleek B2B software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4Ye3AZi31vtEmNg9m_TPqjOX3-2CpMwndVkwDftjOH6AZ8fB3w6-cSiKDeOed-r4AQGbg0ikRsk_DBPFdoBtukZHt6ypNfKJ73jQTXcJQSv1Sh2mVSSenLSgDL82j2ZHlhKD-5EDgrBJJIXXyaHmcLuOmT1G6ZUWffVrjbjx80zv6uti-NJmPq7AgRd7Af8YPvhz-SOG5NittsG5E-HtW4Fx2gCI_aaV0wqruRjXBNgYwluBN5fBHIWEUFNTtpm73B8aBR27uigU"/>
+<div>
+<h2 class="text-label-sm font-label-sm font-bold text-on-surface">Sales Pipeline</h2>
+<p class="text-[10px] text-on-surface-variant">22-Step Storyboard</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="login">login</span>
+<span class="text-label-sm font-label-sm">Entry</span>
+</a>
+</li>
+<li>
+<!-- Active State for Discovery -->
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined fill-icon" data-icon="search" data-weight="fill">search</span>
+<span class="text-label-sm font-label-sm font-bold">Discovery</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-label-sm font-label-sm">Proposal</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="text-label-sm font-label-sm">Closing</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto px-4 space-y-4">
+<button class="w-full py-2 px-4 bg-primary text-on-primary rounded text-label-sm font-label-sm font-medium hover:bg-surface-tint transition-colors">
+                    Export PDF
+                </button>
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-sm font-label-sm">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto p-4 md:p-8 bg-surface-bright flex justify-center items-start">
+<!-- 16:9 Container for the Step -->
+<div class="w-full max-w-5xl aspect-16-9 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant flex flex-col overflow-hidden relative">
+<!-- Background Decoration (Subtle) -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-surface-container-low to-transparent opacity-50 pointer-events-none"></div>
+<!-- Step Header -->
+<div class="px-md py-sm border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest z-10">
+<div class="flex items-center gap-sm">
+<span class="px-2 py-1 bg-secondary-container/20 text-on-secondary-container text-[10px] font-bold tracking-wider rounded-sm uppercase">Discovery</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Step 6 — Problème</span>
+</div>
+<!-- Storyboard Progress Mini-Indicator -->
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col p-md md:p-lg overflow-y-auto z-10">
+<header class="mb-lg">
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-2">Quels sont vos défis actuels ?</h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-2xl">Sélectionnez les principaux obstacles qui freinent votre croissance commerciale. Ces informations nous permettront d'adapter notre approche.</p>
+</header>
+<!-- Bento Grid for Checkboxes -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-lg">
+<!-- Challenge 1 -->
+<label class="cursor-pointer relative group">
+<input class="challenge-checkbox sr-only" name="challenge" type="checkbox" value="qualified_prospects"/>
+<div class="h-full p-4 border border-outline-variant rounded-lg bg-surface-container-lowest transition-all duration-200 hover:shadow-sm hover:border-primary-container flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="person_search">person_search</span>
+</div>
+<div class="w-5 h-5 rounded box-outline border-2 border-outline-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-primary text-[14px] opacity-0 check-icon transition-all scale-50" data-icon="check">check</span>
+</div>
+</div>
+<div>
+<h3 class="text-label-sm font-label-sm font-bold text-on-surface mb-1">Trouver des prospects qualifiés</h3>
+<p class="text-[12px] text-on-surface-variant leading-snug">Difficulté à identifier et atteindre les bons décideurs.</p>
+</div>
+</div>
+</label>
+<!-- Challenge 2 -->
+<label class="cursor-pointer relative group">
+<input class="challenge-checkbox sr-only" name="challenge" type="checkbox" value="prospecting_time"/>
+<div class="h-full p-4 border border-outline-variant rounded-lg bg-surface-container-lowest transition-all duration-200 hover:shadow-sm hover:border-primary-container flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="hourglass_empty">hourglass_empty</span>
+</div>
+<div class="w-5 h-5 rounded box-outline border-2 border-outline-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-primary text-[14px] opacity-0 check-icon transition-all scale-50" data-icon="check">check</span>
+</div>
+</div>
+<div>
+<h3 class="text-label-sm font-label-sm font-bold text-on-surface mb-1">Trop de temps en prospection</h3>
+<p class="text-[12px] text-on-surface-variant leading-snug">Les tâches manuelles chronophages limitent le temps de vente effectif.</p>
+</div>
+</div>
+</label>
+<!-- Challenge 3 -->
+<label class="cursor-pointer relative group">
+<input class="challenge-checkbox sr-only" name="challenge" type="checkbox" value="pipeline_visibility"/>
+<div class="h-full p-4 border border-outline-variant rounded-lg bg-surface-container-lowest transition-all duration-200 hover:shadow-sm hover:border-primary-container flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="visibility_off">visibility_off</span>
+</div>
+<div class="w-5 h-5 rounded box-outline border-2 border-outline-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-primary text-[14px] opacity-0 check-icon transition-all scale-50" data-icon="check">check</span>
+</div>
+</div>
+<div>
+<h3 class="text-label-sm font-label-sm font-bold text-on-surface mb-1">Manque de visibilité pipeline</h3>
+<p class="text-[12px] text-on-surface-variant leading-snug">Impossibilité de prévoir les revenus avec précision.</p>
+</div>
+</div>
+</label>
+<!-- Challenge 4 -->
+<label class="cursor-pointer relative group">
+<input class="challenge-checkbox sr-only" name="challenge" type="checkbox" value="low_conversion"/>
+<div class="h-full p-4 border border-outline-variant rounded-lg bg-surface-container-lowest transition-all duration-200 hover:shadow-sm hover:border-primary-container flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+</div>
+<div class="w-5 h-5 rounded box-outline border-2 border-outline-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-primary text-[14px] opacity-0 check-icon transition-all scale-50" data-icon="check">check</span>
+</div>
+</div>
+<div>
+<h3 class="text-label-sm font-label-sm font-bold text-on-surface mb-1">Taux de conversion faible</h3>
+<p class="text-[12px] text-on-surface-variant leading-snug">Beaucoup d'opportunités générées mais peu de contrats signés.</p>
+</div>
+</div>
+</label>
+<!-- Challenge 5 -->
+<label class="cursor-pointer relative group">
+<input class="challenge-checkbox sr-only" name="challenge" type="checkbox" value="unstructured_process"/>
+<div class="h-full p-4 border border-outline-variant rounded-lg bg-surface-container-lowest transition-all duration-200 hover:shadow-sm hover:border-primary-container flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="account_tree">account_tree</span>
+</div>
+<div class="w-5 h-5 rounded box-outline border-2 border-outline-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-primary text-[14px] opacity-0 check-icon transition-all scale-50" data-icon="check">check</span>
+</div>
+</div>
+<div>
+<h3 class="text-label-sm font-label-sm font-bold text-on-surface mb-1">Processus non structuré</h3>
+<p class="text-[12px] text-on-surface-variant leading-snug">Absence de méthode de vente claire et répétable.</p>
+</div>
+</div>
+</label>
+<!-- Challenge 6 -->
+<label class="cursor-pointer relative group">
+<input class="challenge-checkbox sr-only" name="challenge" type="checkbox" value="high_turnover"/>
+<div class="h-full p-4 border border-outline-variant rounded-lg bg-surface-container-lowest transition-all duration-200 hover:shadow-sm hover:border-primary-container flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="group_remove">group_remove</span>
+</div>
+<div class="w-5 h-5 rounded box-outline border-2 border-outline-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-primary text-[14px] opacity-0 check-icon transition-all scale-50" data-icon="check">check</span>
+</div>
+</div>
+<div>
+<h3 class="text-label-sm font-label-sm font-bold text-on-surface mb-1">Rotation d'équipe élevée</h3>
+<p class="text-[12px] text-on-surface-variant leading-snug">Difficulté à retenir les talents commerciaux performants.</p>
+</div>
+</div>
+</label>
+</div>
+<!-- Optional Text Field -->
+<div class="mt-auto pt-4 border-t border-outline-variant/50">
+<label class="block text-label-sm font-label-sm text-on-surface mb-2" for="other_challenges">Autres défis (Optionnel)</label>
+<div class="relative">
+<textarea class="w-full px-3 py-2 text-body-md font-body-md bg-surface-container-lowest border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow resize-none placeholder-outline" id="other_challenges" placeholder="Décrivez d'autres obstacles spécifiques à votre situation..." rows="2"></textarea>
+</div>
+</div>
+</div>
+<!-- Step Footer Actions -->
+<div class="px-md py-sm bg-surface-container-lowest border-t border-outline-variant flex justify-between items-center z-10">
+<button class="px-4 py-2 text-primary text-label-sm font-label-sm font-medium hover:bg-surface-container-low rounded transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
+                        Précédent
+                    </button>
+<button class="px-6 py-2 bg-primary text-on-primary text-label-sm font-label-sm font-medium rounded shadow-sm hover:bg-surface-tint transition-all active:scale-95 flex items-center gap-2">
+                        Suivant
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

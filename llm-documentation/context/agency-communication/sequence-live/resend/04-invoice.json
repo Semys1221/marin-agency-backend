@@ -1,0 +1,9 @@
+{
+  "system": "resend",
+  "id": "invoice",
+  "label": "Invoice",
+  "trigger": "Payment/invoice sent",
+  "subject": "Votre facture {{produit}} \u2014 {{montant}}",
+  "body": "Bonjour {{nom_prospect}},\n\nVeuillez trouver ci-joint la facture pour {{produit}}.\n\nMontant : {{montant}}\n\u00c9ch\u00e9ance : {{echeance}}\n\nPour toute question concernant cette facture, contactez-nous \u00e0 {{support_email}}.\n\n{{gmail_signature}}",
+  "variables": ["nom_prospect", "produit", "montant", "echeance", "support_email"]
+}

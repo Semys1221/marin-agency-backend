@@ -1,0 +1,9 @@
+{
+  "system": "resend",
+  "id": "service-delivery",
+  "label": "Service Delivery",
+  "trigger": "Service delivered",
+  "subject": "Votre livrable {{produit}} est pr\u00eat \u2014 {{entreprise}}",
+  "body": "Bonjour {{nom_prospect}},\n\nVotre livrable {{produit}} est pr\u00eat pour {{entreprise}}.\n\nAcc\u00e8s : {{livrable_link}}\n\nSi vous avez besoin d'ajustements ou de pr\u00e9cisions, notre \u00e9quipe est \u00e0 votre disposition sous 24h ouvr\u00e9es. Vous pouvez \u00e9galement r\u00e9pondre directement \u00e0 cet email.\n\n{{gmail_signature}}",
+  "variables": ["nom_prospect", "produit", "entreprise", "livrable_link"]
+}

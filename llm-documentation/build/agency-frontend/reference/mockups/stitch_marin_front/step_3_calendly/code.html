@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marin Sales Systems - Step 3: Discovery Call</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#984629",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee4e1",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#49c5b6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-high": "#e4e9e7",
+                        "inverse-on-surface": "#ecf2f0",
+                        "outline": "#6d7a77",
+                        "on-background": "#171d1c",
+                        "background": "#f5fbf8",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed-dim": "#61daca",
+                        "inverse-primary": "#61daca",
+                        "surface": "#f5fbf8",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#eff5f2",
+                        "primary": "#006a61",
+                        "on-secondary-container": "#2e6f66",
+                        "on-surface": "#171d1c",
+                        "primary-fixed": "#7ff6e6",
+                        "surface-container-highest": "#dee4e1",
+                        "surface-container": "#e9efed",
+                        "secondary-container": "#aeefe4",
+                        "secondary": "#276860",
+                        "tertiary-container": "#ff9774",
+                        "surface-dim": "#d5dbd9",
+                        "secondary-fixed": "#aeefe4",
+                        "inverse-surface": "#2c3230",
+                        "on-tertiary-container": "#772e13",
+                        "on-secondary-fixed": "#00201c",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7a3015",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201c",
+                        "on-primary-container": "#004e47",
+                        "on-secondary-fixed-variant": "#015048",
+                        "surface-bright": "#f5fbf8",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "xl": "3rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-phase": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "step-indicator": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .aspect-16-9 {
+            aspect-ratio: 16 / 9;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar (Semantic Shell: Visible as it's a structural view) -->
+<nav class="hidden md:flex flex-col h-full py-md bg-surface-container-low dark:bg-inverse-surface shadow-sm dark:shadow-none w-64 flex-shrink-0 z-10">
+<div class="px-md mb-xl">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Marin</h1>
+<div class="mt-lg">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Sales Pipeline</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">22-Step Storyboard</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto space-y-2 px-2">
+<!-- Active Tab: Entry -->
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-full px-4 py-3 translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">login</span>
+<span class="text-label-sm font-label-sm">Entry</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-label-sm font-label-sm">Discovery</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-sm font-label-sm">Proposal</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined">verified</span>
+<span class="text-label-sm font-label-sm">Closing</span>
+</a>
+</div>
+<div class="px-md mt-auto space-y-4">
+<button class="w-full flex items-center justify-center gap-2 bg-surface border border-outline text-on-surface px-4 py-2 rounded text-label-sm font-label-sm hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">download</span>
+                Export PDF
+            </button>
+<div class="flex items-center gap-3 pt-4 border-t border-outline-variant">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-label-sm font-bold">SR</div>
+<div class="flex-1 min-w-0">
+<p class="text-label-sm font-label-sm text-on-surface truncate">Sales Representative</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto relative bg-surface">
+<!-- TopAppBar (Mobile Only - Replaces SideNav) -->
+<header class="md:hidden flex justify-between items-center w-full px-lg py-sm bg-surface border-b border-outline-variant z-20 sticky top-0">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Marin</h1>
+<button class="text-on-surface-variant p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- View Content -->
+<div class="flex-1 w-full max-w-container-max mx-auto p-4 md:p-gutter">
+<!-- Phase Badge & Step Context -->
+<div class="mb-lg animate-fade-in-down">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm uppercase tracking-wider mb-sm">
+                    Phase: Entry
+                </span>
+<div class="flex items-baseline gap-4">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Step 3</h2>
+<span class="text-body-md font-body-md text-on-surface-variant">Discovery Call Scheduling</span>
+</div>
+</div>
+<!-- Bento Layout for Scheduling -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter aspect-16-9 h-[calc(100vh-200px)] min-h-[600px]">
+<!-- Left Column: Context & Next Steps (1/3 width) -->
+<div class="lg:col-span-4 flex flex-col gap-gutter h-full">
+<!-- Headline Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-sm flex flex-col justify-center animate-fade-in-left">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-sm">Choisissez votre créneau</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">
+                            Sélectionnez un moment pour notre appel de découverte de 30 minutes. Nous discuterons de vos objectifs et de la façon dont nous pouvons vous aider.
+                        </p>
+</div>
+<!-- Process Card -->
+<div class="bg-surface-container-low rounded-xl p-md border border-outline-variant flex-1 flex flex-col animate-fade-in-left" style="animation-delay: 100ms;">
+<h4 class="text-label-sm font-label-sm text-on-surface uppercase tracking-wider mb-md pb-xs border-b border-outline-variant">What happens next?</h4>
+<ul class="space-y-4 flex-1">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">Confirmation</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">You'll receive an email with the meeting link.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline">hourglass_empty</span>
+<div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">Preparation</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">We'll review your initial data before the call.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline">forum</span>
+<div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">Discovery Call</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">A 30-minute deep dive into your sales process.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Right Column: Calendar Embed Area (2/3 width) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col h-full animate-fade-in-up">
+<!-- Faux Calendar Header -->
+<div class="px-md py-sm border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_month</span>
+<span class="text-label-sm font-label-sm font-bold text-on-surface">Scheduling Widget</span>
+</div>
+<div class="flex gap-2">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+</div>
+<!-- Faux Calendar Content (Placeholder for actual embed) -->
+<div class="flex-1 relative bg-surface-bright flex items-center justify-center p-md">
+<!-- Simulated Embed UI -->
+<div class="w-full max-w-2xl bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm p-md text-center">
+<div class="mb-6">
+<div class="w-16 h-16 rounded-full bg-primary-container/20 flex items-center justify-center mx-auto mb-4 text-primary">
+<span class="material-symbols-outlined text-[32px]">event_available</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Select a Date &amp; Time</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-2">30 Min Discovery Call • Web Conference</p>
+</div>
+<!-- Dummy Calendar Grid -->
+<div class="grid grid-cols-7 gap-2 mb-6 max-w-sm mx-auto">
+<div class="text-label-sm text-on-surface-variant">Mo</div><div class="text-label-sm text-on-surface-variant">Tu</div><div class="text-label-sm text-on-surface-variant">We</div><div class="text-label-sm text-on-surface-variant">Th</div><div class="text-label-sm text-on-surface-variant">Fr</div><div class="text-label-sm text-on-surface-variant">Sa</div><div class="text-label-sm text-on-surface-variant">Su</div>
+<!-- Empty cells -->
+<div></div><div></div><div></div>
+<!-- Days -->
+<div class="p-2 border border-outline-variant rounded text-label-sm text-on-surface-variant opacity-50 cursor-not-allowed">1</div>
+<div class="p-2 border border-outline-variant rounded text-label-sm text-on-surface-variant opacity-50 cursor-not-allowed">2</div>
+<div class="p-2 border border-outline-variant rounded text-label-sm text-on-surface hover:border-primary cursor-pointer transition-colors">3</div>
+<div class="p-2 border border-outline-variant rounded text-label-sm text-on-surface hover:border-primary cursor-pointer transition-colors">4</div>
+<div class="p-2 border-2 border-primary bg-primary-container text-on-primary-container rounded text-label-sm font-bold cursor-pointer">5</div>
+<div class="p-2 border border-outline-variant rounded text-label-sm text-on-surface hover:border-primary cursor-pointer transition-colors">6</div>
+<div class="p-2 border border-outline-variant rounded text-label-sm text-on-surface hover:border-primary cursor-pointer transition-colors">7</div>
+<div class="p-2 border border-outline-variant rounded text-label-sm text-on-surface hover:border-primary cursor-pointer transition-colors">8</div>
+</div>
+<button class="bg-primary hover:bg-surface-tint text-on-primary px-lg py-sm rounded-full text-label-sm font-label-sm font-bold transition-all shadow-sm hover:shadow-md active:scale-95" id="bookBtn">
+                                Confirmer (Simulate Booking)
+                            </button>
+</div>
+<!-- Success Overlay (Hidden by default) -->
+<div class="absolute inset-0 bg-surface/90 backdrop-blur-sm flex flex-col items-center justify-center p-md opacity-0 pointer-events-none transition-opacity duration-300" id="successOverlay">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-lg text-center max-w-md transform scale-95 translate-y-4 transition-all duration-500 ease-out" id="successCard">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 text-primary">
+<span class="material-symbols-outlined text-[32px] animate-bounce">check_circle</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Booking Confirmed!</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+                                    A calendar invitation has been sent to your email. We look forward to speaking with you.
+                                </p>
+<button class="border border-primary text-primary px-6 py-2 rounded-full text-label-sm font-label-sm font-bold hover:bg-primary/5 transition-colors" onclick="resetBooking()">
+                                    Return to Storyboard
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<style>
+        /* Lightweight entrance animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-fade-in-left { animation: fadeInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-fade-in-down { animation: fadeInDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        /* Success card reveal */
+        .success-active #successOverlay { opacity: 1; pointer-events: auto; }
+        .success-active #successCard { transform: scale(1) translateY(0); }
+    </style>
+<script>
+        // Simple interaction to demonstrate the confirmation state requested in prompt
+        document.getElementById('bookBtn').addEventListener('click', function() {
+            document.querySelector('.lg\\:col-span-8').classList.add('success-active');
+            
+            // Update the progress rail visually (simulated)
+            const currentStepBadge = document.querySelector('.bg-secondary-container');
+            if(currentStepBadge) {
+                currentStepBadge.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                currentStepBadge.classList.add('bg-primary', 'text-on-primary');
+                currentStepBadge.innerHTML = 'Phase: Entry <span class="material-symbols-outlined text-[14px] ml-1 align-middle" style="font-variation-settings: \'FILL\' 1;">check_circle</span>';
+            }
+        });
+
+        function resetBooking() {
+             document.querySelector('.lg\\:col-span-8').classList.remove('success-active');
+        }
+    </script>
+</body></html>

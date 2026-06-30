@@ -1,0 +1,5 @@
+.env.local
+.secrets
+.DS_Store
+node_modules/
+trash-ignore/

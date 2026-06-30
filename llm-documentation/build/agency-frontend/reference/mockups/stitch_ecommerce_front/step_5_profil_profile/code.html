@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WholesaleCommerce AI - Step 5 Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-container-low": "#f4f3f3",
+                        "on-primary-fixed": "#00201c",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "surface-dim": "#dadad9",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#61daca",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#181c1d",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#7ff6e6",
+                        "tertiary-fixed-dim": "#c4c7c7",
+                        "on-surface-variant": "#3d4947",
+                        "inverse-primary": "#61daca",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeed",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#e0e3e3",
+                        "tertiary-container": "#b0b3b3",
+                        "secondary-container": "#aeefe4",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#006a61",
+                        "on-secondary-fixed-variant": "#015048",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed-variant": "#434748",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#414546",
+                        "on-secondary-container": "#2e6f66",
+                        "primary-container": "#49c5b6",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#5b5f5f",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bcc9c6",
+                        "background": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#aeefe4",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary": "#276860",
+                        "primary": "#006a61",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#004e47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .aspect-16-9 {
+            aspect-ratio: 16 / 9;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center p-md">
+<!-- 16:9 Presentation Container -->
+<main class="w-full max-w-[1280px] aspect-16-9 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm relative flex flex-col md:flex-row">
+<!-- Left Section: Content -->
+<div class="flex-1 flex flex-col p-lg md:p-xl justify-center h-full relative z-10">
+<header class="mb-lg">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-sm block">Step 5 — Profil</span>
+<h1 class="font-display-lg text-display-lg text-on-surface">Parlez-nous de votre activité</h1>
+</header>
+<form class="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Business Type -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-xs" for="business-type">
+                        Type d'activité
+                        <span class="w-2 h-2 rounded-full bg-primary block"></span>
+</label>
+<select class="w-full h-10 border-outline-variant rounded bg-surface focus:ring-primary focus:border-primary font-body-md text-body-md text-on-surface px-sm appearance-none transition-shadow duration-200" id="business-type">
+<option disabled="" selected="" value="">Sélectionnez une option</option>
+<option value="retail">Détaillant</option>
+<option value="distributor">Distributeur</option>
+<option value="manufacturer">Fabricant</option>
+<option value="brand">Marque</option>
+</select>
+</div>
+<!-- Monthly Volume -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-xs" for="monthly-volume">
+                        Volume mensuel estimé
+                        <span class="w-2 h-2 rounded-full bg-primary block"></span>
+</label>
+<select class="w-full h-10 border-outline-variant rounded bg-surface focus:ring-primary focus:border-primary font-body-md text-body-md text-on-surface px-sm appearance-none transition-shadow duration-200" id="monthly-volume">
+<option disabled="" selected="" value="">Sélectionnez une option</option>
+<option value="10k">&lt; 10,000 €</option>
+<option value="50k">10,000 € - 50,000 €</option>
+<option value="100k">50,000 € - 100,000 €</option>
+<option value="100k+">&gt; 100,000 €</option>
+</select>
+</div>
+<!-- Years Active -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="years-active">
+                        Années d'activité
+                    </label>
+<select class="w-full h-10 border-outline-variant rounded bg-surface focus:ring-primary focus:border-primary font-body-md text-body-md text-on-surface px-sm appearance-none transition-shadow duration-200" id="years-active">
+<option disabled="" selected="" value="">Sélectionnez une option</option>
+<option value="1">Moins de 1 an</option>
+<option value="3">1 à 3 ans</option>
+<option value="5">3 à 5 ans</option>
+<option value="10">Plus de 5 ans</option>
+</select>
+</div>
+<!-- Sales Channels (Full Width) -->
+<div class="flex flex-col gap-xs md:col-span-2 mt-sm">
+<label class="font-label-md text-label-md text-on-surface-variant mb-xs">
+                        Canaux de vente (sélection multiple)
+                    </label>
+<div class="flex flex-wrap gap-sm">
+<label class="flex items-center gap-xs cursor-pointer group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Boutique physique</span>
+</label>
+<label class="flex items-center gap-xs cursor-pointer group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Site e-commerce (propre)</span>
+</label>
+<label class="flex items-center gap-xs cursor-pointer group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Marketplaces (Amazon, etc.)</span>
+</label>
+<label class="flex items-center gap-xs cursor-pointer group">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Réseaux sociaux</span>
+</label>
+</div>
+</div>
+</form>
+</div>
+<!-- Right Section: Visual & Progression -->
+<div class="w-full md:w-1/3 bg-surface-container-low relative flex flex-col justify-between p-lg border-l border-outline-variant">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center opacity-30 mix-blend-multiply" data-alt="A macro shot of architectural office models or sleek, modern data server racks bathed in soft, diffused teal and warm white lighting. The image represents B2B commerce, structure, and professional foundations. High-resolution, crisp focus, clean lines, corporate modern aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCf1HvWYNY6h558timFdfjDVxuiNXQXI_q8mUPbFw02PVCe6uIbIaCcnskUZOZo3b3_hB2oNp1CsnJ-MEfRtvaS5_3NZYPSppOzyWkPiFBn_GxpNvTIPSJaF72d881688lPS5lBnil2WNlXxlIZXYhLuh6EEQDPdfhda51msSPLLIAr2EddKIxSK42LJ5votR5KilSgESllVwKmpfd4_hZOqphOCHLshjoS-tt9UpTk9FZVwuPz3dTNK6urZ-WYgMEhUTtS6v4GnYA')"></div>
+</div>
+<!-- Stepper / Progress Indicator -->
+<div class="relative z-10 flex flex-col gap-sm">
+<div class="flex items-center justify-between w-full">
+<span class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-primary">check</span>
+</span>
+<div class="flex-1 h-0.5 bg-primary mx-xs"></div>
+<span class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-primary">check</span>
+</span>
+<div class="flex-1 h-0.5 bg-primary mx-xs"></div>
+<span class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-primary">check</span>
+</span>
+<div class="flex-1 h-0.5 bg-primary mx-xs"></div>
+<span class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-primary">check</span>
+</span>
+<div class="flex-1 h-0.5 bg-primary mx-xs"></div>
+<span class="w-8 h-8 rounded-full bg-surface border-2 border-primary flex items-center justify-center">
+<span class="font-label-md text-label-md text-primary">5</span>
+</span>
+</div>
+<div class="text-right">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Étape 5 sur 6</span>
+</div>
+</div>
+<!-- Action Area -->
+<div class="relative z-10 mt-auto flex justify-end">
+<button class="h-10 px-md bg-primary text-on-primary font-label-md text-label-md rounded flex items-center gap-xs hover:bg-surface-tint transition-all duration-200 hover:shadow-[0px_4px_12px_rgba(0,0,0,0.15)] group">
+                    Continuer
+                    <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

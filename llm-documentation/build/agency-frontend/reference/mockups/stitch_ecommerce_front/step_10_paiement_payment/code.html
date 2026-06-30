@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wholesale Pipeline - Step 10: Paiement</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f9f9f9",
+                    "error": "#ba1a1a",
+                    "surface": "#f9f9f9",
+                    "surface-container-low": "#f4f3f3",
+                    "on-primary-fixed": "#00201c",
+                    "secondary-fixed-dim": "#93d3c8",
+                    "surface-dim": "#dadad9",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1a1c1c",
+                    "primary-fixed-dim": "#61daca",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#181c1d",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#7ff6e6",
+                    "tertiary-fixed-dim": "#c4c7c7",
+                    "on-surface-variant": "#3d4947",
+                    "inverse-primary": "#61daca",
+                    "surface-variant": "#e2e2e2",
+                    "surface-container": "#eeeeed",
+                    "on-primary-fixed-variant": "#005049",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e8e8e8",
+                    "tertiary-fixed": "#e0e3e3",
+                    "tertiary-container": "#b0b3b3",
+                    "secondary-container": "#aeefe4",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#006a61",
+                    "on-secondary-fixed-variant": "#015048",
+                    "outline": "#6d7a77",
+                    "on-tertiary-fixed-variant": "#434748",
+                    "inverse-surface": "#2f3131",
+                    "on-tertiary-container": "#414546",
+                    "on-secondary-container": "#2e6f66",
+                    "primary-container": "#49c5b6",
+                    "surface-container-highest": "#e2e2e2",
+                    "tertiary": "#5b5f5f",
+                    "on-background": "#1a1c1c",
+                    "outline-variant": "#bcc9c6",
+                    "background": "#f9f9f9",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#aeefe4",
+                    "on-secondary-fixed": "#00201c",
+                    "secondary": "#276860",
+                    "primary": "#006a61",
+                    "inverse-on-surface": "#f1f1f0",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#004e47"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "xl": "80px",
+                    "xs": "4px",
+                    "lg": "48px",
+                    "md": "24px",
+                    "sm": "12px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "code-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "code-sm": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .slide-container {
+            aspect-ratio: 16/9;
+            max-width: 1440px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface sticky top-0 w-full z-50 flex justify-between items-center px-md max-w-container-max mx-auto border-b border-outline-variant h-[64px]">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">Wholesale Pipeline</span>
+</div>
+<nav class="hidden md:flex gap-lg h-full">
+<a class="h-full flex items-center text-primary border-b-2 border-primary pb-1 font-label-md text-label-md cursor-pointer transition-all duration-200" href="#">Storyboard</a>
+<a class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md cursor-pointer transition-all duration-200" href="#">Analytics</a>
+<a class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md cursor-pointer transition-all duration-200" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="bg-primary text-on-primary px-4 h-[40px] rounded font-label-md text-label-md hover:bg-surface-tint transition-colors">Export Deck</button>
+<div class="flex gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">account_circle</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">help</span>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full relative">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-[64px] h-[calc(100vh-64px)] w-[280px] z-40 pt-xl flex flex-col bg-surface-container-low hidden md:flex border-r border-outline-variant">
+<div class="px-md mb-lg">
+<h2 class="font-headline-md text-headline-md text-primary">Sales Funnel</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">11-Step Storyboard</p>
+</div>
+<nav class="flex flex-col flex-1">
+<a class="flex items-center gap-sm px-md py-sm cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    Overview
+                </a>
+<a class="flex items-center gap-sm px-md py-sm cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">filter_alt</span>
+                    Lead Gen
+                </a>
+<a class="flex items-center gap-sm px-md py-sm cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+                    Nurturing
+                </a>
+<a class="flex items-center gap-sm px-md py-sm cursor-pointer text-primary font-bold bg-surface-container-high font-label-md text-label-md relative" href="#">
+<span class="material-symbols-outlined text-[20px]">handshake</span>
+                    Closing
+                    <div class="absolute left-0 top-0 w-[4px] h-full bg-primary"></div>
+</a>
+<div class="ml-xl pl-sm border-l border-outline-variant flex flex-col gap-xs mb-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer hover:text-primary py-xs">Step 8: Quote</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer hover:text-primary py-xs">Step 9: Contract</span>
+<span class="font-label-md text-label-md text-primary py-xs">Step 10: Paiement</span>
+</div>
+<a class="flex items-center gap-sm px-md py-sm cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">cached</span>
+                    Retention
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[280px] p-md flex items-center justify-center min-h-[calc(100vh-64px)] bg-surface-container-lowest">
+<!-- Slide Container 16:9 -->
+<div class="slide-container bg-surface w-full shadow-sm rounded-lg border border-outline-variant flex flex-col">
+<!-- Slide Header -->
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase">Step 10 — Paiement</span>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<!-- Slide Content (Bento Layout) -->
+<div class="flex-1 flex p-lg gap-gutter relative h-full">
+<!-- Left: Redirect Area -->
+<div class="flex-1 flex flex-col justify-center items-center bg-surface-container-low rounded-xl border border-outline-variant p-xl relative overflow-hidden group">
+<!-- Background Pattern -->
+<div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#006a61 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="z-10 flex flex-col items-center text-center">
+<div class="w-[80px] h-[80px] bg-primary-container rounded-full flex items-center justify-center mb-md shadow-sm">
+<span class="material-symbols-outlined text-[40px] text-on-primary-container" style="font-variation-settings: 'FILL' 1;">shopping_cart_checkout</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-sm">Redirection vers Shopify Checkout</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[400px] mb-xl">
+                                Vous allez être redirigé vers notre plateforme de paiement sécurisée pour finaliser votre commande B2B.
+                            </p>
+<div class="flex items-center gap-sm bg-surface-bright px-md py-sm rounded-full border border-secondary-fixed-dim">
+<span class="material-symbols-outlined text-secondary text-[20px]">shield_lock</span>
+<span class="font-label-md text-label-md text-on-surface">Paiement 100% Sécurisé (SSL 256-bit)</span>
+</div>
+</div>
+</div>
+<!-- Right: Order Summary Sidebar (Glassmorphism) -->
+<div class="w-[360px] bg-surface-bright/80 backdrop-blur-md rounded-xl border border-outline-variant p-md flex flex-col h-full shadow-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">Résumé de la commande</h3>
+<div class="flex-1 overflow-y-auto pr-sm custom-scrollbar">
+<!-- Line Items -->
+<div class="flex justify-between items-start py-sm border-b border-surface-variant">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Industrial Servers X1</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Qte: 50</p>
+</div>
+<span class="font-body-md text-body-md font-medium">125 000 €</span>
+</div>
+<div class="flex justify-between items-start py-sm border-b border-surface-variant">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Cloud Storage Racks</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Qte: 10</p>
+</div>
+<span class="font-body-md text-body-md font-medium">45 000 €</span>
+</div>
+<div class="flex justify-between items-start py-sm border-b border-surface-variant">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Installation sur site</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Service</p>
+</div>
+<span class="font-body-md text-body-md font-medium">5 000 €</span>
+</div>
+</div>
+<!-- Totals & CTA -->
+<div class="mt-md pt-md border-t border-outline">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">Sous-total</span>
+<span class="font-body-md text-body-md">175 000 €</span>
+</div>
+<div class="flex justify-between items-center mb-md">
+<span class="font-body-md text-body-md text-on-surface-variant">TVA (20%)</span>
+<span class="font-body-md text-body-md">35 000 €</span>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<span class="font-headline-md text-headline-md text-on-surface">Total TTC</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">210 000 €</span>
+</div>
+<button class="w-full h-[48px] bg-primary text-on-primary rounded font-label-md text-label-md flex items-center justify-center gap-sm hover:bg-surface-tint transition-all group">
+                                Procéder au paiement sécurisé
+                                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Progression Arrow Indicator (Absolute) -->
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[48px] h-[48px] bg-surface rounded-full border border-outline-variant flex items-center justify-center shadow-sm z-20 cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface text-[24px]">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full z-50 flex justify-between items-center px-lg py-sm bg-surface-container-lowest border-t border-outline-variant md:pl-[304px]">
+<span class="font-label-md text-label-md text-on-surface">© 2024 WholesaleCommerce AI. Confidential Proprietary Document.</span>
+<div class="flex gap-md">
+<a class="font-body-sm text-body-sm text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #b0b3b3;
+        }
+    </style>
+</body></html>

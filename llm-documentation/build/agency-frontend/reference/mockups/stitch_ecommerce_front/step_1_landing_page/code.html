@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wholesale Pipeline - Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f9f9f9",
+                      "error": "#ba1a1a",
+                      "surface": "#f9f9f9",
+                      "surface-container-low": "#f4f3f3",
+                      "on-primary-fixed": "#00201c",
+                      "secondary-fixed-dim": "#93d3c8",
+                      "surface-dim": "#dadad9",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1a1c1c",
+                      "primary-fixed-dim": "#61daca",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#181c1d",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#7ff6e6",
+                      "tertiary-fixed-dim": "#c4c7c7",
+                      "on-surface-variant": "#3d4947",
+                      "inverse-primary": "#61daca",
+                      "surface-variant": "#e2e2e2",
+                      "surface-container": "#eeeeed",
+                      "on-primary-fixed-variant": "#005049",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#e8e8e8",
+                      "tertiary-fixed": "#e0e3e3",
+                      "tertiary-container": "#b0b3b3",
+                      "secondary-container": "#aeefe4",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#006a61",
+                      "on-secondary-fixed-variant": "#015048",
+                      "outline": "#6d7a77",
+                      "on-tertiary-fixed-variant": "#434748",
+                      "inverse-surface": "#2f3131",
+                      "on-tertiary-container": "#414546",
+                      "on-secondary-container": "#2e6f66",
+                      "primary-container": "#49c5b6",
+                      "surface-container-highest": "#e2e2e2",
+                      "tertiary": "#5b5f5f",
+                      "on-background": "#1a1c1c",
+                      "outline-variant": "#bcc9c6",
+                      "background": "#f9f9f9",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#aeefe4",
+                      "on-secondary-fixed": "#00201c",
+                      "secondary": "#276860",
+                      "primary": "#006a61",
+                      "inverse-on-surface": "#f1f1f0",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#004e47"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "xl": "80px",
+                      "xs": "4px",
+                      "lg": "48px",
+                      "md": "24px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "code-sm": ["Inter"],
+                      "headline-lg-mobile": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "code-sm": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- Top Label indicating step -->
+<div class="bg-surface-container-high py-xs px-md text-center border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Step 1 — Landing Page</span>
+</div>
+<!-- TopAppBar -->
+<header class="bg-surface sticky top-0 w-full z-50 flex justify-between items-center px-md py-sm max-w-container-max mx-auto border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">Wholesale Pipeline</span>
+<nav class="hidden md:flex gap-md ml-lg">
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Storyboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors pb-1" href="#">Analytics</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors pb-1" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hidden md:block font-label-md text-label-md bg-primary-container text-on-primary-container px-md py-sm rounded hover:bg-primary hover:text-on-primary transition-colors h-[40px]">Export Deck</button>
+<button aria-label="Account" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-xs">
+<span class="material-symbols-outlined text-[24px]" data-icon="account_circle">account_circle</span>
+</button>
+<button aria-label="Help" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-xs">
+<span class="material-symbols-outlined text-[24px]" data-icon="help">help</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 relative overflow-hidden">
+<!-- Main Content Area (Slide 16:9 constraints via padding/aspect ratio tricks if needed, but going full width for web) -->
+<main class="flex-1 max-w-container-max mx-auto w-full px-md md:px-xl py-lg relative z-10 flex flex-col gap-xl">
+<!-- Hero Section Bento Style -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-md items-stretch">
+<!-- Main Hero Card -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-center relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container rounded-full blur-3xl opacity-20 -mr-32 -mt-32"></div>
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider mb-sm">B2B Portal</span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-md">Catalogue grossiste — Prix professionnels</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-2xl">
+                        Accédez à notre inventaire complet avec des tarifs préférentiels. Gérez vos commandes en gros, suivez vos livraisons et optimisez votre chaîne d'approvisionnement en temps réel.
+                    </p>
+<div class="flex flex-wrap gap-md mt-auto">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-lg h-[48px] rounded flex items-center gap-sm hover:bg-surface-tint transition-colors">
+                            Voir le catalogue
+                            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border border-on-secondary-fixed-variant text-on-secondary-fixed-variant font-label-md text-label-md px-lg h-[48px] rounded hover:bg-surface-container-low transition-colors">
+                            Demander un devis personnalisé
+                        </button>
+</div>
+</div>
+<!-- Stats/Highlights Side Cards -->
+<div class="lg:col-span-4 grid grid-cols-1 gap-md">
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col justify-center border border-surface-variant hover:shadow-sm transition-shadow">
+<span class="material-symbols-outlined text-primary mb-sm text-[32px]" data-icon="inventory_2">inventory_2</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">+10,000 SKUs</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Disponibles en stock immédiat pour expédition rapide.</p>
+</div>
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col justify-center border border-surface-variant hover:shadow-sm transition-shadow">
+<span class="material-symbols-outlined text-primary mb-sm text-[32px]" data-icon="local_shipping">local_shipping</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Livraison 48h</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Garantie sur toutes les commandes prioritaires B2B.</p>
+</div>
+</div>
+</section>
+<!-- Product Catalog Gallery -->
+<section class="flex flex-col gap-md">
+<div class="flex justify-between items-end border-b border-outline-variant pb-sm">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Sélection Produits</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Aperçu de nos catégories principales.</p>
+</div>
+<a class="font-label-md text-label-md text-primary hover:text-surface-tint flex items-center gap-xs" href="#">
+                        Tout voir
+                        <span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded hover:shadow-sm transition-shadow flex flex-col">
+<div class="h-48 bg-surface-container-low relative flex items-center justify-center p-sm">
+<span class="material-symbols-outlined text-[48px] text-tertiary-container" data-icon="widgets">widgets</span>
+<div class="absolute top-sm left-sm bg-surface-bright border border-outline-variant px-xs py-1 rounded text-[10px] font-bold text-on-surface uppercase">Lot de 50</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h4 class="font-label-md text-label-md text-on-surface mb-xs truncate">Composant Industriel Alpha</h4>
+<p class="font-code-sm text-code-sm text-on-surface-variant mb-md">SKU: IND-ALP-001</p>
+<div class="mt-auto">
+<p class="font-headline-md text-headline-md text-primary mb-sm">1,250.00 € <span class="font-body-sm text-body-sm text-on-surface-variant">/ lot</span></p>
+<button class="w-full bg-surface-container-high text-on-surface font-label-md text-label-md h-[40px] rounded hover:bg-surface-container-highest transition-colors border border-outline-variant">
+                                    Ajouter au devis
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded hover:shadow-sm transition-shadow flex flex-col">
+<div class="h-48 bg-surface-container-low relative flex items-center justify-center p-sm">
+<span class="material-symbols-outlined text-[48px] text-tertiary-container" data-icon="cable">cable</span>
+<div class="absolute top-sm left-sm bg-secondary-container border border-secondary text-on-secondary-container px-xs py-1 rounded text-[10px] font-bold uppercase">En Promo</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h4 class="font-label-md text-label-md text-on-surface mb-xs truncate">Bobine Câblage Haute Tension</h4>
+<p class="font-code-sm text-code-sm text-on-surface-variant mb-md">SKU: CBL-HT-500</p>
+<div class="mt-auto">
+<p class="font-headline-md text-headline-md text-primary mb-sm">850.00 € <span class="font-body-sm text-body-sm text-on-surface-variant">/ unité</span></p>
+<button class="w-full bg-surface-container-high text-on-surface font-label-md text-label-md h-[40px] rounded hover:bg-surface-container-highest transition-colors border border-outline-variant">
+                                    Ajouter au devis
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded hover:shadow-sm transition-shadow flex flex-col">
+<div class="h-48 bg-surface-container-low relative flex items-center justify-center p-sm">
+<span class="material-symbols-outlined text-[48px] text-tertiary-container" data-icon="memory">memory</span>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h4 class="font-label-md text-label-md text-on-surface mb-xs truncate">Microcontrôleur Série X</h4>
+<p class="font-code-sm text-code-sm text-on-surface-variant mb-md">SKU: MCU-X-10K</p>
+<div class="mt-auto">
+<p class="font-headline-md text-headline-md text-primary mb-sm">4,500.00 € <span class="font-body-sm text-body-sm text-on-surface-variant">/ 10k pcs</span></p>
+<button class="w-full bg-surface-container-high text-on-surface font-label-md text-label-md h-[40px] rounded hover:bg-surface-container-highest transition-colors border border-outline-variant">
+                                    Ajouter au devis
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded hover:shadow-sm transition-shadow flex flex-col">
+<div class="h-48 bg-surface-container-low relative flex items-center justify-center p-sm">
+<span class="material-symbols-outlined text-[48px] text-tertiary-container" data-icon="precision_manufacturing">precision_manufacturing</span>
+<div class="absolute top-sm left-sm bg-surface-bright border border-outline-variant px-xs py-1 rounded text-[10px] font-bold text-on-surface uppercase">Sur Commande</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h4 class="font-label-md text-label-md text-on-surface mb-xs truncate">Module Robotique Articulé</h4>
+<p class="font-code-sm text-code-sm text-on-surface-variant mb-md">SKU: ROB-ART-V2</p>
+<div class="mt-auto">
+<p class="font-headline-md text-headline-md text-primary mb-sm">12,000.00 € <span class="font-body-sm text-body-sm text-on-surface-variant">/ unité</span></p>
+<button class="w-full bg-surface-container-high text-on-surface font-label-md text-label-md h-[40px] rounded hover:bg-surface-container-highest transition-colors border border-outline-variant">
+                                    Ajouter au devis
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Right Side Progression Arrow -->
+<div class="hidden lg:flex w-24 border-l border-outline-variant bg-surface-container-lowest items-center justify-center shrink-0 sticky top-0 h-[calc(100vh-65px)]">
+<button class="h-16 w-16 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all hover:scale-105 shadow-sm group">
+<span class="material-symbols-outlined text-[32px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<div class="absolute right-0 bottom-1/2 translate-y-1/2 rotate-90 origin-bottom-right translate-x-full">
+<span class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap ml-md">Next: Lead Gen</span>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant fixed bottom-0 w-full z-50 flex justify-between items-center px-lg py-sm">
+<div class="font-label-md text-label-md text-on-surface">Wholesale Pipeline</div>
+<div class="font-body-sm text-body-sm text-secondary">© 2024 WholesaleCommerce AI. Confidential Proprietary Document.</div>
+<div class="flex gap-md">
+<a class="font-body-sm text-body-sm text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</body></html>

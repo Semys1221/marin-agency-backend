@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Step 22 — Appel Dirigeant | Marin Sales Systems</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom Scrollbar for a cleaner look */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #d5dbd9; /* surface-dim */
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #bcc9c6; /* outline-variant */
+        }
+    </style>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#984629",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee4e1",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#49c5b6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-high": "#e4e9e7",
+                        "inverse-on-surface": "#ecf2f0",
+                        "outline": "#6d7a77",
+                        "on-background": "#171d1c",
+                        "background": "#f5fbf8",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed-dim": "#61daca",
+                        "inverse-primary": "#61daca",
+                        "surface": "#f5fbf8",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#eff5f2",
+                        "primary": "#006a61",
+                        "on-secondary-container": "#2e6f66",
+                        "on-surface": "#171d1c",
+                        "primary-fixed": "#7ff6e6",
+                        "surface-container-highest": "#dee4e1",
+                        "surface-container": "#e9efed",
+                        "secondary-container": "#aeefe4",
+                        "secondary": "#276860",
+                        "tertiary-container": "#ff9774",
+                        "surface-dim": "#d5dbd9",
+                        "secondary-fixed": "#aeefe4",
+                        "inverse-surface": "#2c3230",
+                        "on-tertiary-container": "#772e13",
+                        "on-secondary-fixed": "#00201c",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7a3015",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201c",
+                        "on-primary-container": "#004e47",
+                        "on-secondary-fixed-variant": "#015048",
+                        "surface-bright": "#f5fbf8",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "xl": "3rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "display-phase": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "step-indicator": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-hidden flex h-screen w-full antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Shared Component) -->
+<!-- Active state mapped to "Closing" as Step 22 is the final stage -->
+<nav class="hidden md:flex flex-col h-full py-md left-0 w-64 bg-surface-container-low shadow-sm shrink-0 border-r border-surface-variant z-20">
+<!-- Header -->
+<div class="px-md mb-lg">
+<h2 class="text-headline-md font-headline-md font-bold text-primary mb-xs">Sales Pipeline</h2>
+<p class="text-label-sm font-label-sm text-on-surface-variant">22-Step Storyboard</p>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-xs overflow-y-auto custom-scrollbar px-sm">
+<!-- Inactive Tab -->
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors" data-icon="login">login</span>
+<span class="text-label-sm font-label-sm">Entry</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors" data-icon="search">search</span>
+<span class="text-label-sm font-label-sm">Discovery</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors" data-icon="description">description</span>
+<span class="text-label-sm font-label-sm">Proposal</span>
+</a>
+<!-- ACTIVE Tab -->
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined filled text-[20px]" data-icon="verified" data-weight="fill">verified</span>
+<span class="text-label-sm font-label-sm font-bold">Closing</span>
+</a>
+</div>
+<!-- CTA & Footer -->
+<div class="px-md mt-auto pt-md flex flex-col gap-sm border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary font-label-sm text-label-sm py-2 rounded-full hover:bg-surface-tint transition-colors flex items-center justify-center gap-2 shadow-[0px_1px_3px_rgba(0,0,0,0.1),0px_1px_2px_rgba(0,0,0,0.06)]">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                Export PDF
+            </button>
+<a class="flex items-center gap-sm text-on-surface-variant mx-2 px-2 py-2 hover:bg-surface-container-high rounded-full transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span class="text-label-sm font-label-sm">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col relative w-full h-full overflow-hidden bg-surface">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto bg-surface border-b border-outline-variant shrink-0 z-10">
+<div class="flex items-center gap-md">
+<!-- Mobile Menu Trigger -->
+<button class="md:hidden text-on-surface-variant p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="text-headline-md font-headline-md font-bold text-primary tracking-tight">Marin</span>
+</div>
+<div class="flex items-center gap-sm">
+<!-- Trailing Actions -->
+<button aria-label="Help" class="text-on-surface-variant p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button aria-label="Account" class="text-on-surface-variant p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas / Main View (16:9 optimized framing within container) -->
+<main class="flex-1 overflow-y-auto custom-scrollbar relative">
+<div class="max-w-container-max mx-auto w-full px-4 sm:px-gutter py-lg flex flex-col gap-xl pb-xl">
+<!-- Page Header: Strategic Alignment -->
+<section class="flex flex-col gap-sm mt-md">
+<div class="flex items-center gap-xs flex-wrap">
+<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-3 py-1 rounded-full uppercase tracking-wider font-bold shadow-sm">
+                            Phase: Onboarding
+                        </span>
+<span class="text-outline mx-1">•</span>
+<span class="text-primary font-step-indicator text-step-indicator px-2 py-1 border border-primary/30 rounded-full bg-surface-container-low pulse-effect">
+                            Step 22 — Appel Dirigeant
+                        </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg md:text-[40px] md:leading-[48px] text-on-surface tracking-tight mt-2">
+                        Appel stratégique avec la direction
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mt-1">
+                        Final alignment call with executive leadership to finalize the operational mission, establish core KPIs, and ensure seamless tool integration before handoff.
+                    </p>
+</section>
+<!-- Core Content Grid (12 Columns) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Agenda (8 cols) -->
+<section class="lg:col-span-8 flex flex-col gap-md">
+<div class="bg-surface-container-lowest rounded-xl border border-surface-variant p-md shadow-[0px_1px_3px_rgba(0,0,0,0.1),0px_1px_2px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<!-- Decorative accent -->
+<div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+<div class="flex items-center justify-between mb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary bg-surface-container p-1 rounded-md">view_agenda</span>
+                                    Meeting Agenda
+                                </h2>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container-low px-2 py-1 rounded">6 Core Topics</span>
+</div>
+<!-- Bento Grid for Agenda Items -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<!-- Agenda Item 1 -->
+<div class="bg-surface rounded-lg border border-surface-variant p-sm flex items-start gap-sm hover:shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-200 group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-step-indicator text-step-indicator shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">1</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-body-md font-semibold text-on-surface mb-1">Mission</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Reiterate core objectives, target audience, and primary value proposition alignment.</p>
+</div>
+</div>
+<!-- Agenda Item 2 -->
+<div class="bg-surface rounded-lg border border-surface-variant p-sm flex items-start gap-sm hover:shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-200 group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-step-indicator text-step-indicator shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">2</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-body-md font-semibold text-on-surface mb-1">KPIs</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Define measurable success criteria, reporting cadences, and baseline metrics.</p>
+</div>
+</div>
+<!-- Agenda Item 3 -->
+<div class="bg-surface rounded-lg border border-surface-variant p-sm flex items-start gap-sm hover:shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-200 group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-step-indicator text-step-indicator shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">3</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-body-md font-semibold text-on-surface mb-1">Communication</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Establish preferred channels (Slack, Email), response times, and key stakeholders.</p>
+</div>
+</div>
+<!-- Agenda Item 4 -->
+<div class="bg-surface rounded-lg border border-surface-variant p-sm flex items-start gap-sm hover:shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-200 group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-step-indicator text-step-indicator shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">4</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-body-md font-semibold text-on-surface mb-1">Tooling</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Confirm CRM access, integration endpoints, and shared workspace permissions.</p>
+</div>
+</div>
+<!-- Agenda Item 5 -->
+<div class="bg-surface rounded-lg border border-surface-variant p-sm flex items-start gap-sm hover:shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-200 group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-step-indicator text-step-indicator shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">5</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-body-md font-semibold text-on-surface mb-1">Team</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Introduce primary points of contact, escalation paths, and operational roles.</p>
+</div>
+</div>
+<!-- Agenda Item 6 -->
+<div class="bg-surface rounded-lg border border-primary/30 p-sm flex items-start gap-sm hover:shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-200 group relative overflow-hidden">
+<div class="absolute inset-0 bg-primary-container opacity-[0.03] pointer-events-none"></div>
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-step-indicator text-step-indicator shrink-0">6</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-body-md font-semibold text-primary mb-1">Next Steps</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Formal kickoff sign-off, first deliverable timeline, and immediate action items.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Details & Planning (4 cols) -->
+<aside class="lg:col-span-4 flex flex-col gap-md">
+<!-- Call Logistics Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-variant p-md shadow-[0px_1px_3px_rgba(0,0,0,0.1),0px_1px_2px_rgba(0,0,0,0.06)]">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline text-[20px]">info</span>
+                                Call Logistics
+                            </h2>
+<div class="flex flex-col gap-xs mt-md">
+<div class="flex items-center gap-sm p-xs rounded bg-surface">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Duration</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">30 - 45 Minutes</p>
+</div>
+</div>
+<div class="flex items-center gap-sm p-xs rounded bg-error-container/20 border border-error-container">
+<span class="material-symbols-outlined text-error animate-pulse">fiber_manual_record</span>
+<div>
+<p class="font-label-sm text-label-sm text-error">Compliance</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">Session Recorded</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Follow-up Planning Calendar Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-variant p-md shadow-[0px_1px_3px_rgba(0,0,0,0.1),0px_1px_2px_rgba(0,0,0,0.06)] flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">event_available</span>
+                                    Follow-up Planning
+                                </h2>
+</div>
+<!-- Minimalist Calendar Representation -->
+<div class="flex-1 border border-outline-variant rounded-lg p-sm bg-surface flex flex-col gap-sm">
+<div class="flex justify-between items-center px-1">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">November 2024</span>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+<div class="grid grid-cols-5 gap-1 text-center font-label-sm text-label-sm text-on-surface-variant mt-2">
+<div>M</div><div>T</div><div>W</div><div>T</div><div>F</div>
+</div>
+<div class="grid grid-cols-5 gap-1 mt-1 font-body-md text-body-md">
+<!-- Mock Dates -->
+<div class="py-1 text-outline">18</div>
+<div class="py-1 text-outline">19</div>
+<div class="py-1 text-outline">20</div>
+<div class="py-1 text-outline">21</div>
+<div class="py-1 text-outline">22</div>
+<div class="py-1 bg-surface-container rounded text-on-surface">25</div>
+<div class="py-1 bg-primary text-on-primary rounded font-bold shadow-sm relative cursor-pointer" title="Suggested Check-in">
+                                        26
+                                        <span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="py-1 bg-surface-container rounded text-on-surface">27</div>
+<div class="py-1 bg-surface-container rounded text-on-surface">28</div>
+<div class="py-1 bg-surface-container rounded text-on-surface">29</div>
+</div>
+<div class="mt-auto pt-sm border-t border-surface-variant text-center">
+<button class="text-primary font-label-sm text-label-sm font-medium hover:underline">Select Follow-up Date</button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto border-t border-outline-variant bg-surface mt-auto">
+<div class="text-label-sm font-bold text-on-surface">
+                    © 2024 Marin Sales Systems. Confidential.
+                </div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-sm font-label-sm" href="#">Documentation</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-sm font-label-sm" href="#">Privacy Policy</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- Inline script for subtle pulse effect on current step -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pulseElements = document.querySelectorAll('.pulse-effect');
+            pulseElements.forEach(el => {
+                el.style.animation = 'subtlePulse 3s infinite';
+            });
+        });
+    </script>
+<style>
+        @keyframes subtlePulse {
+            0% { box-shadow: 0 0 0 0 rgba(73, 197, 182, 0.4); }
+            70% { box-shadow: 0 0 0 4px rgba(73, 197, 182, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(73, 197, 182, 0); }
+        }
+    </style>
+</body></html>

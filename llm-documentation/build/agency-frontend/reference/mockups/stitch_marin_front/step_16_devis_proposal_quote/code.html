@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marin - Sales Pipeline - Step 16: Devis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#984629",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee4e1",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#49c5b6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-high": "#e4e9e7",
+                        "inverse-on-surface": "#ecf2f0",
+                        "outline": "#6d7a77",
+                        "on-background": "#171d1c",
+                        "background": "#f5fbf8",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed-dim": "#61daca",
+                        "inverse-primary": "#61daca",
+                        "surface": "#f5fbf8",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#eff5f2",
+                        "primary": "#006a61",
+                        "on-secondary-container": "#2e6f66",
+                        "on-surface": "#171d1c",
+                        "primary-fixed": "#7ff6e6",
+                        "surface-container-highest": "#dee4e1",
+                        "surface-container": "#e9efed",
+                        "secondary-container": "#aeefe4",
+                        "secondary": "#276860",
+                        "tertiary-container": "#ff9774",
+                        "surface-dim": "#d5dbd9",
+                        "secondary-fixed": "#aeefe4",
+                        "inverse-surface": "#2c3230",
+                        "on-tertiary-container": "#772e13",
+                        "on-secondary-fixed": "#00201c",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7a3015",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201c",
+                        "on-primary-container": "#004e47",
+                        "on-secondary-fixed-variant": "#015048",
+                        "surface-bright": "#f5fbf8",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "xl": "3rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-phase": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "step-indicator": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    },
+                    boxShadow: {
+                        'card-level-1': '0px 1px 3px rgba(0,0,0,0.1), 0px 1px 2px rgba(0,0,0,0.06)',
+                        'card-level-2': '0px 10px 15px -3px rgba(0,0,0,0.1)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* 16:9 Aspect Ratio Container */
+        .aspect-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            background-color: theme('colors.surface');
+            overflow: hidden;
+            border-radius: theme('borderRadius.xl');
+            box-shadow: theme('boxShadow.card-level-1');
+        }
+        
+        .aspect-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Interest Slider Styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: theme('colors.primary-container');
+            cursor: pointer;
+            margin-top: -8px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+            box-shadow: 0 0 10px rgba(73, 197, 182, 0.5);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: theme('colors.surface-dim');
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex flex-col h-full py-md docked h-full left-0 w-64 bg-surface-container-low shadow-sm z-10 shrink-0">
+<div class="px-md pb-lg">
+<div class="text-headline-md font-headline-md font-bold text-primary mb-6">Marin</div>
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-full bg-surface-dim overflow-hidden flex items-center justify-center shrink-0">
+<img alt="Sales Representative" class="object-cover w-full h-full" data-alt="A small, professional headshot of a confident sales representative with a warm smile, wearing modern business casual attire against a clean, light grey studio background. The lighting is soft and flattering, creating a high-end corporate feel suitable for a B2B platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA7l2zzFvGN4oz3YX9Ec1cV6tuCIOMy0e3sBnTZUEFfrncI8OCht_ku-Y0S6j3VKjdRaX64TFl9_qJmNDsR9bE5ctg7nbh0tu7-VicyYNBlMKi3CnPIqB2abEntHBL3nlYYr4gzZHDUhT8ynkpIUinqsJVLMMa02dX7nAP5j-l2lGmmaeTYgvahZFBk3o5UtwA5z6wooE64Go9mEkWJSwL3QSpYg9u_Qhz4o7r3G7__uBGdHX4pMJjiKtaU-_POge6rimubFgHpOs"/>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Sales Pipeline</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">22-Step Storyboard</div>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors group text-label-sm font-label-sm" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">login</span>
+<span>Entry</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors group text-label-sm font-label-sm" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">search</span>
+<span>Discovery</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-full transition-colors group text-label-sm font-label-sm" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">description</span>
+<span>Proposal</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 translate-x-1 transition-transform duration-200 text-label-sm font-label-sm font-semibold" href="#">
+<span class="material-symbols-outlined fill text-primary">verified</span>
+<span>Closing</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto px-md pt-lg border-t border-outline-variant/30">
+<button class="w-full py-2 px-4 border border-primary-container text-primary-container rounded-lg font-label-sm text-label-sm hover:bg-primary-container/10 transition-colors mb-4 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                Export PDF
+            </button>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-2 hover:bg-surface-container-high rounded-full transition-colors text-label-sm font-label-sm" href="#">
+<span class="material-symbols-outlined text-outline">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- TopAppBar (from JSON - Mobile primarily, but providing structural support) -->
+<header class="md:hidden flex justify-between items-center w-full px-lg py-sm bg-surface text-primary border-b border-outline-variant z-20 shrink-0">
+<div class="text-headline-md font-headline-md font-bold text-primary">Marin</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 md:p-lg lg:p-xl flex items-center justify-center bg-surface-bright">
+<div class="w-full max-w-container-max mx-auto">
+<!-- 16:9 Presentation Container -->
+<div class="aspect-container">
+<div class="aspect-content bg-surface-container-lowest">
+<!-- Header / Context Bar -->
+<div class="flex justify-between items-center p-md lg:p-gutter border-b border-surface-variant bg-surface shrink-0">
+<div class="flex items-center gap-4">
+<div class="px-3 py-1 bg-secondary-container/20 border border-secondary-container rounded-full text-secondary font-step-indicator text-step-indicator uppercase tracking-wider">
+                                    CLOSING PHASE
+                                </div>
+<h1 class="text-headline-md font-headline-md text-on-surface m-0">Step 16 — Devis</h1>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Client Presentation View</span>
+</div>
+</div>
+<!-- Main Grid Layout within 16:9 -->
+<div class="flex-1 grid grid-cols-1 md:grid-cols-12 gap-gutter p-md lg:p-gutter overflow-hidden">
+<!-- Left Column: Context & Details -->
+<div class="col-span-1 md:col-span-7 flex flex-col gap-gutter h-full">
+<!-- Needs Recap (Glassmorphism inspired card) -->
+<div class="bg-surface border border-outline-variant/50 rounded-xl p-md shadow-card-level-1 relative overflow-hidden group hover:shadow-card-level-2 transition-shadow duration-300">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+<h2 class="text-body-lg font-body-lg font-semibold text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">fact_check</span>
+                                        Synthèse des besoins
+                                    </h2>
+<ul class="space-y-3 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
+<span>Modernisation de l'infrastructure réseau sur 3 sites principaux.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
+<span>Mise en place d'une solution de cybersécurité proactive (Zero Trust).</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
+<span>Formation des équipes internes (50 collaborateurs) sous 2 mois.</span>
+</li>
+</ul>
+</div>
+<!-- Included Services -->
+<div class="flex-1 bg-surface border border-outline-variant/50 rounded-xl p-md shadow-card-level-1 flex flex-col">
+<h2 class="text-body-lg font-body-lg font-semibold text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">inventory_2</span>
+                                        Services inclus
+                                    </h2>
+<div class="grid grid-cols-2 gap-4 flex-1 overflow-y-auto pr-2">
+<!-- Service Item -->
+<div class="p-3 border border-surface-variant rounded-lg bg-surface-container-lowest hover:border-primary-container/50 transition-colors">
+<div class="font-label-sm text-label-sm font-semibold text-on-surface mb-1">Audit initial détaillé</div>
+<div class="text-[11px] text-on-surface-variant leading-tight">Analyse de l'existant et cartographie.</div>
+</div>
+<!-- Service Item -->
+<div class="p-3 border border-surface-variant rounded-lg bg-surface-container-lowest hover:border-primary-container/50 transition-colors">
+<div class="font-label-sm text-label-sm font-semibold text-on-surface mb-1">Déploiement Matériel</div>
+<div class="text-[11px] text-on-surface-variant leading-tight">Installation physique et configuration sur site.</div>
+</div>
+<!-- Service Item -->
+<div class="p-3 border border-surface-variant rounded-lg bg-surface-container-lowest hover:border-primary-container/50 transition-colors">
+<div class="font-label-sm text-label-sm font-semibold text-on-surface mb-1">Licences Logicielles (1an)</div>
+<div class="text-[11px] text-on-surface-variant leading-tight">Suite de sécurité complète incluse.</div>
+</div>
+<!-- Service Item -->
+<div class="p-3 border border-surface-variant rounded-lg bg-surface-container-lowest hover:border-primary-container/50 transition-colors">
+<div class="font-label-sm text-label-sm font-semibold text-on-surface mb-1">Support Premium 24/7</div>
+<div class="text-[11px] text-on-surface-variant leading-tight">SLA de 4 heures pour incidents critiques.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: The Offer & Action -->
+<div class="col-span-1 md:col-span-5 flex flex-col gap-gutter h-full">
+<!-- The Selected Offer (Hero Card) -->
+<div class="bg-primary/5 border border-primary/20 rounded-xl p-md shadow-card-level-1 flex flex-col items-center text-center relative overflow-hidden">
+<div class="absolute top-0 w-full h-1 bg-gradient-to-r from-primary-container to-secondary"></div>
+<span class="px-3 py-1 bg-primary text-on-primary rounded-full font-label-sm text-label-sm mb-4 uppercase tracking-wider font-semibold">
+                                         Offre Premium Recommandée
+                                     </span>
+<div class="mb-2">
+<span class="text-[40px] font-headline-lg font-bold text-on-surface tracking-tight">45 000 €</span>
+<span class="text-body-md font-body-md text-on-surface-variant">HT</span>
+</div>
+<div class="w-full h-px bg-outline-variant/30 my-4"></div>
+<div class="flex justify-between w-full text-left mb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Durée d'engagement</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">12 Mois</span>
+</div>
+<div class="flex justify-between w-full text-left">
+<span class="font-body-md text-body-md text-on-surface-variant">Garantie de service</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface text-secondary">Satisfaction 100%</span>
+</div>
+</div>
+<!-- Interactive Elements & CTA -->
+<div class="flex-1 flex flex-col justify-end bg-surface border border-outline-variant/50 rounded-xl p-md shadow-card-level-1">
+<!-- Interest Slider -->
+<div class="mb-8">
+<div class="flex justify-between items-end mb-3">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="interest-slider">Niveau d'intérêt estimé</label>
+<span class="font-headline-md text-headline-md font-bold text-primary-container" id="interest-value">8/10</span>
+</div>
+<input class="w-full appearance-none bg-transparent" id="interest-slider" max="10" min="1" oninput="document.getElementById('interest-value').innerText = this.value + '/10'" type="range" value="8"/>
+<div class="flex justify-between mt-1 text-[10px] text-on-surface-variant uppercase font-semibold">
+<span>Froid</span>
+<span>Chaud</span>
+</div>
+</div>
+<!-- Main CTA -->
+<button class="w-full py-4 px-6 bg-primary-container hover:bg-primary-fixed-dim text-on-primary font-body-lg text-body-lg font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-3 group">
+                                        J'accepte — passer au paiement
+                                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

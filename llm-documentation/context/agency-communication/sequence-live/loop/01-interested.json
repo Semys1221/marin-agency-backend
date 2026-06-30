@@ -1,0 +1,36 @@
+{
+  "system": "loop",
+  "id": "interested",
+  "label": "Interested",
+  "trigger": "Lead expressed interest",
+  "steps": [
+    {
+      "step": 1,
+      "delay": 0,
+      "delay_unit": "days",
+      "subject": "Merci pour votre int\u00e9r\u00eat, {{prenom}} !",
+      "body": "Bonjour {{prenom}},\n\nMerci d'avoir pris le temps de vous int\u00e9resser \u00e0 notre accompagnement pour {{entreprise}}.\n\nJe suis convaincu que nous pouvons vous aider \u00e0 d\u00e9velopper votre activit\u00e9. Le plus simple est d'\u00e9changer 15 minutes par t\u00e9l\u00e9phone pour voir ensemble si notre solution est adapt\u00e9e \u00e0 vos besoins.\n\nJe suis disponible cette semaine. Quel cr\u00e9neau vous arrange ?\n\nBien cordialement,\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 2,
+      "delay": 2,
+      "delay_unit": "days",
+      "subject": "Un client comme {{entreprise}} a multipli\u00e9 ses ventes",
+      "body": "Bonjour {{prenom}},\n\nJe me permets de revenir vers vous car j'ai pens\u00e9 \u00e0 un cas qui pourrait vous int\u00e9resser.\n\nR\u00e9cemment, nous avons accompagn\u00e9 un client du m\u00eame secteur que {{entreprise}}. En 60 jours, nous avons mis en place son tunnel de vente complet \u2014 scraping, email automation, suivi commercial \u2014 et il a d\u00e9croch\u00e9 ses premi\u00e8res ventes sans avoir \u00e0 g\u00e9rer la technique.\n\nSouhaitez-vous que je vous montre comment \u00e7a fonctionne ? Un appel de 15 minutes suffit.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 3,
+      "delay": 3,
+      "delay_unit": "days",
+      "subject": "Ce qu'ils en disent",
+      "body": "Bonjour {{prenom}},\n\nNotre approche est simple : on s'occupe de toute la partie technique (prospection, email, suivi) pendant que vous vous concentrez sur la vente.\n\nVoici ce que nous entendons le plus de la part de nos clients :\n\u2022 \"J'ai des rendez-vous chaque semaine sans rien faire\"\n\u2022 \"Je ne savais pas que c'\u00e9tait aussi simple \u00e0 mettre en place\"\n\u2022 \"En 2 mois, j'ai vu la diff\u00e9rence\"\n\nSi vous voulez voir ce que \u00e7a donne concr\u00e8tement pour {{entreprise}}, r\u00e9servez un cr\u00e9neau ici :\n\n[Calendly lien]\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 4,
+      "delay": 3,
+      "delay_unit": "days",
+      "subject": "Dernier message \u2014 {{prenom}}",
+      "body": "Bonjour {{prenom}},\n\nJe me permets une derni\u00e8re relance. Je pense sinc\u00e8rement que notre solution pourrait faire la diff\u00e9rence pour {{entreprise}}.\n\nSi le timing n'est pas bon pour vous, aucun souci \u2014 vous pouvez me r\u00e9pondre et je vous recontacterai quand vous serez pr\u00eat.\n\nSi vous \u00eates int\u00e9ress\u00e9, r\u00e9servez un cr\u00e9neau ici et on \u00e9change 15 minutes :\n\n[Calendly lien]\n\nBonne journ\u00e9e,\n\n{{gmail_signature}}"
+    }
+  ]
+}

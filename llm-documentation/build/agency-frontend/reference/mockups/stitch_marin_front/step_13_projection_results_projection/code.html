@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marin Sales Systems - Step 13 Projection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#984629",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee4e1",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#49c5b6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-high": "#e4e9e7",
+                        "inverse-on-surface": "#ecf2f0",
+                        "outline": "#6d7a77",
+                        "on-background": "#171d1c",
+                        "background": "#f5fbf8",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed-dim": "#61daca",
+                        "inverse-primary": "#61daca",
+                        "surface": "#f5fbf8",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#eff5f2",
+                        "primary": "#006a61",
+                        "on-secondary-container": "#2e6f66",
+                        "on-surface": "#171d1c",
+                        "primary-fixed": "#7ff6e6",
+                        "surface-container-highest": "#dee4e1",
+                        "surface-container": "#e9efed",
+                        "secondary-container": "#aeefe4",
+                        "secondary": "#276860",
+                        "tertiary-container": "#ff9774",
+                        "surface-dim": "#d5dbd9",
+                        "secondary-fixed": "#aeefe4",
+                        "inverse-surface": "#2c3230",
+                        "on-tertiary-container": "#772e13",
+                        "on-secondary-fixed": "#00201c",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7a3015",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201c",
+                        "on-primary-container": "#004e47",
+                        "on-secondary-fixed-variant": "#015048",
+                        "surface-bright": "#f5fbf8",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "xl": "3rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-phase": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "step-indicator": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .aspect-16-9 {
+            aspect-ratio: 16 / 9;
+        }
+        .bg-phase-tint {
+            background-color: rgba(39, 104, 96, 0.05); /* Secondary teal at 5% */
+        }
+        .shadow-level-1 {
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.1), 0px 1px 2px rgba(0,0,0,0.06);
+        }
+        .shadow-level-2:hover {
+            box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex items-center justify-center p-sm md:p-lg">
+<main class="w-full max-w-container-max aspect-16-9 bg-surface-container-lowest shadow-level-1 rounded-xl overflow-hidden flex flex-col md:flex-row relative">
+<!-- Storyboard Rail -->
+<aside class="w-full md:w-64 bg-surface-container-low border-b md:border-b-0 md:border-r border-outline-variant flex flex-col h-full flex-shrink-0 z-10">
+<div class="p-md border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-primary font-bold">Marin</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">Sales Pipeline</p>
+<p class="font-label-sm text-label-sm text-outline">22-Step Storyboard</p>
+</div>
+<nav class="flex-1 overflow-y-auto py-sm">
+<!-- Phase Grouping -->
+<div class="mb-sm">
+<div class="px-md py-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Solution</span>
+</div>
+<div class="bg-phase-tint flex flex-col gap-1 py-xs">
+<!-- Previous Step -->
+<div class="px-md py-2 flex items-center gap-3">
+<div class="w-5 h-5 rounded-full border border-outline flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[12px] text-primary fill">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Step 12 — Demo</span>
+</div>
+<!-- Current Step -->
+<div class="px-md py-2 flex items-center gap-3 bg-surface border-l-2 border-primary">
+<div class="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center flex-shrink-0 relative">
+<div class="absolute inset-0 rounded-full border border-primary animate-ping opacity-50"></div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-primary truncate">Step 13 — Projection</span>
+</div>
+<!-- Upcoming Step -->
+<div class="px-md py-2 flex items-center gap-3">
+<div class="w-5 h-5 rounded-full border border-outline flex items-center justify-center flex-shrink-0">
+</div>
+<span class="font-label-sm text-label-sm text-outline truncate">Step 14 — Proposal</span>
+</div>
+</div>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<section class="flex-1 flex flex-col h-full overflow-y-auto relative">
+<!-- Phase Badge & Header -->
+<header class="px-md md:px-lg py-md md:py-lg flex flex-col gap-sm">
+<div class="inline-flex items-center self-start">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-widest font-bold">Solution</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg md:font-display-phase md:text-display-phase text-on-surface">
+                    Imaginez vos résultats dans 90 jours
+                </h1>
+</header>
+<!-- Metrics Bento Grid -->
+<div class="px-md md:px-lg pb-md md:pb-lg flex-1 flex flex-col gap-lg">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-sm md:gap-md">
+<!-- Metric Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-level-1 shadow-level-2 transition-all duration-200 flex flex-col gap-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-container rounded-bl-full opacity-10 group-hover:scale-110 transition-transform"></div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-phase text-headline-lg text-primary">+35%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Croissance du CA projetée</span>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-level-1 shadow-level-2 transition-all duration-200 flex flex-col gap-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary-container rounded-bl-full opacity-10 group-hover:scale-110 transition-transform"></div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">group_add</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-phase text-headline-lg text-secondary">10</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Nouvelles ventes mensuelles</span>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-level-1 shadow-level-2 transition-all duration-200 flex flex-col gap-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-tertiary-container rounded-bl-full opacity-10 group-hover:scale-110 transition-transform"></div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-phase text-headline-lg text-tertiary">2x</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Productivité commerciale</span>
+</div>
+</div>
+</div>
+<!-- Reflective Questions Section -->
+<div class="bg-surface-container-low rounded-xl p-md md:p-lg border border-outline-variant mt-auto">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                        Réflexion stratégique
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="flex gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary font-bold text-xs mt-1">1</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Où se situerait votre entreprise avec ces résultats concrets ?</p>
+</div>
+<div class="flex gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary font-bold text-xs mt-1">2</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Quel serait l'impact sur vos objectifs personnels et d'équipe ?</p>
+</div>
+<div class="flex gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary font-bold text-xs mt-1">3</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Qu'est-ce qui vous empêcherait d'atteindre ce scénario aujourd'hui ?</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual Navigation Buttons -->
+<div class="px-md md:px-lg pb-md md:pb-lg flex justify-between items-center mt-auto border-t border-outline-variant pt-md">
+<button class="px-4 py-2 text-primary font-label-sm text-label-sm hover:bg-surface-container-high rounded transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Retour
+                </button>
+<button class="px-6 py-2 bg-primary text-on-primary font-label-sm text-label-sm rounded hover:bg-surface-tint transition-colors shadow-sm flex items-center gap-2">
+                    Continuer
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+</body></html>

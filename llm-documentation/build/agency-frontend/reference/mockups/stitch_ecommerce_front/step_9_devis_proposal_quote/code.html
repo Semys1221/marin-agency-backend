@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WholesaleCommerce AI - Devis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-container-low": "#f4f3f3",
+                        "on-primary-fixed": "#00201c",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "surface-dim": "#dadad9",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#61daca",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#181c1d",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#7ff6e6",
+                        "tertiary-fixed-dim": "#c4c7c7",
+                        "on-surface-variant": "#3d4947",
+                        "inverse-primary": "#61daca",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeed",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#e0e3e3",
+                        "tertiary-container": "#b0b3b3",
+                        "secondary-container": "#aeefe4",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#006a61",
+                        "on-secondary-fixed-variant": "#015048",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed-variant": "#434748",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#414546",
+                        "on-secondary-container": "#2e6f66",
+                        "primary-container": "#49c5b6",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#5b5f5f",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bcc9c6",
+                        "background": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#aeefe4",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary": "#276860",
+                        "primary": "#006a61",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#004e47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            /* 16:9 Aspect Ratio Container for Presentation */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #2f3131; /* inverse-surface */
+            margin: 0;
+            padding: 24px;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 1440px; /* container-max */
+            aspect-ratio: 16 / 9;
+            background-color: #f9f9f9; /* background */
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Custom Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #006a61; /* primary */
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #bcc9c6; /* outline-variant */
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-inverse-surface antialiased text-on-surface">
+<div class="slide-container rounded-lg border border-outline-variant">
+<!-- Header -->
+<header class="w-full flex justify-between items-center px-lg py-md border-b border-outline-variant bg-surface-container-lowest shrink-0">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Step 9 — Devis</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Final Proposal &amp; Quotation Approval</p>
+</div>
+<div class="flex items-center gap-sm bg-surface-container-low px-md py-sm rounded-full">
+<span class="material-symbols-outlined text-primary">description</span>
+<span class="font-label-md text-label-md text-primary">ID: Q-88204-B</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-row overflow-hidden relative">
+<!-- Left/Center Column: Proposal Details -->
+<div class="flex-1 p-lg overflow-y-auto flex flex-col gap-lg">
+<!-- Bento Grid Layout for Proposal Data -->
+<div class="grid grid-cols-12 gap-md">
+<!-- Products Summary Card -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col hover:shadow-md transition-shadow duration-300">
+<div class="flex justify-between items-center mb-md border-b border-surface-container-high pb-sm">
+<h2 class="font-headline-md text-headline-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">inventory_2</span>
+                                Selected Products
+                            </h2>
+<span class="font-label-md text-label-md bg-secondary-container text-on-secondary-container px-sm py-xs rounded">3 Items</span>
+</div>
+<div class="flex flex-col gap-sm flex-1">
+<!-- Item 1 -->
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-variant rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">memory</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Industrial Sensor Array X-1</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: ISA-X1-500</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md">Qty: 500</p>
+<p class="font-body-md text-body-md text-primary font-medium">$45,000.00</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-variant rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">router</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Edge Gateway Pro</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: EGP-V2-150</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md">Qty: 150</p>
+<p class="font-body-md text-body-md text-primary font-medium">$18,750.00</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex justify-between items-center p-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-variant rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">cable</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Fiber Optic Bulk Roll</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: FOB-10K</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md">Qty: 10</p>
+<p class="font-body-md text-body-md text-primary font-medium">$12,000.00</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Conditions & Totals Card -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-md">
+<!-- Conditions -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md hover:shadow-md transition-shadow duration-300">
+<h2 class="font-headline-md text-headline-md flex items-center gap-sm mb-md border-b border-surface-container-high pb-sm">
+<span class="material-symbols-outlined text-secondary">gavel</span>
+                                Conditions
+                            </h2>
+<ul class="flex flex-col gap-sm">
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] mt-xs">local_shipping</span>
+<div>
+<p class="font-label-md text-label-md">FOB Destination</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Delivery within 14 business days.</p>
+</div>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] mt-xs">payments</span>
+<div>
+<p class="font-label-md text-label-md">Net 30 Terms</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Invoicing upon confirmed dispatch.</p>
+</div>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] mt-xs">verified</span>
+<div>
+<p class="font-label-md text-label-md">Standard Warranty</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">2 years parts and labor included.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Total Summary -->
+<div class="bg-surface-tint text-on-primary rounded-xl p-md flex-1 flex flex-col justify-center relative overflow-hidden">
+<!-- Decorative background pattern -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
+<div class="relative z-10 flex justify-between items-end">
+<div>
+<p class="font-body-sm text-body-sm text-secondary-container">Subtotal</p>
+<p class="font-body-sm text-body-sm text-secondary-container mb-sm">Estimated Tax (8%)</p>
+<p class="font-label-md text-label-md uppercase tracking-wider">Total Due</p>
+</div>
+<div class="text-right">
+<p class="font-body-sm text-body-sm">$75,750.00</p>
+<p class="font-body-sm text-body-sm mb-sm">$6,060.00</p>
+<p class="font-display-lg text-display-lg text-primary-fixed">$81,810.00</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interest / Confidence Slider -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md mt-auto">
+<div class="flex justify-between items-center mb-md">
+<label class="font-headline-md text-headline-md flex items-center gap-sm" for="interest-slider">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+                            Purchase Confidence / Interest
+                        </label>
+<span class="font-headline-md text-headline-md text-primary bg-primary-container text-on-primary-container px-sm py-xs rounded w-12 text-center" id="slider-value">8</span>
+</div>
+<div class="px-sm py-md relative">
+<input class="w-full" id="interest-slider" max="10" min="1" step="1" type="range" value="8"/>
+<div class="flex justify-between mt-sm text-on-surface-variant font-body-sm text-body-sm px-xs">
+<span>Low (1)</span>
+<span>High (10)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Navigation / Action Area -->
+<div class="w-[320px] bg-surface-container-lowest border-l border-outline-variant p-lg flex flex-col justify-between relative z-10 shadow-[-10px_0_30px_rgba(0,0,0,0.02)] shrink-0">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-md">Next Actions</h3>
+<p class="font-body-md text-body-md text-on-surface mb-lg">Please review the proposal details carefully. Adjust your confidence score to help us prioritize fulfillment.</p>
+</div>
+<div class="flex flex-col gap-md items-center">
+<!-- Progression Arrow Graphic -->
+<div class="w-full h-32 flex items-center justify-center relative mb-md group cursor-pointer">
+<div class="absolute inset-0 bg-secondary-container rounded-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+<div class="flex items-center text-primary transform group-hover:translate-x-2 transition-transform duration-300">
+<span class="font-headline-lg text-headline-lg mr-sm">Proceed</span>
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'wght' 300;">arrow_forward</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary-container hover:text-on-primary-container text-on-primary font-label-md text-label-md h-[48px] rounded flex items-center justify-center gap-sm transition-colors duration-200 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                        J'accepte — passer au paiement
+                    </button>
+<button class="w-full border border-outline text-on-surface hover:bg-surface-container-high font-label-md text-label-md h-[40px] rounded flex items-center justify-center gap-sm transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]">edit_document</span>
+                        Request Revisions
+                    </button>
+</div>
+</div>
+</main>
+<!-- Navigation Shell Footer (if necessary per rules, suppressed here as it's a specific step/transactional view) -->
+<!-- Suppressed per rules: "Linear/Transactional: Login, Sign-up, Onboarding, Checkout... suppress navigation" -->
+</div>
+<script>
+        // Simple slider value update script
+        const slider = document.getElementById('interest-slider');
+        const output = document.getElementById('slider-value');
+
+        slider.addEventListener('input', function() {
+            output.textContent = this.value;
+            // Add a subtle color shift based on value
+            if(this.value < 4) {
+                output.className = "font-headline-md text-headline-md text-error bg-error-container px-sm py-xs rounded w-12 text-center transition-colors";
+            } else if (this.value < 8) {
+                output.className = "font-headline-md text-headline-md text-on-surface-variant bg-surface-variant px-sm py-xs rounded w-12 text-center transition-colors";
+            } else {
+                output.className = "font-headline-md text-headline-md text-primary bg-primary-container text-on-primary-container px-sm py-xs rounded w-12 text-center transition-colors";
+            }
+        });
+    </script>
+</body></html>

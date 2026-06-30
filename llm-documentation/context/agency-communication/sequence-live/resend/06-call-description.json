@@ -1,0 +1,9 @@
+{
+  "system": "resend",
+  "id": "call-description",
+  "label": "Call Description",
+  "trigger": "Post-call summary with lieux",
+  "subject": "R\u00e9capitulatif de notre appel \u2014 {{entreprise}}",
+  "body": "Bonjour {{nom_prospect}},\n\nSuite \u00e0 notre appel {{rdv_date}}, voici le r\u00e9capitulatif des points abord\u00e9s :\n\nSujets discut\u00e9s : {{call_topics}}\nProchaines \u00e9tapes : {{next_steps}}\nLieux mentionn\u00e9s : {{lieux}}\n\nComme convenu, je vous envoie les informations mentionn\u00e9es :\n\u2022 {{info_1}}\n\u2022 {{info_2}}\n\nOn se tient \u00e0 disposition pour la suite. N'h\u00e9sitez pas si vous avez des questions.\n\n{{gmail_signature}}",
+  "variables": ["nom_prospect", "entreprise", "rdv_date", "call_topics", "next_steps", "lieux", "info_1", "info_2"]
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wholesale Pipeline - Step 11 Suivi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-container-low": "#f4f3f3",
+                        "on-primary-fixed": "#00201c",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "surface-dim": "#dadad9",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#61daca",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#181c1d",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#7ff6e6",
+                        "tertiary-fixed-dim": "#c4c7c7",
+                        "on-surface-variant": "#3d4947",
+                        "inverse-primary": "#61daca",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeed",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#e0e3e3",
+                        "tertiary-container": "#b0b3b3",
+                        "secondary-container": "#aeefe4",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#006a61",
+                        "on-secondary-fixed-variant": "#015048",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed-variant": "#434748",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#414546",
+                        "on-secondary-container": "#2e6f66",
+                        "primary-container": "#49c5b6",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#5b5f5f",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bcc9c6",
+                        "background": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#aeefe4",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary": "#276860",
+                        "primary": "#006a61",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#004e47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col items-center justify-center p-md">
+<!-- 16:9 Presentation Container -->
+<main class="w-full max-w-[1280px] aspect-[16/9] bg-surface rounded-xl overflow-hidden flex flex-col relative border border-outline-variant">
+<!-- Header -->
+<header class="w-full px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Step 11 — Suivi</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Order Tracking & Fulfillment</p>
+</div>
+<div class="font-headline-md text-headline-md font-bold text-primary">Wholesale Pipeline</div>
+</header>
+<!-- Main Content Area - Bento Grid Layout -->
+<div class="flex-1 p-lg grid grid-cols-12 gap-gutter bg-surface-container-lowest">
+<!-- Left Column: Status Timeline & Actions -->
+<div class="col-span-12 md:col-span-7 flex flex-col gap-gutter h-full">
+<!-- Timeline Card -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex-1 flex flex-col shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-shadow">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface">Fulfillment Status</h2>
+<span class="inline-flex items-center gap-xs px-sm py-[4px] rounded-full bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span>
+                            En Transit
+                        </span>
+</div>
+<!-- Stepper -->
+<div class="relative flex-1 flex items-center justify-between px-md pt-lg pb-md">
+<!-- Connecting Line -->
+<div class="absolute left-md right-md top-1/2 -translate-y-1/2 h-[2px] bg-tertiary-fixed -z-10"></div>
+<!-- Progress Line -->
+<div class="absolute left-md w-[65%] top-1/2 -translate-y-1/2 h-[2px] bg-primary -z-10"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-sm relative z-10">
+<div class="w-lg h-lg rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">check</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Confirmed</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Oct 12, 09:41</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-sm relative z-10">
+<div class="w-lg h-lg rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Preparation</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Oct 13, 14:20</span>
+</div>
+<!-- Step 3 (Current) -->
+<div class="flex flex-col items-center gap-sm relative z-10">
+<div class="w-lg h-lg rounded-full bg-surface border-2 border-primary flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="font-label-md text-label-md text-primary">Shipped</span>
+<span class="font-body-sm text-body-sm text-primary">Oct 14, 08:15</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-sm relative z-10">
+<div class="w-lg h-lg rounded-full bg-surface-container-high border-2 border-outline-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Delivered</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Est. Oct 16</span>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="bg-primary-container/10 border border-primary/20 rounded-lg p-md flex items-center justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-primary-container">Live Operations Sync</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manage and track via your e-commerce backend.</p>
+</div>
+<button class="h-[40px] px-md bg-primary text-on-primary font-label-md text-label-md rounded flex items-center gap-sm hover:bg-on-primary-fixed-variant transition-colors shadow-[0_2px_4px_rgba(0,0,0,0.1)]">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                        Suivre ma commande sur Shopify
+                    </button>
+</div>
+</div>
+<!-- Right Column: Order Details -->
+<div class="col-span-12 md:col-span-5 flex flex-col gap-gutter h-full">
+<!-- Order Info Grid -->
+<div class="grid grid-cols-2 gap-sm">
+<!-- Order Number -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-shadow">
+<span class="material-symbols-outlined text-outline mb-sm">receipt_long</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Order Number</span>
+<span class="font-headline-md text-headline-md text-on-surface mt-xs">#B2B-8492A</span>
+</div>
+<!-- Carrier -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-shadow">
+<span class="material-symbols-outlined text-outline mb-sm">flight_takeoff</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Carrier</span>
+<span class="font-headline-md text-headline-md text-on-surface mt-xs">FedEx Freight</span>
+</div>
+</div>
+<!-- Expanded Details Card -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex-1 flex flex-col hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-shadow">
+<h3 class="font-label-md text-label-md text-on-surface mb-md pb-sm border-b border-outline-variant">Shipping Details</h3>
+<div class="flex flex-col gap-md">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Destination</span>
+<span class="font-body-md text-body-md text-on-surface font-medium block mt-xs">Enterprise Logistics Center</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">1200 Commerce Blvd, Suite 400<br/>Chicago, IL 60607</span>
+</div>
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Estimated Delivery</span>
+<div class="flex items-center gap-sm mt-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">calendar_today</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">October 16, 2024</span>
+</div>
+</div>
+<div class="mt-auto pt-md">
+<div class="h-24 w-full rounded border border-outline-variant bg-surface-container-low flex items-center justify-center overflow-hidden relative">
+<!-- Map Image Placeholder -->
+<div class="bg-cover bg-center w-full h-full absolute inset-0 opacity-50 mix-blend-multiply" data-alt="A clean, minimalist UI map visualization centered on Chicago. The map uses a light corporate color palette with subtle greys and a prominent teal (#006a61) location pin marking a logistics center. The style is professional, flat, and vector-based." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAapneRGN63vFuHU1oHZutve9pMoSAVvGwbX3QNUp9J7rToklmjshUemOPbP8845o1DE606cl7PSpwO2xXhoQsIVsnHx60BO8hCcVRgS2BKZWmWWVsWT56SIi25prKxWfbpyKeN3YqCEJwfiBlNoFpq9Fq2k0qKDTCnoSKcs5PLe_MZhMFj8ZD6aKBGtUpTU-P2_qMKFej0x1y7bieIE4bKQqgpAkEkV70ecGkT5QNLG5Me5RXJoa7SxsQvHOVjxJilQ5R20bxzLUY')"></div>
+<span class="material-symbols-outlined text-on-surface-variant z-10">map</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

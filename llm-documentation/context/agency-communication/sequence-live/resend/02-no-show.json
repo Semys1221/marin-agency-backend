@@ -1,0 +1,9 @@
+{
+  "system": "resend",
+  "id": "no-show",
+  "label": "No-show",
+  "trigger": "Missed call appointment",
+  "subject": "Vous avez manqu\u00e9 notre appel \u2014 {{entreprise}}",
+  "body": "Bonjour {{nom_prospect}},\n\nVous aviez un appel pr\u00e9vu avec nous {{rdv_date}} mais nous n'avons pas pu vous joindre.\n\nPas d'inqui\u00e9tude, \u00e7a arrive ! Je vous propose de {{proposition_rebond}}.\n\nR\u00e9servez directement ici un cr\u00e9neau qui vous convient :\n{{calendly_link}}\n\nBonne journ\u00e9e,\n\n{{gmail_signature}}",
+  "variables": ["nom_prospect", "rdv_date", "proposition_rebond", "calendly_link"]
+}

@@ -1,0 +1,36 @@
+{
+  "system": "loop",
+  "id": "onboarding",
+  "label": "Onboarding",
+  "trigger": "Deal closed, new client",
+  "steps": [
+    {
+      "step": 1,
+      "delay": 0,
+      "delay_unit": "days",
+      "subject": "Bienvenue chez Marin, {{prenom}} ! Voici les prochaines \u00e9tapes",
+      "body": "Bonjour {{prenom}},\n\nF\u00e9licitations, vous avez fait le premier pas pour booster votre d\u00e9veloppement commercial !\n\nOn est officiellement partenaires pour les 90 prochains jours. Voici ce qui vous attend d\u00e8s maintenant :\n\n**1. Acc\u00e8s \u00e0 votre dashboard**\nVotre espace client est pr\u00eat. Vous y trouverez le suivi de votre campagne, les performances et vos prochains appels.\n\u2192 [Lien dashboard]\n\n**2. Votre onboarding est programm\u00e9**\nOn vous a book\u00e9 un appel avec notre \u00e9quipe sous 48h pour :\n\u2022 Configurer votre campagne email\n\u2022 Installer vos logiciels (casque, outils)\n\u2022 Caler votre calendrier d'appels commerciaux\n\n**3. Ce qu'on attend de vous**\n\u2022 15 minutes pour votre premier appel de setup\n\u2022 Votre photo et votre biographie pour la page de vente\n\u2022 Vos disponibilit\u00e9s pour les appels prospects\n\nPr\u00eat \u00e0 commencer ? R\u00e9pondez \u00e0 cet email si vous avez la moindre question.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 2,
+      "delay": 3,
+      "delay_unit": "days",
+      "subject": "{{prenom}}, votre campagne email est en cours de configuration",
+      "body": "Bonjour {{prenom}},\n\nBonne nouvelle : votre campagne email est en cours de configuration. Voici un point sur l'avancement :\n\n\u2705 Dashboard accessible\n\u2705 Compte Microsoft cr\u00e9\u00e9\n\U0001f504 Campagne email en cours (niche cibl\u00e9e, templates, s\u00e9quences)\n\u23f3 Reste : votre photo professionnelle et votre biographie\n\n**Pour acc\u00e9l\u00e9rer :**\n\u2022 Envoyez-nous une photo professionnelle (ou un selfie fond neutre)\n\u2022 Confirmez votre pitch en 2-3 phrases sur ce que vous proposez \u00e0 vos clients\n\nD\u00e8s qu'on a \u00e7a, on lance la campagne. Vous serez notifi\u00e9 quand tout sera pr\u00eat.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 3,
+      "delay": 4,
+      "delay_unit": "days",
+      "subject": "Votre premier appel coaching \u2014 {{prenom}}",
+      "body": "Bonjour {{prenom}},\n\nJ'esp\u00e8re que tout se passe bien de votre c\u00f4t\u00e9. Je voulais vous confirmer notre premier appel de coaching commercial.\n\n**Objectif de l'appel :**\n\u2022 Vous pr\u00e9senter les scripts d'appel\n\u2022 R\u00e9pondre \u00e0 vos questions sur la prise de contact\n\u2022 Faire un premier jeu de r\u00f4le si vous voulez\n\n**Dur\u00e9e :** 30 minutes max\n**Pr\u00e9paration :** Aucune, on fait le point ensemble\n\nSi vous avez d\u00e9j\u00e0 re\u00e7u des premiers retours de votre campagne, on en profite pour les analyser.\n\n{{gmail_signature}}"
+    },
+    {
+      "step": 4,
+      "delay": 8,
+      "delay_unit": "days",
+      "subject": "15 jours d\u00e9j\u00e0 \u2014 {{prenom}}, c'est le moment du premier bilan",
+      "body": "Bonjour {{prenom}},\n\n15 jours ! Voici un premier point sur les r\u00e9sultats :\n\n**Ce qui a \u00e9t\u00e9 fait :**\n\u2022 Campagne email active\n\u2022 Appels commerciaux en cours\n\u2022 Dashboard \u00e0 jour\n\n**Premiers chiffres :**\n\u2022 Emails envoy\u00e9s : {{emails_envoyes}}\n\u2022 Taux d'ouverture : {{taux_ouverture}}\n\u2022 R\u00e9ponses re\u00e7ues : {{reponses_recues}}\n\u2022 Appels book\u00e9s : {{appels_bookes}}\n\n**Objectif prochaine quinzaine :**\n\u2022 Maintenir le rythme d'appels\n\u2022 Optimiser les relances selon les retours\n\u2022 Premier objectif de ventes\n\nOn fait un point t\u00e9l\u00e9phonique cette semaine pour ajuster le tir si n\u00e9cessaire.\n\n{{gmail_signature}}"
+    }
+  ]
+}

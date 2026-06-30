@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wholesale Pipeline - Step 6</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-container-low": "#f4f3f3",
+                        "on-primary-fixed": "#00201c",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "surface-dim": "#dadad9",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed-dim": "#61daca",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#181c1d",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#7ff6e6",
+                        "tertiary-fixed-dim": "#c4c7c7",
+                        "on-surface-variant": "#3d4947",
+                        "inverse-primary": "#61daca",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeed",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#e0e3e3",
+                        "tertiary-container": "#b0b3b3",
+                        "secondary-container": "#aeefe4",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#006a61",
+                        "on-secondary-fixed-variant": "#015048",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed-variant": "#434748",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#414546",
+                        "on-secondary-container": "#2e6f66",
+                        "primary-container": "#49c5b6",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#5b5f5f",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bcc9c6",
+                        "background": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#aeefe4",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary": "#276860",
+                        "primary": "#006a61",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#004e47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col items-center justify-center p-md">
+<!-- Top Navigation Suppression: Not rendered due to transactional/linear nature of a form wizard -->
+<!-- Main Content Canvas (16:9 Aspect Ratio) -->
+<main class="w-full max-w-[1280px] aspect-video bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex overflow-hidden relative">
+<!-- Left Section: Content -->
+<div class="flex-1 p-xl flex flex-col">
+<!-- Step Label -->
+<div class="mb-lg">
+<span class="inline-block px-sm py-xs bg-surface-container-high rounded text-on-surface-variant font-label-md text-label-md uppercase tracking-widest">
+                    Step 6 — Problème
+                </span>
+</div>
+<!-- Headline -->
+<h1 class="font-display-lg text-display-lg text-on-surface mb-xl">
+                Quels sont vos besoins actuels?
+            </h1>
+<!-- Form Area (Bento-style grid) -->
+<div class="flex-1 flex flex-col justify-between">
+<!-- Checkbox Grid -->
+<div class="grid grid-cols-2 gap-md mb-lg">
+<!-- Option 1 -->
+<label class="flex items-start gap-sm p-md border border-outline-variant rounded-lg hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:border-primary-container cursor-pointer transition-all duration-200 bg-surface-bright group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary focus:ring-offset-surface-bright" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-medium text-on-surface group-hover:text-primary transition-colors">Fiabilité des fournisseurs</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Garantir un approvisionnement constant.</span>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="flex items-start gap-sm p-md border border-outline-variant rounded-lg hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:border-primary-container cursor-pointer transition-all duration-200 bg-surface-bright group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary focus:ring-offset-surface-bright" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-medium text-on-surface group-hover:text-primary transition-colors">Amélioration des marges</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Optimiser les coûts d'achat.</span>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="flex items-start gap-sm p-md border border-outline-variant rounded-lg hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:border-primary-container cursor-pointer transition-all duration-200 bg-surface-bright group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary focus:ring-offset-surface-bright" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-medium text-on-surface group-hover:text-primary transition-colors">Réduction des délais</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Accélérer la chaîne logistique.</span>
+</div>
+</label>
+<!-- Option 4 -->
+<label class="flex items-start gap-sm p-md border border-outline-variant rounded-lg hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:border-primary-container cursor-pointer transition-all duration-200 bg-surface-bright group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary focus:ring-offset-surface-bright" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-medium text-on-surface group-hover:text-primary transition-colors">Qualité des produits</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Assurer des standards élevés.</span>
+</div>
+</label>
+<!-- Option 5 -->
+<label class="flex items-start gap-sm p-md border border-outline-variant rounded-lg hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:border-primary-container cursor-pointer transition-all duration-200 bg-surface-bright group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary focus:ring-offset-surface-bright" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-medium text-on-surface group-hover:text-primary transition-colors">Volume de commande</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Capacité à gérer de grandes quantités.</span>
+</div>
+</label>
+<!-- Option 6 -->
+<label class="flex items-start gap-sm p-md border border-outline-variant rounded-lg hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:border-primary-container cursor-pointer transition-all duration-200 bg-surface-bright group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary focus:ring-offset-surface-bright" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-medium text-on-surface group-hover:text-primary transition-colors">Conditions de paiement</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Flexibilité des échéances.</span>
+</div>
+</label>
+</div>
+<!-- 'Other' Text Field -->
+<div class="w-full max-w-2xl">
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="other-needs">Autre (veuillez préciser)</label>
+<input class="w-full h-[40px] px-sm border border-outline-variant rounded bg-surface-bright text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="other-needs" placeholder="Entrez vos autres besoins ici..." type="text"/>
+</div>
+</div>
+<!-- Footer / Progress Status -->
+<div class="mt-lg pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<div class="h-2 w-8 bg-tertiary-fixed-dim rounded-full"></div>
+<div class="h-2 w-8 bg-tertiary-fixed-dim rounded-full"></div>
+<div class="h-2 w-8 bg-tertiary-fixed-dim rounded-full"></div>
+<div class="h-2 w-8 bg-tertiary-fixed-dim rounded-full"></div>
+<div class="h-2 w-8 bg-tertiary-fixed-dim rounded-full"></div>
+<div class="h-2 w-8 bg-primary rounded-full"></div>
+<div class="h-2 w-8 bg-surface-container-high rounded-full"></div>
+<div class="h-2 w-8 bg-surface-container-high rounded-full"></div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[20px]" data-icon="arrow_back">arrow_back</span>
+                    Retour
+                </button>
+</div>
+</div>
+<!-- Right Section: Progression Arrow & Image Area -->
+<div class="w-[320px] bg-surface-container flex flex-col items-center justify-center relative group cursor-pointer border-l border-outline-variant overflow-hidden">
+<!-- Decorative Background Image -->
+<div class="absolute inset-0 opacity-20 transition-opacity duration-300 group-hover:opacity-30" data-alt="A macro shot of a sleek, modern architectural structure with subtle teal accents, representing reliability and structure in a professional business context. High key lighting, clean lines, minimalist aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAlDtW_FgUL1ptK1cj94N7jfTgezSL0BI6rpelMbgk6_TZkoUSl9cee-D2AFPX59GUP-W4nkFrZgFw_f1V8tiGXFNAt2_ujfU5_q-S_ZBkfKx3YDnDDzULd9wOiwQ936f_DyfFu-igZNza-TGh4HlRfXHQQERJeoGvYUycrgltqipXmN6NVTZihEL2IqnBmPyK6nCPRYEyMHl5D0puoeGI6U--K7XmwOUDcm8EuCui8yhAeMpt9wfr357MN_Y0_zqLvUgXsbOfxSZo')"></div>
+<!-- Progression Arrow Button -->
+<div class="z-10 bg-primary w-24 h-24 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300 group-hover:bg-primary-container">
+<span class="material-symbols-outlined text-on-primary text-[48px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<span class="z-10 mt-sm font-label-md text-label-md text-on-surface uppercase tracking-wider">Suivant</span>
+</div>
+</main>
+<!-- Navigation Bottom Border Supression -->
+</body></html>

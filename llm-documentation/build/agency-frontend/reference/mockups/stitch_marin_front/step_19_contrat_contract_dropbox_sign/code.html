@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marin - Step 19: Contrat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#984629",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dee4e1",
+                        "secondary-fixed-dim": "#93d3c8",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#49c5b6",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-high": "#e4e9e7",
+                        "inverse-on-surface": "#ecf2f0",
+                        "outline": "#6d7a77",
+                        "on-background": "#171d1c",
+                        "background": "#f5fbf8",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed-dim": "#61daca",
+                        "inverse-primary": "#61daca",
+                        "surface": "#f5fbf8",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#eff5f2",
+                        "primary": "#006a61",
+                        "on-secondary-container": "#2e6f66",
+                        "on-surface": "#171d1c",
+                        "primary-fixed": "#7ff6e6",
+                        "surface-container-highest": "#dee4e1",
+                        "surface-container": "#e9efed",
+                        "secondary-container": "#aeefe4",
+                        "secondary": "#276860",
+                        "tertiary-container": "#ff9774",
+                        "surface-dim": "#d5dbd9",
+                        "secondary-fixed": "#aeefe4",
+                        "inverse-surface": "#2c3230",
+                        "on-tertiary-container": "#772e13",
+                        "on-secondary-fixed": "#00201c",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7a3015",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201c",
+                        "on-primary-container": "#004e47",
+                        "on-secondary-fixed-variant": "#015048",
+                        "surface-bright": "#f5fbf8",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-tint": "#006a61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "xl": "3rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-phase": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "step-indicator": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-phase": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "step-indicator": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Aspect Ratio for main container */
+        .aspect-video-container {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface h-screen w-full flex flex-col font-sans antialiased overflow-hidden">
+<!-- Main Content Container maintaining 16:9 aspect ratio -->
+<main class="flex-grow flex items-center justify-center p-sm md:p-lg">
+<div class="aspect-video-container bg-surface-container-lowest shadow-sm rounded-xl overflow-hidden flex flex-col border border-outline-variant relative">
+<!-- Header Area inside the 16:9 container -->
+<header class="flex justify-between items-center px-lg py-md border-b border-outline-variant shrink-0">
+<div>
+<span class="text-step-indicator font-step-indicator text-primary-fixed-dim uppercase tracking-widest bg-secondary-container bg-opacity-20 px-2 py-1 rounded">ONBOARDING</span>
+<h1 class="text-headline-lg font-headline-lg mt-xs text-on-surface">Signature du contrat de service</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Step 19 — Contrat</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded hover:bg-surface-container-low transition-colors text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Télécharger PDF
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded hover:bg-primary-fixed-dim hover:text-on-primary-fixed-variant transition-colors shadow-sm text-label-sm font-label-sm font-semibold">
+                        Signer via Dropbox Sign
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-grow flex overflow-hidden">
+<!-- Left Column: Clauses Grid -->
+<div class="w-1/3 bg-surface-container-low border-r border-outline-variant p-md overflow-y-auto">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">gavel</span>
+                        Sommaire des clauses
+                    </h2>
+<div class="grid grid-cols-1 gap-sm">
+<!-- Clause 1 -->
+<div class="bg-surface-container-lowest p-sm border border-outline-variant rounded-lg hover:border-primary cursor-pointer transition-colors shadow-sm">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex justify-between items-center">
+                                1. Objet du Contrat
+                                <span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Définition des services fournis par Marin.</p>
+</div>
+<!-- Clause 2 -->
+<div class="bg-surface-container-lowest p-sm border border-outline-variant rounded-lg hover:border-primary cursor-pointer transition-colors shadow-sm">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex justify-between items-center">
+                                2. Obligations des Parties
+                                <span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Responsabilités mutuelles et engagements.</p>
+</div>
+<!-- Clause 3 -->
+<div class="bg-surface-container-lowest p-sm border border-primary shadow-sm rounded-lg relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<h3 class="text-body-md font-body-md font-semibold text-primary flex justify-between items-center">
+                                3. Conditions Financières
+                                <span class="material-symbols-outlined text-outline-variant text-[16px]">radio_button_unchecked</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Tarification, facturation et modalités de paiement.</p>
+</div>
+<!-- Clause 4 -->
+<div class="bg-surface-container-lowest p-sm border border-outline-variant rounded-lg hover:border-primary cursor-pointer transition-colors opacity-70">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex justify-between items-center">
+                                4. Propriété Intellectuelle
+                                <span class="material-symbols-outlined text-outline-variant text-[16px]">radio_button_unchecked</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Droits d'utilisation et protection des données.</p>
+</div>
+<!-- Clause 5 -->
+<div class="bg-surface-container-lowest p-sm border border-outline-variant rounded-lg hover:border-primary cursor-pointer transition-colors opacity-70">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex justify-between items-center">
+                                5. Confidentialité
+                                <span class="material-symbols-outlined text-outline-variant text-[16px]">radio_button_unchecked</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Protection des informations sensibles.</p>
+</div>
+<!-- Clause 6 -->
+<div class="bg-surface-container-lowest p-sm border border-outline-variant rounded-lg hover:border-primary cursor-pointer transition-colors opacity-70">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex justify-between items-center">
+                                6. Durée et Résiliation
+                                <span class="material-symbols-outlined text-outline-variant text-[16px]">radio_button_unchecked</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Validité du contrat et conditions de rupture.</p>
+</div>
+<!-- Clause 7 -->
+<div class="bg-surface-container-lowest p-sm border border-outline-variant rounded-lg hover:border-primary cursor-pointer transition-colors opacity-70">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex justify-between items-center">
+                                7. Responsabilité
+                                <span class="material-symbols-outlined text-outline-variant text-[16px]">radio_button_unchecked</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Limites de garantie et dommages.</p>
+</div>
+<!-- Clause 8 -->
+<div class="bg-surface-container-lowest p-sm border border-outline-variant rounded-lg hover:border-primary cursor-pointer transition-colors opacity-70">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex justify-between items-center">
+                                8. Litiges
+                                <span class="material-symbols-outlined text-outline-variant text-[16px]">radio_button_unchecked</span>
+</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 truncate">Droit applicable et juridiction compétente.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Document Viewer (Mock Dropbox Sign) -->
+<div class="w-2/3 bg-surface-dim p-md flex flex-col relative overflow-hidden">
+<!-- Top bar of viewer -->
+<div class="bg-surface-container-lowest rounded-t-lg border-t border-l border-r border-outline-variant p-2 flex justify-between items-center shadow-sm z-10">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="text-label-sm font-label-sm font-semibold">Contrat_Service_Marin_v2.pdf</span>
+</div>
+<div class="flex gap-2 text-on-surface-variant">
+<button class="hover:text-primary p-1 rounded hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]">zoom_out</span></button>
+<span class="text-label-sm font-label-sm flex items-center">100%</span>
+<button class="hover:text-primary p-1 rounded hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]">zoom_in</span></button>
+</div>
+</div>
+<!-- Viewer Area (The Document itself) -->
+<div class="bg-surface-container-lowest flex-grow border border-outline-variant rounded-b-lg shadow-sm overflow-y-auto relative p-xl flex flex-col items-center">
+<!-- Document Page Mock -->
+<div class="w-full max-w-[600px] bg-white shadow-md border border-surface-variant p-xl min-h-[800px] flex flex-col">
+<div class="border-b border-surface-variant pb-md mb-md">
+<h4 class="text-headline-md font-headline-md text-on-surface text-center uppercase tracking-wide">Contrat de Prestation de Services</h4>
+</div>
+<div class="space-y-md text-body-md font-body-md text-on-surface-variant flex-grow">
+<p><strong>Entre les soussignés :</strong></p>
+<p><strong>MARIN SALES SYSTEMS</strong>, SAS au capital de 50 000€, dont le siège social est situé 12 Avenue des Ventes, 75001 Paris, immatriculée au RCS de Paris sous le numéro 812 345 678, représentée par M. Jean Dupont en sa qualité de Directeur Général, ci-après dénommée "Le Prestataire",</p>
+<p><strong>ET</strong></p>
+<p><strong>ACME CORP</strong>, SA au capital de 1 000 000€, dont le siège social est situé 45 Rue de l'Industrie, 69002 Lyon, immatriculée au RCS de Lyon sous le numéro 123 456 789, représentée par Mme Sophie Martin en sa qualité de Directrice des Achats, ci-après dénommée "Le Client".</p>
+<h5 class="text-lg font-bold text-on-surface mt-lg">Article 3 : Conditions Financières</h5>
+<p>En contrepartie de la réalisation des prestations définies à l'Article 1, le Client s'engage à verser au Prestataire une rémunération forfaitaire annuelle de <strong>120 000 € HT</strong> (cent vingt mille euros hors taxes).</p>
+<p>Ce montant sera facturé selon l'échéancier suivant :</p>
+<ul class="list-disc pl-lg space-y-1">
+<li>30% à la signature des présentes, soit 36 000 € HT ;</li>
+<li>40% à l'issue de la phase de découverte, soit 48 000 € HT ;</li>
+<li>30% à la livraison finale, soit 36 000 € HT.</li>
+</ul>
+<!-- Signature Block Highlighted -->
+<div class="mt-xl border-2 border-primary-container bg-primary-container bg-opacity-10 p-md rounded relative">
+<div class="absolute -top-3 left-4 bg-primary-container text-on-primary-container text-xs font-bold px-2 py-1 rounded">Veuillez signer ici</div>
+<p class="text-sm font-bold text-on-surface mb-4">Pour le Client (ACME Corp)</p>
+<div class="h-20 border border-dashed border-primary flex items-center justify-center bg-white cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl opacity-50">draw</span>
+<span class="text-primary font-medium ml-2 opacity-80">Cliquez pour signer</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-2">Date: __/__/____</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
