@@ -1,0 +1,84 @@
+{
+  "tenant_id": "grossiste-test",
+  "niches": [
+    {
+      "name": "grossiste_materiel_medical",
+      "keywords": [
+        "grossiste mat\u00e9riel m\u00e9dical France",
+        "fournisseur mat\u00e9riel m\u00e9dical"
+      ],
+      "target": 10,
+      "instantly_object": "devis mat\u00e9riel m\u00e9dical",
+      "offer": {
+        "description": "Nous aidons les grossistes en mat\u00e9riel m\u00e9dical \u00e0 trouver des revendeurs B2B",
+        "pain_points": [
+          "carnet d'adresses limit\u00e9",
+          "difficult\u00e9 \u00e0 prospecter",
+          "manque de temps"
+        ],
+        "benefits": [
+          "leads qualifi\u00e9s",
+          "gain de temps",
+          "ROI mesurable"
+        ],
+        "intro_style": "default",
+        "ctas": [
+          "Souhaitez-vous en savoir plus ?"
+        ]
+      }
+    },
+    {
+      "name": "grossiste_pharmaceutique",
+      "keywords": [
+        "grossiste pharmaceutique France",
+        "r\u00e9partiteur pharmaceutique"
+      ],
+      "target": 10,
+      "instantly_object": "catalogue pharmaceutique",
+      "offer": {
+        "description": "Nous aidons les grossistes pharmaceutiques \u00e0 \u00e9largir leur r\u00e9seau de pharmacies partenaires",
+        "pain_points": [
+          "concurrence accrue",
+          "marges serr\u00e9es",
+          "difficult\u00e9 \u00e0 recruter des pharmacies"
+        ],
+        "benefits": [
+          "nouveaux partenaires",
+          "automatisation",
+          "suivi performance"
+        ],
+        "intro_style": "default",
+        "ctas": [
+          "Souhaitez-vous en savoir plus ?"
+        ]
+      }
+    },
+    {
+      "name": "grossiste_optique",
+      "keywords": [
+        "grossiste optique France",
+        "fournisseur optique lunettes"
+      ],
+      "target": 10,
+      "instantly_object": "catalogue optique",
+      "offer": {
+        "description": "Nous aidons les grossistes en optique \u00e0 trouver des opticien(ne)s partenaires",
+        "pain_points": [
+          "march\u00e9 satur\u00e9",
+          "difficult\u00e9 \u00e0 se diff\u00e9rencier",
+          "prospection chronophage"
+        ],
+        "benefits": [
+          "leads cibl\u00e9s",
+          "campagnes automatis\u00e9es",
+          "analyse des performances"
+        ],
+        "intro_style": "default",
+        "ctas": [
+          "Souhaitez-vous en savoir plus ?"
+        ]
+      }
+    }
+  ],
+  "target": 10
+}

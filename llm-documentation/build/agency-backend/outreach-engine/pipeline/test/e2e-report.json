@@ -1,0 +1,55 @@
+{
+  "tenant": "grossiste-test",
+  "timestamp": "2026-07-02T07:34:11.674397+00:00",
+  "duration_seconds": 27.86374592781067,
+  "passed": 9,
+  "failed": 0,
+  "total": 9,
+  "steps": [
+    {
+      "name": "Création du tenant config",
+      "status": "✅",
+      "detail": "Config created at /Users/evqn/Documents/agency-workspace/llm-documentation/build/agency-backend/outreach-engine/pipeline/users/grossiste-test/config.json"
+    },
+    {
+      "name": "Vérification des séquences",
+      "status": "✅",
+      "detail": "Templates par défaut sauvegardés"
+    },
+    {
+      "name": "Initialisation rotation_state",
+      "status": "✅",
+      "detail": "3 niches initialisées"
+    },
+    {
+      "name": "Rotation Engine — Cycle 1",
+      "status": "✅",
+      "detail": "[{\"action\": \"scrape\", \"niche\": \"grossiste_materiel_medical\", \"reason\": \"Only 0 sent, need 1000\"}, {\"action\": \"scrape\", \"niche\": \"grossiste_pharmaceutique\", \"reason\": \"Only 0 sent, need 1000\"}, {\"actio"
+    },
+    {
+      "name": "Scraping Outscraper — 10 leads",
+      "status": "✅",
+      "detail": "{\"niche\": \"grossiste_materiel_medical\", \"stats\": {\"total\": 20, \"with_email\": 0, \"with_phone\": 20, \"valid\": 20, \"filtered_out\": 0}, \"leads_count\": 20}"
+    },
+    {
+      "name": "Validation Email — MyEmailVerifier",
+      "status": "✅",
+      "detail": "0/3 valides"
+    },
+    {
+      "name": "Push — Création campagne Instantly + envoi leads",
+      "status": "✅",
+      "detail": "Campagne 'grossiste_materiel_medical-grossiste-test-20260702' traitée"
+    },
+    {
+      "name": "Rotation Engine — Cycle 2 (mimic DB change)",
+      "status": "✅",
+      "detail": "[{\"action\": \"scrape\", \"niche\": \"grossiste_materiel_medical\", \"reason\": \"Only 0 sent, need 1000\"}, {\"action\": \"scrape\", \"niche\": \"grossiste_pharmaceutique\", \"reason\": \"Only 0 sent, need 1000\"}, {\"actio"
+    },
+    {
+      "name": "Rapport final",
+      "status": "✅",
+      "detail": "✅ *E2E Test* : 8/8 étapes OK"
+    }
+  ]
+}

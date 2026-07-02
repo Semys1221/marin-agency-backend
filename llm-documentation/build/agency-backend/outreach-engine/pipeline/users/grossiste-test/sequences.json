@@ -1,0 +1,44 @@
+{
+  "grossiste_materiel_medical": {
+    "steps": [
+      {
+        "day": 0,
+        "subject": "Partenariat grossiste_materiel_medical",
+        "body": "Bonjour,\n\nNous accompagnons les professionnels du secteur. Pouvons-nous échanger ?\n\nCordialement"
+      },
+      {
+        "day": 3,
+        "subject": "Suite à mon précédent message",
+        "body": "Je me permets de revenir vers vous. Avez-vous eu le temps de réfléchir ?\n\nBien cordialement"
+      }
+    ]
+  },
+  "grossiste_pharmaceutique": {
+    "steps": [
+      {
+        "day": 0,
+        "subject": "Partenariat grossiste_pharmaceutique",
+        "body": "Bonjour,\n\nNous accompagnons les professionnels du secteur. Pouvons-nous échanger ?\n\nCordialement"
+      },
+      {
+        "day": 3,
+        "subject": "Suite à mon précédent message",
+        "body": "Je me permets de revenir vers vous. Avez-vous eu le temps de réfléchir ?\n\nBien cordialement"
+      }
+    ]
+  },
+  "grossiste_optique": {
+    "steps": [
+      {
+        "day": 0,
+        "subject": "Partenariat grossiste_optique",
+        "body": "Bonjour,\n\nNous accompagnons les professionnels du secteur. Pouvons-nous échanger ?\n\nCordialement"
+      },
+      {
+        "day": 3,
+        "subject": "Suite à mon précédent message",
+        "body": "Je me permets de revenir vers vous. Avez-vous eu le temps de réfléchir ?\n\nBien cordialement"
+      }
+    ]
+  }
+}
