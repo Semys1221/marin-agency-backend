@@ -122,7 +122,7 @@ def main():
     parser.add_argument("--tenant", default=os.getenv("TENANT_ID", "marin"), help="Tenant ID")
     parser.add_argument("--config", help="Path to config.json (default: auto-detect)")
     parser.add_argument("--once", action="store_true", help="Run one worker cycle and exit")
-    parser.add_argument("--mode", choices=["pipeline", "survivor"], help="Runner mode: pipeline or survivor")
+    parser.add_argument("--mode", choices=["pipeline", "survivor", "survivor-cleaner"], help="Runner mode: pipeline, survivor, or survivor-cleaner")
     args = parser.parse_args()
 
     if args.mode == "survivor":
