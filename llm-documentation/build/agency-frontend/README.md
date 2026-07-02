@@ -18,6 +18,7 @@ An agent MUST follow this order — never build a variant before the template ex
 | 6 | **`crash-test-sandbox/README.md`** | template + backend | Procédure de simulation client (Stripe + Dropbox test) |
 | 7 | **`production-go-live/README.md`** | crash-test sandbox | Checklist de mise en production client |
 | 8 | **`call-recording/README.md`** | template + backend | Système d'enregistrement d'appels + transcription |
+| 9 | **`video-marketing/`** | Nothing | Production vidéo motion design (OpenCode + Remotion) — pour le marketing Marin |
 
 ## Structure
 
@@ -35,6 +36,10 @@ An agent MUST follow this order — never build a variant before the template ex
 | `crash-test-sandbox/README.md` | Procédure de simulation réelle avant go-live |
 | `production-go-live/README.md` | Checklist de mise en production client |
 | `call-recording/README.md` | Système d'enregistrement d'appels + transcription IA |
+| `video-marketing/README.md` | Production vidéo motion design (OpenCode + Remotion) |
+| `video-marketing/AGENTS.md` | Règles et gates pour la production vidéo |
+| `video-marketing/workflow.md` | Méthode pas-à-pas (art direction → render) |
+| `video-marketing/prompts/` | Prompts prêts-à-l'emploi (explainer, funnel-step, testimonial) |
 | `dashboard/` | Dashboards clients HTML statique (marin + e-commerce + template) |
 | `dashboard/AGENTS.md` | Règles dashboard : static HTML only, no framework |
 | `dashboard/marin-dashboard/README.md` | Spec dashboard client Marin Agency |

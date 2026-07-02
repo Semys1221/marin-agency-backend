@@ -2,8 +2,10 @@
 
 **Eraser diagram:** https://app.eraser.io/workspace/SG0Y12i3rX6JQ8PTTKrZ?diagram=pJP9cb61sDXIxOHswPul
 
+**Doc MyEmailVerifier:** https://github.com/pat-myemailverifier/myemailverifier-api
+
 ## Purpose
-Three-stage email validation: MX check + syntax → Handshake API → DB Bounce API. Outputs clean leads ready for campaigns.
+Two-stage email validation: MX check + syntax → MyEmailVerifier API. Outputs clean leads ready for campaigns.
 
 ## Database Tables
 
@@ -65,22 +67,32 @@ except:
     has_mx = False
 ```
 
-### Handshake API
+### MyEmailVerifier API
 ```python
-requests.post("https://api.handshake.com/v1/verify", json={"email": email}, headers={"X-API-Key": HANDSHAKE_API_KEY})
-# Returns: {"status": "valid"|"risky"|"invalid", "risk_level": "low"|"medium"|"high"}
-```
+import requests
 
-### DB Bounce API
-```python
-requests.post("https://api.dbbounce.com/v1/verify", json={"email": email}, headers={"X-API-Key": DBBOUNCE_API_KEY})
-# Returns: {"status": "valid"|"bounce", "score": 0-100}
+MYEMAILVERIFIER_API_KEY = os.getenv("MYEMAILVERIFIER_API_KEY")
+
+resp = requests.get(
+    "https://api.myemailverifier.com/api/validate_single.php",
+    params={"apikey": MYEMAILVERIFIER_API_KEY, "email": email},
+    timeout=10,
+)
+data = resp.json()
+# data = {
+#   "Address": "test@example.com",
+#   "Status": "Valid" | "Invalid" | "Catch-all" | "Unknown",
+#   "catch_all": "true" | "false",
+#   "Disposable_Domain": "true" | "false",
+#   "Role_Based": "true" | "false",
+#   "Free_Domain": "true" | "false",
+#   "Diagnosis": "Mailbox Exists and Active" | ...
+# }
 ```
 
 ## Env Vars
 ```
-HANDSHAKE_API_KEY=...
-DBBOUNCE_API_KEY=...
+MYEMAILVERIFIER_API_KEY=V5IOl8dgKfhHo5Ln
 SUPABASE_URL=...
 SUPABASE_SERVICE_ROLE_KEY=...
 ```
@@ -93,17 +105,16 @@ SUPABASE_SERVICE_ROLE_KEY=...
 3. Syntax validation — reject malformed emails
 4. Role-based detection (`contact@`, `info@`, `admin@`) → flag high risk
 
-### Stage 2 — Handshake API
-1. Send survivors to Handshake API
-2. Reject `risky` or `invalid` emails
-3. Accept `valid` with risk_level `low` or `medium`
+> **Petit volume (< 100 leads) :** utiliser `scripts/email-validator/cleaner.py --local`.
+> Pour le pipeline complet : `scripts/email-validator/cleaner.py` (stage 1 local + stage 2 API).
 
-### Stage 3 — Deep Clean (DB Bounce)
-1. Send Handshake-validated leads to DB Bounce
-2. Upsert survivors into `clean_leads` with status `fresh`
+### Stage 2 — MyEmailVerifier API
+1. Send survivors to MyEmailVerifier API
+2. Reject `Invalid` or `Catch-all` emails
+3. Accept `Valid` emails (optionally flag `Role_Based` as high risk)
 
 ## Edge Cases
-- Handshake key dead → skip Stage 2, use MX-only
-- DB Bounce key dead → skip Stage 3, use Handshake-only
+- MyEmailVerifier key dead → cleaner.py fallback sur stage 1 (`--local`)
+- API rate limited (30 req/min default) → client.py queue + retry automatique
 - All leads rejected → mark campaign "needs new source"
-- Demo mode: skip all API calls, move leads directly with random risk scores
+- Demo mode (`--demo`) → zéro appel API, risques aléatoires

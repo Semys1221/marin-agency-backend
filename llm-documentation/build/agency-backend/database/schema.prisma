@@ -1,0 +1,322 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// ===== LEGACY — Outreach Engine =====
+
+model CampaignQueue {
+  id                 String   @id @default(uuid()) @db.Uuid
+  niche              String
+  city               String
+  nicheTarget        String?  @map("niche_target")
+  status             String   @default("pending")
+  smartleadCampaignId BigInt? @map("smartlead_campaign_id")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @default(now()) @map("updated_at")
+  batch              Int      @default(1)
+  includeKeywords    String?  @map("include_keywords")
+  excludeKeywords    String?  @map("exclude_keywords")
+  priority           Int      @default(99)
+
+  leads        Lead[]
+  campaignAnalytics CampaignAnalytics[]
+
+  @@index([status])
+  @@map("campaign_queue")
+}
+
+model Lead {
+  id              String   @id @default(uuid()) @db.Uuid
+  placeId         String   @map("place_id")
+  campaignQueueId String?  @map("campaign_queue_id") @db.Uuid
+  email           String
+  firstName       String?  @map("first_name")
+  companyName     String?  @map("company_name")
+  domain          String?
+  phone           String?
+  location        String?
+  niche           String?
+  status          String   @default("raw")
+  metadata        Json?    @default("{}")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @map("updated_at")
+  valid           Boolean?
+  city            String?
+
+  campaignQueue CampaignQueue? @relation(fields: [campaignQueueId], references: [id])
+
+  @@unique([placeId])
+  @@index([campaignQueueId])
+  @@index([status])
+  @@map("leads")
+}
+
+model CampaignSetting {
+  id                   String   @id @default(uuid()) @db.Uuid
+  smartleadCampaignId  Int      @map("smartlead_campaign_id")
+  schedule             Json?
+  settings             Json?
+  emailAccountIds      Int[]    @map("email_account_ids")
+  raw                  Json?
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @default(now()) @map("updated_at")
+
+  @@unique([smartleadCampaignId])
+  @@map("campaign_settings")
+}
+
+model CampaignAnalytics {
+  id                  String   @id @default(uuid()) @db.Uuid
+  smartleadCampaignId BigInt   @map("smartlead_campaign_id")
+  campaignName        String?  @map("campaign_name")
+  totalSent           Int      @default(0) @map("total_sent")
+  replied             Int      @default(0)
+  autoReplies         Int      @default(0) @map("auto_replies")
+  trueReplies         Int      @default(0) @map("true_replies")
+  trueReplyRate        Decimal? @map("true_reply_rate")
+  bounced             Int      @default(0)
+  unsubscribed        Int      @default(0)
+  opened              Int      @default(0)
+  clicked             Int      @default(0)
+  rawAnalytics        Json?    @map("raw_analytics")
+  snapshotAt          DateTime @default(now()) @map("snapshot_at")
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  @@unique([smartleadCampaignId])
+  @@index([smartleadCampaignId])
+  @@index([snapshotAt])
+  @@map("campaign_analytics")
+}
+
+model NicheVariable {
+  id             String   @id @default(uuid()) @db.Uuid
+  niche          String   @unique
+  nicheKeyword1  String?  @map("niche_keyword_1")
+  nicheKeyword2  String?  @map("niche_keyword_2")
+  nicheKeyword3  String?  @map("niche_keyword_3")
+  nicheMember    String?  @map("niche_member")
+  objectif       String?
+  painPoint      String?  @map("pain_point")
+  methode        String?
+  timeline       String   @default("60 jours")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @default(now()) @map("updated_at")
+  offre          String?
+
+  @@map("niche_variable")
+}
+
+model RdvDetail {
+  id                        String   @id @default(uuid()) @db.Uuid
+  calendlyEventUuid         String   @unique @map("calendly_event_uuid")
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @default(now()) @map("updated_at")
+  identityName              String?  @map("identity_name")
+  identityFunction          String?  @map("identity_function")
+  identityOrganization      String?  @map("identity_organization")
+  identityLocation          String?  @map("identity_location")
+  identityEmail             String?  @map("identity_email")
+  identityPhone             String?  @map("identity_phone")
+  identityContactPoint      String?  @map("identity_contact_point")
+  engagementInterestLevel   String?  @map("engagement_interest_level")
+  engagementAcquisitionProcess String? @map("engagement_acquisition_process")
+  engagementAdditionalInfo  String?  @map("engagement_additional_info")
+  sessionTitle              String?  @map("session_title")
+  sessionExpectations       String?  @map("session_expectations")
+  sessionConversionArgument String?  @map("session_conversion_argument")
+
+  @@map("rdv_details")
+}
+
+/// ===== NEW — Backend Architecture =====
+
+model Tenant {
+  id        String   @id @default(uuid()) @db.Uuid
+  slug      String   @unique
+  name      String
+  email     String?
+  phone     String?
+  domain    String?
+  logoUrl   String?  @map("logo_url")
+  config    Json?    @default("{}")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  clients         Client[]
+  callSessions    CallSession[]
+  tickets         Ticket[]
+  callRecordings  CallRecording[]
+  invoices        Invoice[]
+  contracts       Contract[]
+  funnelSubmissions FunnelSubmission[]
+
+  @@map("tenants")
+}
+
+model Client {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @map("tenant_id") @db.Uuid
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  siret     String?
+  status    String   @default("lead")
+  metadata  Json?    @default("{}")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([email])
+  @@index([status])
+  @@map("clients")
+}
+
+model CallSession {
+  id              String   @id @default(uuid()) @db.Uuid
+  tenantId        String   @map("tenant_id") @db.Uuid
+  clientId        String?  @map("client_id") @db.Uuid
+  calendlyEventUuid String? @map("calendly_event_uuid")
+  status          String   @default("scheduled")
+  scheduledAt     DateTime? @map("scheduled_at")
+  startedAt       DateTime? @map("started_at")
+  endedAt         DateTime? @map("ended_at")
+  durationMinutes Int?     @map("duration_minutes")
+  notes           Json?    @default("{}")
+  decision        String?  @default("pending")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@index([status])
+  @@map("call_sessions")
+}
+
+model CallRecording {
+  id              String   @id @default(uuid()) @db.Uuid
+  tenantId        String   @map("tenant_id") @db.Uuid
+  callSessionId   String?  @map("call_session_id") @db.Uuid
+  storagePath     String   @map("storage_path")
+  fileName        String?  @map("file_name")
+  fileSizeBytes   BigInt?  @map("file_size_bytes")
+  mimeType        String?  @map("mime_type")
+  durationSeconds Int?     @map("duration_seconds")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([callSessionId])
+  @@map("call_recordings")
+}
+
+model Ticket {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @map("tenant_id") @db.Uuid
+  subject     String
+  description String?
+  status      String   @default("open")
+  priority    String   @default("normal")
+  assignee    String?
+  source      String   @default("email")
+  slaDueAt    DateTime? @map("sla_due_at")
+  resolvedAt  DateTime? @map("resolved_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @map("updated_at")
+
+  tenant   Tenant     @relation(fields: [tenantId], references: [id])
+  messages TicketMessage[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([priority])
+  @@map("tickets")
+}
+
+model TicketMessage {
+  id        String   @id @default(uuid()) @db.Uuid
+  ticketId  String   @map("ticket_id") @db.Uuid
+  fromEmail String?  @map("from_email")
+  body      String
+  isAiReply Boolean  @default(false) @map("is_ai_reply")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  ticket Ticket @relation(fields: [ticketId], references: [id])
+
+  @@index([ticketId])
+  @@map("ticket_messages")
+}
+
+model Invoice {
+  id            String   @id @default(uuid()) @db.Uuid
+  tenantId      String   @map("tenant_id") @db.Uuid
+  clientId      String?  @map("client_id") @db.Uuid
+  stripeInvoiceId String? @unique @map("stripe_invoice_id")
+  amount        Decimal
+  currency      String   @default("eur")
+  status        String   @default("pending")
+  paidAt        DateTime? @map("paid_at")
+  dueAt         DateTime? @map("due_at")
+  metadata      Json?    @default("{}")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @default(now()) @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@index([status])
+  @@map("invoices")
+}
+
+model Contract {
+  id               String   @id @default(uuid()) @db.Uuid
+  tenantId         String   @map("tenant_id") @db.Uuid
+  clientId         String?  @map("client_id") @db.Uuid
+  dropboxSignId    String?  @unique @map("dropbox_sign_id")
+  templateId       String?  @map("template_id")
+  status           String   @default("draft")
+  signedAt         DateTime? @map("signed_at")
+  expiresAt        DateTime? @map("expires_at")
+  signingUrl       String?  @map("signing_url")
+  metadata         Json?    @default("{}")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @default(now()) @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@index([status])
+  @@map("contracts")
+}
+
+model FunnelSubmission {
+  id              String   @id @default(uuid()) @db.Uuid
+  tenantId        String   @map("tenant_id") @db.Uuid
+  clientId        String?  @map("client_id") @db.Uuid
+  funnelType      String   @map("funnel_type")
+  step            Int      @default(0)
+  data            Json     @default("{}")
+  completed       Boolean  @default(false)
+  submittedAt     DateTime? @map("submitted_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@index([funnelType])
+  @@map("funnel_submissions")
+}

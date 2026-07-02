@@ -35,7 +35,7 @@ model NicheVariable {
 ### Gemini
 ```python
 import google.generativeai as genai
-genai.configure(api_key=GEMINI_API_KEY)
+genai.configure(api_key=HERMES_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
 response = model.generate_content(f"Generate 10 sub-niches within {niche} for {location}")
 ```
@@ -49,7 +49,7 @@ slack.chat_postMessage(channel=SLACK_CHANNEL_ID, text=f"🧠 10 niches generated
 
 ## Env Vars
 ```
-GEMINI_API_KEY=...
+HERMES_API_KEY=...
 SLACK_BOT_TOKEN=...
 SLACK_CHANNEL_ID=...
 SUPABASE_URL=...
@@ -66,7 +66,7 @@ SUPABASE_SERVICE_ROLE_KEY=...
 7. Return niche list to scheduler
 
 ## Edge Cases
-- Gemini key dead (`GEMINI_API_KEY === '...'`) → return error, alert Slack, retry 60s
+- Gemini key dead (`HERMES_API_KEY === '...'`) → return error, alert Slack, retry 60s
 - Invalid response (not 10 niches) → retry up to 3 times, skip
 - All niches exhausted → flag "needs human review" on Slack
 - Demo mode: return hardcoded list of 3 mock niches

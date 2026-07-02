@@ -12,7 +12,7 @@
 | Règles backend & gates | `build/agency-backend/AGENTS.md` | ❌ |
 | Vue d'ensemble backend | `build/agency-backend/OVERVIEW.md` | ❌ |
 | Build order backend | `build/agency-backend/README.md` | ❌ |
-| **Database** — Schéma Prisma, tables, RLS | `build/agency-backend/database/` | ❌ |
+| **Database** — Schéma Prisma, tables, RLS | `build/agency-backend/database/` | ✅ |
 | **Outreach Engine** — Worker Python/FastAPI | `build/agency-backend/outreach-engine/` | ✅ |
 | **Backend API** — Node/Express/Prisma | `build/agency-backend/backend-api/` | ❌ |
 | **Infrastructure** — Déploiement, env vars, MCP | `build/agency-backend/infrastructure/` | ✅ |
@@ -36,6 +36,7 @@
 | ✅ Production go-live — Procédure de mise en production | `build/agency-frontend/production-go-live/README.md` | ✅ |
 | ✅ Call recording — Spécification du système d'enregistrement d'appels | `build/agency-frontend/call-recording/README.md` | ✅ |
 | ✅ Call frequency / coaching — Déjà documenté dans `context/agency-communication/calls/calls-plan.md` | — | ✅ |
+| ✅ **Video Marketing** — Production vidéo motion design (OpenCode + Remotion) | `video-marketing/` | ✅ |
 
 ---
 
@@ -101,14 +102,14 @@
 
 | Module | ✅ Documenté | ❌ À créer | Total |
 |--------|:-----------:|:---------:|:-----:|
-| `build/agency-backend/` | 4 | 7 | 11 |
-| `build/agency-frontend/` | 9 | 0 | 9 |
+| `build/agency-backend/` | 5 | 6 | 11 |
+| `build/agency-frontend/` | 10 | 0 | 10 |
 | `build/agency-frontend/dashboard/` | 5 | 0 | 5 |
 | `context/agency-communication/` | 7 | 0 | 7 |
 | `context/agency-book/` | 15 | 0 | 15 |
 | `context/duplication-method/` | 1 | 0 | 1 |
-| **Total** | **41** | **7** | **48** |
+| **Total** | **43** | **6** | **49** |
 
-### ⚠️ 7 specs backend sont à créer
+### ⚠️ 6 specs backend sont à créer
 
 Voir section 1 pour la liste complète des ❌.

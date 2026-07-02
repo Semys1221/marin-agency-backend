@@ -10,11 +10,11 @@ Customer support ticket system. Client sends an email → Resend inbound webhook
 - `frontend-engine/05-resend-emails.md` (Resend API for replies)
 - `outreach-engine/02-brain-gemini.md` (Gemini for auto-reply generation)
 - `outreach-engine/10-slack-notifications.md` (Slack for ticket notifications)
-- API keys: `RESEND_API_KEY`, `GEMINI_API_KEY`, `SLACK_BOT_TOKEN`, `TICKET_SYSTEM_API_KEY`
+- API keys: `RESEND_API_KEY`, `HERMES_API_KEY`, `SLACK_BOT_TOKEN`, `TICKET_SYSTEM_API_KEY`
 
 ## Architecture
 ```
-Client Email → email.marinlite.agency (Resend inbound webhook)
+Client Email → email.marincie.homes (Resend inbound webhook)
                     │
                     ▼
            Ticket Handler (FastAPI /api/ticket/incoming)
@@ -68,7 +68,7 @@ CREATE TABLE tickets (
 ### Gemini Auto-Reply
 ```python
 import google.generativeai as genai
-genai.configure(api_key=GEMINI_API_KEY)
+genai.configure(api_key=HERMES_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
 prompt = f"Rédige un accusé de réception personnalisé et humain pour {client_name}. Remercie, reconnais le problème, donne un délai de 24h. Ne résous PAS le problème."
 reply = model.generate_content(prompt).text
@@ -85,14 +85,14 @@ slack.chat_postMessage(
 ## Env Vars
 ```
 RESEND_API_KEY=...
-GEMINI_API_KEY=...
+HERMES_API_KEY=...
 SLACK_BOT_TOKEN=...
 SLACK_TICKETS_CHANNEL=#tickets
 SUPABASE_URL=...
 SUPABASE_SERVICE_ROLE_KEY=...
 TICKET_SYSTEM_API_KEY=...
 TICKET_SYSTEM_PORT=8003
-RESEND_FROM_EMAIL=Marin Support <support@marinlite.agency>
+RESEND_FROM_EMAIL=Marin Support <support@marincie.homes>
 TICKET_SLA_HOURS=24
 ```
 
@@ -107,7 +107,7 @@ TICKET_SLA_HOURS=24
 | GET | `/health` | Health check |
 
 ## Behavior
-1. Client sends email to `support@marinlite.agency`
+1. Client sends email to `support@marincie.homes`
 2. Resend inbound webhook → `POST /api/ticket/incoming`
 3. Create ticket in Supabase with SLA deadline = now + 24h
 4. Gemini generates acknowledgment (human tone, no resolution, 24h timeframe)

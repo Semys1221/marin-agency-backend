@@ -10,7 +10,7 @@ Deployable sidecar (CLI + HTTP server) that wraps email generation, sequence bui
 - `06-sequence-creator.md` (7-step multi-variant builds)
 - `07-instantly-campaign.md` (campaign check/create/push)
 - `frontend-engine/05-resend-emails.md` (transactional email types)
-- `09-hermes-agent.md` (orchestrator that triggers sends)
+- `09-scaling-decision.md` (orchestrator that triggers sends)
 - API keys: `INSTANTLY_API_KEY`, `RESEND_API_KEY`, `SEQUENCE_CREATOR_API_KEY`
 
 ## Env Vars
@@ -68,7 +68,7 @@ Runs on port 8002. Called by Hermes or backend-api for Resend transactional send
 {
   "type": "call-reminder",
   "to": "client@example.com",
-  "from_email": "marin@marinlite.agency",
+  "from_email": "marin@marincie.homes",
   "vars": {
     "nom_prospect": "Jean",
     "entreprise": "Dupont Fils",

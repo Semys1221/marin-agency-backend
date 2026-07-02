@@ -29,3 +29,9 @@ Si une task est ✅ dans `create-llm-tasks.md`, le spec existe dans `llm-documen
 - Ne jamais builder sans que les prérequis soient cochés
 - Ne jamais donner `agency-frontend` ou `agency-dashboard` à un LLM avant `agency-backend`
 - Commencer chaque session par lire les 4 fichiers racine : `README.md`, `overview.md`, `create-llm-tasks.md`, `prerequisite.md`
+
+### 3 Lois du Code Lisible
+
+1. **Avoid Deep Nesting** — early return, extraire la logique complexe dans des fonctions nommées.
+2. **DRY (Don't Repeat Yourself)** — pas de duplication. Si le même bloc apparaît ≥3×, créer une abstraction. *Attention : ne pas sur-abstraire pour 2 occurrences — l'anti-overengineering prime sur DRY à petite échelle.*
+3. **Clear Names** — variables, fonctions, classes qui se lisent comme de l'anglais.

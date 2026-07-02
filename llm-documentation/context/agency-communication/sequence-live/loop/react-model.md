@@ -55,9 +55,9 @@ export function EmailSignature() {
       <p style={STYLES.name}>Evan Nanguy</p>
       <p style={STYLES.title}>Marin Agency</p>
       <div>
-        <span style={STYLES.link}>evan@marinlite.agency</span>
+        <span style={STYLES.link}>evan@marincie.homes</span>
         <span style={STYLES.separator}>|</span>
-        <span style={STYLES.link}>marinlite.agency</span>
+        <span style={STYLES.link}>marincie.homes</span>
       </div>
     </div>
   );
@@ -73,9 +73,9 @@ export function EmailSignature() {
       <p style="font-size:16px;font-weight:700;color:#015048;margin:0 0 2px 0;">Evan Nanguy</p>
       <p style="font-size:13px;color:#49C5B6;margin:0 0 8px 0;font-weight:500;">Marin Agency</p>
       <p style="margin:0;">
-        <a href="mailto:evan@marinlite.agency" style="color:#015048;text-decoration:none;font-size:13px;">evan@marinlite.agency</a>
+        <a href="mailto:evan@marincie.homes" style="color:#015048;text-decoration:none;font-size:13px;">evan@marincie.homes</a>
         <span style="color:#c0c0c0;margin:0 8px;font-size:12px;">|</span>
-        <a href="https://marinlite.agency" style="color:#015048;text-decoration:none;font-size:13px;">marinlite.agency</a>
+        <a href="https://marincie.homes" style="color:#015048;text-decoration:none;font-size:13px;">marincie.homes</a>
       </p>
     </td>
   </tr>

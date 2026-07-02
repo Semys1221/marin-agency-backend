@@ -5,7 +5,7 @@
 
 ## Description
 
-Le client utilise actuellement un sous-domaine `{tenant}.marinlite.agency` pour son funnel et son dashboard. L'upsell lui permet de passer sur un **nom de domaine personnalisé** (ex: `vente.dupontfils.fr` ou `dupontfils.com`).
+Le client utilise actuellement un sous-domaine `{tenant}.marincie.homes` pour son funnel et son dashboard. L'upsell lui permet de passer sur un **nom de domaine personnalisé** (ex: `vente.dupontfils.fr` ou `dupontfils.com`).
 
 ## Inclus
 
@@ -20,7 +20,7 @@ Le client utilise actuellement un sous-domaine `{tenant}.marinlite.agency` pour 
 ## Pour le client
 
 - **Professionnalisme** — Un nom de domaine personnalisé inspire confiance aux prospects
-- **Marque** — Renforce la marque du client (vs marinlite.agency)
+- **Marque** — Renforce la marque du client (vs marincie.homes)
 - **SEO** — Meilleur référencement avec un domaine dédié
 - **Email** — Emails professionnels (@dupontfils.fr au lieu de @gmail.com)
 

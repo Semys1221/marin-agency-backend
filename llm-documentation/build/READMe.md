@@ -35,3 +35,14 @@ Toujours builder dans cet ordre — un module à la fois, un fichier à la fois.
 3. Choisir un module phase (ex: `agency-backend/outreach-engine/`)
 4. Builder chaque fichier numéroté dans l'ordre (`01`, `02`, … `12`)
 5. 1 session AI = 1 fichier — ne jamais builder tout d'un coup
+
+## Tool Protocol (résumé)
+
+**L'Agent utilise ces outils sans demander :** `git`, `gh`, `supabase`, `vercel`, `render`, `stripe`, `shopify`, `curl`, `jq`, `psql`, `docker`, `npm`, `pip`, `pnpm`.
+
+**L'Agent DOIT demander au Human pour :**
+- **ngrok** — avant chaque test de webhook (Stripe, Calendly, Dropbox Sign)
+- **Bruno** — si un test `curl` échoue ou que le résultat est ambigu
+- **Docker Desktop** — avant la première commande `docker` de la session
+
+Voir [METHOD.md §7](./METHOD.md) pour le protocole complet (MCPs, phases du cycle BVG, etc.).

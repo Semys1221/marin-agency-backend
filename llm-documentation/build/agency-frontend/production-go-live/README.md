@@ -10,7 +10,7 @@ Procédure de mise en production d’un client. Bascule les services du mode tes
 - [ ] Crash-test sandbox passé ✅ (tout vert)
 - [ ] Contrat signé + paiement reçu (vrai client)
 - [ ] Instance Vercel créée (`cp -r template clients/{tenant_id}`)
-- [ ] Domaine client configuré (ou sous-domaine `{tenant}.marinlite.agency`)
+- [ ] Domaine client configuré (ou sous-domaine `{tenant}.marincie.homes`)
 
 ## Étapes
 
@@ -40,11 +40,11 @@ stripe config --set livemode=true
 stripe api-keys list --live
 
 # 3. Configurer le webhook live
-stripe listen --forward-to https://api.marinlite.agency/webhooks/stripe \
+stripe listen --forward-to https://api.marincie.homes/webhooks/stripe \
   --events checkout.session.completed,customer.subscription.created
 
 # 4. Vérifier que le webhook répond
-curl -X POST https://api.marinlite.agency/webhooks/stripe \
+curl -X POST https://api.marincie.homes/webhooks/stripe \
   -H "Stripe-Signature: $(stripe sig)" -d '{}'
 ```
 
@@ -68,7 +68,7 @@ npm run build
 vercel --prod
 
 # 3. Vérifier que le site est accessible
-curl -I https://{tenant}.marinlite.agency
+curl -I https://{tenant}.marincie.homes
 ```
 
 ### 5. Vérifications post-go-live
@@ -128,7 +128,7 @@ vercel rollback
 ## Dependencies
 
 - Compte Stripe activé pour le live (business details, IBAN)
-- Domaine `marinlite.agency` avec DNS configuré (MX, SPF, DKIM, DMARC)
+- Domaine `marincie.homes` avec DNS configuré (MX, SPF, DKIM, DMARC)
 - Dropbox Sign compte pro activé
 - Resend domaine vérifié (enregistrements TXT ajoutés)
 - Vercel projet lié (`vercel link` exécuté)

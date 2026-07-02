@@ -64,12 +64,15 @@ CREATE TABLE outscraper_usage (
 );
 ```
 
+**Doc API:** https://app.outscraper.cloud/api-docs
+**Script:** `scripts/outscraper-scrape/outscraper_scraper.py`
+
 ## API Integrations
 ### Outscraper
 ```python
-from outscraper import ApiClient
-client = ApiClient(api_key=OUTSCRAPER_API_KEY)
-results = client.google_maps_search_v2([f"{keyword} {location}"], limit=1000, language="fr")
+from outscraper import OutscraperClient
+client = OutscraperClient(api_key=OUTSCRAPER_API_KEY)
+results = client.google_maps_search([f"{keyword} {location}"], limit=1000, language="fr", enrichment=["contacts_n_leads"])
 ```
 
 ### Supabase

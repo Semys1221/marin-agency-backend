@@ -52,7 +52,7 @@ Ordre à respecter pour donner un dossier à un LLM :
 
 ## 4. CLI & Outils système
 
-- [ ] **Link Supabase, Vercel, GitHub** — connecter les comptes entre eux (déploiements automatiques)
+- [x] **Link Supabase, Vercel, GitHub** — connecter les comptes entre eux (déploiements automatiques)
 - [x] **Download les outils sur le PC** — installer les binaires CLI (Supabase, Vercel, GitHub)
 - [x] **Vérifier l'usage & l'intérêt de chaque outil** — comprendre le rôle de chaque CLI avant de l'utiliser
 - [x] **Git** — déjà présent sur macOS. Vérifier : `git --version` ✅ `2.54.0`
@@ -60,15 +60,17 @@ Ordre à respecter pour donner un dossier à un LLM :
 - [x] **GitHub CLI** — `brew install gh && gh auth login` ✅ `2.95.0` — loggué (`Semys1221`)
 - [x] **MCP GitHub** — `@modelcontextprotocol/server-github` installé dans la config de l'agent ✅
 - [x] **Supabase CLI** — `brew install supabase/tap/supabase` ✅ `2.108.0`
-  - Vérifier : `supabase --version` ✅ — 🔴 `supabase login` manquant
+   - Vérifier : `supabase --version` ✅
+   - `supabase login` ✅
 - [x] **MCP Supabase** — `supabase/mcp` (https://mcp.supabase.com/mcp) configuré dans la config de l'agent ✅
 - [x] **Vercel CLI** — `npm install -g vercel && vercel login` ✅ `51.6.1` — loggué (`pvj6qhfpdv-1260`)
-- [x] **MCP Vercel** — `@vercel/mcp` (https://mcp.vercel.com) configuré dans la config de l'agent ✅ — 🔴 OAuth à finaliser : `opencode mcp auth vercel`
-- [x] **Render CLI** — `npm install -g @renderinc/cli` ✅ `2.21.0` — 🔴 `render login` manquant
+- [x] **MCP Vercel** — `@vercel/mcp` (https://mcp.vercel.com) configuré dans la config de l'agent ✅ — OAuth ✅
+- [x] **Render CLI** — `npm install -g @renderinc/cli` ✅ `2.21.0`
 - [x] **Stripe CLI** — `brew install stripe/stripe-cli/stripe` ✅ `1.43.2`
-  - Vérifier : `stripe --version` ✅ — 🔴 `stripe login` manquant
+   - Vérifier : `stripe --version` ✅
+   - `stripe login` ✅
 - [x] **Shopify CLI** — `npm install -g @shopify/cli @shopify/theme` ✅ `3.94.3`
-  - Vérifier : `shopify version` ✅ — 🔴 nécessite un compte Shopify Partenaire pour `shopify login`
+  - Vérifier : `shopify version` ✅
 - [x] **curl / wget** — normalement présents ✅ (`curl 8.7.1`, `wget 1.25.0`)
 - [x] **jq** (JSON parser) — `brew install jq` ✅ `1.8.2`
 - [x] **PostgreSQL client** (psql) — `brew install libpq` ✅ `psql 18.4`
@@ -78,8 +80,28 @@ Ordre à respecter pour donner un dossier à un LLM :
   - Auth token : `ngrok config add-authtoken <token>` ✅ déjà configuré
   - Alternative : **localtunnel** — `npm install -g localtunnel` ✅ `2.0.2`
 - [x] **Bruno** (client API graphique, alternative Postman) — `brew install bruno` ✅ app GUI dans `/Applications/`
+- [x] **METHOD.md** — `llm-documentation/build/METHOD.md` documenté pour savoir comment utiliser chaque outil
 
 ---
+
+## 4.1 Tasks à faire
+
+- [x] **Se faire passer pour une autre société**
+
+- [x] **Installer Googles CLI & MCP**
+
+- [x] **Set up le changement de messagerie hellomontismedia.com**
+- [x] **Delete all my Google project** 
+- [x] **Rename everything « agency work » and not « marin »**
+
+- [x] **Manage my accounts passwords & charges**
+
+- [x] **Renommer mon dashboard Stripe**
+- [x] **Ajouter une feuille « update »** — liste de toutes les implémentations à faire
+- [x] **Write my daily work routine document.**
+
+- [x] **L'IA est au courant de l'utilisation de tous les outils'**
+- [x] **Installer et set up le Hermes agent**
 
 ## 5. VS Code — Éditeur
 
@@ -137,10 +159,10 @@ Ordre à respecter pour donner un dossier à un LLM :
 
 ## 7. Projets & Repos
 
-- [ ] **Repo cloné** — `/Users/evqn/Documents/Agency workspace` (déjà fait)
-- [ ] **Repo Outreach_System** — vérifier que `trash-ignore/Github/Outreach_System/` existe avec l'engine + cleaner legacy
+- [x] **Repo cloné** — `/Users/evqn/Documents/Agency workspace` (déjà fait)
+- [x] **Repo Outreach_System** — vérifier que `trash-ignore/Github/Outreach_System/` existe avec l'engine + cleaner legacy
   - Sinon : cloner depuis GitHub dans `trash-ignore/Github/Outreach_System/`
-- [ ] **Repos privés accessibles** — si des sous-modules ou repos privés sont utilisés, vérifier que la clé SSH a accès
+- [x] **Repos privés accessibles** — si des sous-modules ou repos privés sont utilisés, vérifier que la clé SSH a accès
 
 ---
 
@@ -148,50 +170,53 @@ Ordre à respecter pour donner un dossier à un LLM :
 
 ### 8.1 Infra & Hébergement
 
-- [ ] **Supabase** — Projet créé sur https://supabase.com
-  - URL du projet : `SUPABASE_URL`
-  - Service role key : `SUPABASE_SERVICE_ROLE_KEY`
-  - Anon key : `SUPABASE_ANON_KEY`
-  - Connection string directe : `DATABASE_URL`
-  - **Extensions activées** (SQL Editor) : `CREATE EXTENSION IF NOT EXISTS pgcrypto;`
-  - **Storage bucket créé** — `call-recordings` avec RLS (tenant_id filter) via le dashboard Supabase → Storage → Create bucket
-  - **RLS policies appliquées** — exécuter les policies via le fichier `build/agency-backend/database/rls-policies.sql` (à créer, voir create-llm-tasks.md section 1 ❌ Database)
-- [ ] **MCP Supabase** — `supabase/mcp` (https://mcp.supabase.com/mcp) connecté via OAuth (accès DB, Auth, Storage, Edge Functions)
-- [ ] **Render** — Compte sur https://render.com
+- [x] **Supabase** — Projet créé, ACTIVE_HEALTHY, région ap-northeast-1
+  - [x] `SUPABASE_URL` ✅ — `https://rwaggfdqdnfyomvgnsne.supabase.co`
+  - [x] `SUPABASE_SERVICE_ROLE_KEY` ✅ — dans `.env.local`
+  - [x] `SUPABASE_ANON_KEY` ✅ — dans `.env.local`
+  - [x] `DATABASE_URL` ✅ — remplie dans `.env.local` (pooler format)
+  - [x] **Extensions activées** : `pgcrypto v1.3`, `uuid-ossp v1.1`, `pg_stat_statements v1.11`, `supabase_vault v0.3.1`
+  - [x] **Storage bucket créé** — `call-recordings` (50MB, privé, via API)
+  - [ ] **RLS policies** — exécuter `build/agency-backend/database/rls-policies.sql` dans SQL Editor Supabase
+- [x] **MCP Supabase** — `supabase/mcp` (https://mcp.supabase.com/mcp) connecté via token (accès DB, Auth, Storage, Edge Functions)
+- [x] **Render** — Compte sur https://render.com
   - API key : `RENDER_API_KEY`
-- [ ] **Vercel** — Compte sur https://vercel.com
+- [x] **Vercel** — Compte sur https://vercel.com
   - Token : `VERCEL_TOKEN`
   - Team ID : `VERCEL_TEAM_ID`
-- [ ] **MCP Vercel** — `@vercel/mcp` (https://mcp.vercel.com) connecté via OAuth (gestion projets, déploiements)
-- [ ] **Domaine** — `marinlite.agency` acheté + DNS configuré
-  - **Enregistrements DNS à configurer :**
-    - `MX` — Google Workspace (`SMTP.GOOGLE.COM`) — cf. [Google Admin DNS](https://admin.google.com)
-    - `TXT` — SPF, DKIM, DMARC (pour la délivrabilité email)
-    - `CNAME` — Vercel (`cname.vercel-dns.com`), Google Workspace (`google.com` + `gv-...` record de vérification)
-    - `A` — éventuels records pour l'engine Render
-  - **Vérifier propagation DNS** — `dig mx marinlite.agency`, `dig txt marinlite.agency`
-  - `evan@marin.app` → boîte Google Workspace
+- [x] **MCP Vercel** — `@vercel/mcp` (https://mcp.vercel.com) connecté via OAuth (gestion projets, déploiements)
+- [x] **Domaine `marincie.homes` acheté** — via Namecheap ou registrar actuel
+- [x] **Nameservers pointés vers Vercel** — déléguer la gestion DNS à Vercel (dashboard Vercel → Add Domain → `marincie.homes`)
+- [x] **Google Workspace acheté** — sous `marin.app`, utilisateur `evan@marin.app` créé avec licence
+- [x] **DNS configuré sur Vercel** :
+  - [x] `MX` — Google Workspace (`SMTP.GOOGLE.COM`)
+  - [x] `TXT` — SPF, DKIM, DMARC (délivrabilité email)
+  - [x] `CNAME` — Vercel (`cname.vercel-dns.com`), Google Workspace (`google.com` + `gv-...`)
+  - [x] `A` — éventuels records pour l'engine Render
+- [x] **Propagation DNS vérifiée** — `dig mx marincie.homes`, `dig txt marincie.homes`
+- [x] **Domaine connecté à Resend** — DKIM/SPF ajoutés dans le dashboard Resend
+- [x] **Domaine connecté à loop.so** — DKIM/SPF ajoutés dans le dashboard loop.so
 
 ### 8.2 Phase 1 — Outreach Engine
 
-- [ ] **Outscraper** — Compte sur https://outscraper.com
+- [x] **Outscraper** — Compte sur https://outscraper.com
   - API key : `OUTSCRAPER_API_KEY`
   - **Crédits ajoutés** — le scraping Google Maps consomme des crédits, le compte doit avoir un solde positif
-- [ ] **Gemini AI** — API key via https://aistudio.google.com/apikey
-  - Clé : `GEMINI_API_KEY`
-- [ ] **Handshake** — Compte sur https://handshake.com
+- [x] **Gemini AI** — API key via https://aistudio.google.com/apikey
+  - Clé : `HERMES_API_KEY`
+- [x] **Handshake** — Compte sur https://handshake.com
   - API key : `HANDSHAKE_API_KEY`
-- [ ] **DBBounce** — Compte sur https://dbbounce.com
+- [x] **DBBounce** — Compte sur https://dbbounce.com
   - API key : `DBBOUNCE_API_KEY`
   - **Crédits ajoutés** — service payant, solde nécessaire
-- [ ] **Instantly** — Compte sur https://instantly.ai
+- [x] **Instantly** — Compte sur https://instantly.ai
   - API key : `INSTANTLY_API_KEY`
   - **Domaine d'envoi vérifié** — ajout des enregistrements DNS SPF/DKIM dans le dashboard Instantly
   - **Warmup des emails** — lancer le warmup des adresses d'envoi (peut prendre 2-3 semaines)
   - **Seuils de warmup minimum** avant de lancer une campagne : 14 jours, taux de réponse > 60%, spam score < 5%, 5-10 emails/jour
   - **Pool d'emails prêt** — au moins 1-2 adresses par campagne
   - **Campagne par défaut** : `INSTANTLY_DEFAULT_CAMPAIGN_ID=...`
-- [ ] **Slack** — Workspace créé + app installée
+- [x] **Slack** — Workspace créé + app installée
   - Workspace : créer sur https://slack.com (ex: `marin-agency.slack.com`)
   - App Slack : créer sur https://api.slack.com/apps (`Marin Engine`)
   - Bot token : `SLACK_BOT_TOKEN` (scopes: `chat:write`, `channels:read`, `reactions:add`)
@@ -201,6 +226,13 @@ Ordre à respecter pour donner un dossier à un LLM :
   - **App installée dans le workspace** — bouton "Install to Workspace" cliqué
   - **Recommandé** : Installer le MCP Slack (`@modelcontextprotocol/server-slack`)
   - **Slack Desktop App** — `brew install --cask slack` (pas indispensable mais utile pour voir les notifs arriver en temps réel)
+
+
+
+- [ ] **Test** — Run test en local l'outreach engin
+- [ ] **Test** — Tester le nouveau CLI
+- [ ] Réaliser 1 par 1 tous les modules d'outreach et les tester.'
+
 
 ### 8.3 Phase 2 — Frontend Engine
 
@@ -219,15 +251,18 @@ Ordre à respecter pour donner un dossier à un LLM :
   - Client ID + secret (OAuth) : `CALENDLY_CLIENT_ID` + `CALENDLY_CLIENT_SECRET`
   - Webhook key (HMAC) : `CALENDLY_WEBHOOK_KEY=...`
 - [ ] **Resend** — Compte sur https://resend.com
-  - API key : `RESEND_API_KEY`
-  - **Domaine d'envoi vérifié** — ajout des enregistrements TXT DKIM/SPF/return-path dans le dashboard Resend
-- [ ] **MCP Resend** — `resend-mcp` installé (envoi emails, gestion contacts, domaines, broadcasts, templates)
-- [ ] **Shopify** — Compte Partenaire sur https://partners.shopify.com
+  - [ ] API key : `RESEND_API_KEY`
+  - [ ] **Domaine d'envoi vérifié** — `marincie.homes` ajouté dans Resend, enregistrements TXT DKIM/SPF/return-path configurés dans le DNS Vercel
+  - [ ] **Resend ajouté au Dock macOS** — Site as app (Chrome/Safari → Installer comme app)
+  - [ ] **MCP Resend** — `resend-mcp` installé et connecté (envoi emails, gestion contacts, domaines, broadcasts, templates)
+  - [ ] **CLI Resend** — `npm install -g resend` (vérifier si CLI officielle existe, sinon utiliser MCP + API REST)
+- [x] **Shopify** — Compte Partenaire sur https://partners.shopify.com
   - **Création de store : manuelle uniquement** — la Partner API ne permet PAS de créer des stores. Chaque client e-commerce nécessite un store Shopify créé via le Partner Dashboard (bouton "Create store"). Une fois le store créé, tout le reste est automatisable via Admin API + UCP.
   - Storefront API token (public) : `VITE_SHOPIFY_STOREFRONT_TOKEN`
-  - Store domain : `VITE_SHOPIFY_STORE_DOMAIN`
+  - Store domain : `VITE_SHOPIFY_STORE_DOMAIN` → `marin-agency.myshopify.com` ✅
   - **Custom storefront activé** — une fois le store créé, Settings → Sales channels → Custom storefront → créer un token Storefront API
-  - **Admin API key** — pour automatiser le post-création : push thème, importer produits, configurer le store
+  - **Admin API key** — `SHOPIFY_ADMIN_TOKEN_TEMPLATE` (shpss_...) configuré dans `.env.local` pour le store template
+  - **Custom App créée** — Client ID `SHOPIFY_CLIENT_ID` configuré dans `.env.local`
   - **Theme repo** — chaque client a un thème forkable depuis un repo Git Marin
   - **Doc de référence locale** — voir `shopify/api-reference/` pour Admin API, Storefront, Webhooks, Liquid, UCP/Agents, etc.
 - [ ] **MCP Shopify Storefront** — endpoint `https://{shop}.myshopify.com/api/mcp` (officiel Shopify, recherche catalogue, gestion panier, checkout)
@@ -255,20 +290,23 @@ Ordre à respecter pour donner un dossier à un LLM :
 - [ ] **Looker Studio** — Rapport créé sur https://lookerstudio.google.com
   - Report ID (pas de clé — embed URL)
 - [ ] **loop.so** — Compte sur loop.so
-  - 4 workflows à configurer : Interested, Indecision, Onboarding, Upsell
-  - **Domaine d'envoi vérifié** dans loop.so (SPF/DKIM ajoutés au DNS)
-  - **Webhook entrant** (Hermes → loop.so) — créer pour chaque workflow
-  - **Webhook sortant** (loop.so → Hermes) — configurer dans les stop conditions de chaque workflow
+  - [ ] **loop.so ajouté au Dock macOS** — Site as app (Chrome/Safari → Installer comme app)
+  - [ ] **Domaine d'envoi vérifié** — `marincie.homes` ajouté dans loop.so (SPF/DKIM configurés dans le DNS Vercel)
+  - [ ] **4 workflows configurés** : Interested, Indecision, Onboarding, Upsell
+  - [ ] **Webhook entrant** (Hermes → loop.so) — créer pour chaque workflow
+  - [ ] **Webhook sortant** (loop.so → Hermes) — configurer dans les stop conditions de chaque workflow
+  - [ ] **CLI loop.so** — vérifier si une CLI officielle existe, sinon utiliser l'API REST
   - Voir `context/agency-communication/loop-setup.md` pour le détail pas à pas
 
 - [ ] **Quo.com** (VoIP client) — Compte sur https://quo.com
   - **Compte créé pour chaque client** (offert dans l'offre principale)
   - **Call recording activé** dans les paramètres du compte Quo (Settings → Call Recording)
 
-- [ ] **Supabase Storage** — Bucket `call-recordings` créé
-  - Bucket créé dans le dashboard Supabase → Storage → Create bucket → `call-recordings`
-  - RLS policy appliquée : lecture par `tenant_id` uniquement
-  - Limite : 50 MB par fichier
+- [x] **Supabase Storage** — Bucket `call-recordings` créé (via API, 50MB, privé)
+  - [x] Bucket créé via API Storage
+  - [x] Script RLS créé dans `build/agency-backend/database/rls-policies.sql`
+  - [ ] RLS policy à exécuter dans SQL Editor Supabase (nécessite superuser)
+  - [x] Limite : 50 MB par fichier
 
 ### 8.4 Shopify Agents (UCP — Universal Commerce Protocol)
 
@@ -452,7 +490,7 @@ Shopify Agents permet à l'agent LLM d'interagir directement avec Shopify côté
 ### 18.2 Email & Hermes (Bloc 6)
 
 - [ ] **Instantly campagnes** — Configurer les campagnes cold outreach par niche client (dans le dashboard Instantly)
-- [ ] **Hermes agent** — Configurer skills, triggers, tools et permissions dans l'agent Hermes
+- [x] **Hermes agent** — Installé, updaté, config de base faite (voir section 19)
 
 ### 18.3 Branding & Comptes (Bloc 7)
 
@@ -480,3 +518,292 @@ Shopify Agents permet à l'agent LLM d'interagir directement avec Shopify côté
 - [ ] **Warp organization** — Organiser les code blueprints dans Warp
 - [ ] **Start scraping** — Lancer les campagnes de scraping (Outscraper → Supabase)
 - [ ] **Start outreach** — Lancer les campagnes d'email outreach
+
+---
+
+## 19. Hermes Agent (Nous Research) — Orchestrateur IA
+
+### 19.1 Installation & Update
+
+- [x] **Hermes Agent installé** — `/Users/evqn/.local/bin/hermes`
+- [x] **Version** — `v0.17.0` (updaté depuis v0.15.1, 3339 commits)
+- [x] **Python** — 3.11.15 dans venv
+- [x] **Config** — `~/.hermes/config.yaml` (v26)
+- [x] **Session Nous Portal** connectée (gratuite)
+- [x] **SOUL.md** configuré (persona)
+- [x] **MEMORY.md** actif (2073 chars)
+- [x] **State DB** — 16 sessions historiques
+
+### 19.2 Modèle & Provider
+
+| Status | Provider | Modèle |
+|--------|----------|--------|
+| ✅ | Nous Portal (free) | `stepfun/step-3.7-flash:free` |
+| ✅ Configuré | Gemini API (clé ajoutée) | Quota free tier épuisé — billing requis |
+
+- [x] **Clé Gemini ajoutée** dans `~/.hermes/.env`
+- [ ] **Activer billing Gemini** — https://aistudio.google.com/apikey → Enable billing (pay-as-you-go). Passer de 0 req/jour à 1500 req/jour sur `gemini-2.0-flash-lite`.
+- [ ] **Configurer Hermes pour utiliser Gemini** — `hermes model` → sélectionner `google/gemini-2.0-flash-lite` ou via Gemini OpenAI-compatible endpoint
+
+### 19.3 Skills installés — 102 skills, dont pertinents pour Marin
+
+| Skill | Catégorie | Utilité pour Marin |
+|-------|-----------|-------------------|
+| `outscrapper` | Local | Requêtes API Outscraper / Leadsscraper pour scraping Google Maps |
+| `outreach-system` | Local (devops) | Contexte du pipeline legacy Outreach_System (Supabase, Render, Smartlead) |
+| `google-workspace` | Builtin | Gmail, Calendar, People APIs — emails transactionnels, contacts |
+| `himalaya` | Builtin | Email — envoi, lecture, gestion inboxes |
+| `maps` | Builtin | Recherche géographique, coordonnées |
+| `opencode` | Builtin | Bridge avec OpenCode |
+| `claude-code` | Builtin | Bridge avec Claude Code (si utilisé) |
+| `webhook-subscriptions` | Builtin | Gestion des webhooks |
+| `notion` / `airtable` / `obsidian` | Builtin | Gestion CRM, mémoire, documentation |
+| `plan` | Builtin | Writing plans — utile pour le workflow vidéo marketing |
+| `github-*` | Builtin | 5 skills GitHub — PR, code review, issues, auth, repos |
+| `computer-use` | Builtin | Automatisation navigateur / bureau |
+
+Options à ajouter sur demande :
+
+| Skill | Commande |
+|-------|----------|
+| Instantly | `hermes skills install instantly` (si dispo dans le hub) |
+| Resend | `hermes skills install resend` (ou configurer via API key) |
+| Supabase | Déjà accessible via le MCP Supabase dans OpenCode |
+| Slack | `hermes skills install slack` (si dispo) |
+
+- [ ] **Installer skills manquants** — explorer `hermes skills search <keyword>` pour les intégrations manquantes (Instantly, Resend, Stripe, etc.)
+- [ ] **Créer un skill Marin custom** — bundle de skills pour le pipeline outreach complet (scrape → clean → campaign → benchmark → scale/kill)
+
+### 19.4 Gateway & Messaging
+
+- [ ] **Gateway démarré** — `hermes gateway start` (permet aux messages d'arriver sur tous les canaux : Telegram, Slack, etc.)
+- [ ] **Telegram** — Configurer bot Telegram via `hermes telegram setup`
+- [ ] **Slack** — Configurer via `hermes slack setup` (ou via le MCP Slack déjà présent dans OpenCode)
+- [ ] **Email** — Configurer via skill `himalaya` ou connexion SMTP
+
+### 19.5 Cron Jobs & Automations
+
+- [x] **Cron system check** — `hermes cron list` → 0 jobs actuellement
+- [ ] **Cron: Daily briefing** — Résumé journalier de l'activité d'outreach
+- [ ] **Cron: Campaign health check** — Vérifier benchmarks et décider kill/scale
+- [ ] **Cron: Maintenance** — Nettoyage sessions, rotation inboxes
+
+### 19.6 Pipeline Outreach — Hermes en orchestration
+
+Architecture cible :
+
+```
+Hermes Agent (orchestrateur)
+├── Skill: outscrapper → Scraping via Outscraper API (payant)
+├── Hermes cron → Planification des campagnes
+├── Hermes mémoire → Tracking des décisions (kill/scale)
+├── Décision AI → Gemini via l'API configurée
+├── Notification → Slack / Telegram via gateway
+└── Webhook → Callback vers le backend Marin pour les actions
+```
+
+- [ ] **Configurer le pipeline complet** : Scrape → Clean → Campaign → Benchmark → Décision → Scale/Kill (via skills + crons Hermes)
+- [ ] **Remplacer l'orchestrateur custom Marin** par Hermes Agent comme runtime, tout en gardant Outscraper (scraping), DBBounce (nettoyage), Instantly (envoi) comme APIs payantes
+
+### 19.7 Loop Engineer — Autonomous QC
+
+- [x] **Skill `loop-engineer` créé** — `~/.hermes/skills/loop-engineer/SKILL.md`
+- [ ] **Tester la boucle builder/judge** — lancer un premier test :
+  ```
+  hermes chat -z "Run loop-engineer on project /test with definition-of-done.md"
+  ```
+- [ ] **Définir les Definition of Done** pour chaque type d'asset :
+  - Vidéo marketing (déjà dans `video-marketing/workflow.md`)
+  - Contenu SEO (articles de blog)
+  - Code (PR, composants)
+- [ ] **Configurer max_loops** par type d'asset (recommandé : 5 pour vidéo, 3 pour code)
+- [ ] **Escalade humaine** — définir le channel Slack/Telegram pour les hard fails
+
+### 19.9 NVIDIA Agent Toolkit — OpenShell + NemoClaw
+
+Le **NVIDIA Agent Toolkit** (GTC 2026) s'intègre officiellement avec Hermes Agent via **NVIDIA NemoClaw** et le runtime **OpenShell**. Applicable immédiatement pour sécuriser et optimiser les agents autonomes.
+
+#### Stack NVIDIA
+
+```
+NVIDIA Agent Toolkit
+├── OpenShell          — Runtime sandbox (network/filesystem/process isolation)
+├── NemoClaw           — Blueprint Hermes + OpenShell (NVIDIA officiel)
+├── HermesClaw         — Idem, version communauté (macOS compatible via Docker)
+└── Nemotron 3 Ultra   — Modèle 550B MoE, 5x + rapide, 30% -cher que les frontier
+```
+
+#### OpenShell — Ce que ça apporte
+
+| Layer | Mécanisme | Effet |
+|-------|-----------|-------|
+| **Network** | OPA + HTTP CONNECT proxy | Egress vers hosts approuvés seulement |
+| **Filesystem** | Landlock LSM | Accès restreint à `~/.hermes/` + `/sandbox/` |
+| **Process** | Seccomp BPF | Syscalls dangereux bloqués (ptrace, mount, etc.) |
+| **Credentials** | Privacy router | API keys injectées par OpenShell, jamais vues par Hermes |
+
+**Conséquence** : on peut laisser le loop-engineer tourner en autonomie sans risque de fuite de données ou d'action destructive.
+
+#### MoA (Mixture of Agents) — Amélioration du Judge
+
+Le judge du loop-engineer peut être remplacé par un **panel de modèles** (MoA) :
+
+```
+Judge Panel
+├── stepfun/step-3.7-flash
+├── nvidia/nemotron-3-super (via build.nvidia.com ou OpenRouter)
+├── gemini-2.0-flash-lite (si billing activé)
+└── Consensus → PASS (unanime) / FAIL (majorité) / ESCALATE (split)
+```
+
+MoA est natif dans Hermes v0.17.0 via `hermes model` → presets MoA.
+
+#### HermesClaw — Installation (macOS, Docker, CPU)
+
+```bash
+# Prerequisites: Docker Desktop running, git, curl
+curl -fsSL https://raw.githubusercontent.com/TheAiSingularity/hermesclaw/main/scripts/install.sh | bash
+
+# Download model (ex: Qwen3 4B)
+curl -L -o ~/.hermesclaw/models/Qwen3-4B-Q4_K_M.gguf \
+  https://huggingface.co/bartowski/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf
+
+# Start host inference
+brew install llama.cpp
+llama-server -m ~/.hermesclaw/models/Qwen3-4B-Q4_K_M.gguf --port 8080 --ctx-size 32768 -ngl 99 &
+
+# Start HermesClaw
+cd ~/.hermesclaw && docker compose up -d
+hermesclaw chat "hello"
+```
+
+**Alternative sans GPU local** : utiliser le provider cloud existant (`nous` ou `openrouter`) via `~/.hermes/config.yaml` — HermesClaw route par `inference.local` → provider cloud.
+
+#### Nemotron 3 Ultra via OpenRouter
+
+Dispo sur OpenRouter (déjà configuré comme fallback) :
+- Modèle : `nvidia/nemotron-3-super` ou `nvidia/nemotron-3-ultra`
+- Provider : `openrouter` avec `OPENROUTER_API_KEY` dans `~/.hermes/.env`
+- Avantage : **frontier-level** à prix réduit (5x + rapide, 30% moins cher que GPT/Claude)
+
+#### Checklist
+
+- [ ] **Installer HermesClaw** — `curl -fsSL https://raw.githubusercontent.com/TheAiSingularity/hermesclaw/main/scripts/install.sh | bash`
+- [ ] **Tester HermesClaw avec provider cloud** (pas de GPU nécessaire)
+- [ ] **Ajouter Nemotron 3 Ultra comme option Judge** dans loop-engineer — via OpenRouter (déjà configuré)
+- [ ] **Tester MoA panel** — lancer loop-engineer avec 2+ juges
+- [ ] **Définir OpenShell policy** pour Marin : network policy = Outscraper API, DBBounce, Instantly, GitHub
+- [ ] **Migrer le pipeline outreach vers HermesClaw sandbox** une fois stable
+
+#### Docker Image HermesClaw (~5GB)
+
+L'image Docker (`ghcr.io/theaisingularity/hermesclaw:latest`) contient Hermes Agent + toutes ses dépendances dans un conteneur prêt à l'emploi. C'est nécessaire pour faire tourner Hermes dans le sandbox OpenShell (isolation réseau/filesystem).
+
+**Pourquoi c'est gros (~5GB)** : l'image embarque Python, Node.js, les binaires Hermes, les dépendances système, et le runtime OpenShell. C'est un one-time download.
+
+**Pourquoi on en a besoin** : sans le conteneur, Hermes tourne à nu sur le host — aucun sandboxing, politique réseau, ou isolation des credentials. Le conteneur + OpenShell = Hermes peut agir en autonomie sans risque de fuite de données.
+
+**Commande à relancer** (connexion stable recommandée, ~5-15 min) :
+```bash
+docker pull ghcr.io/theaisingularity/hermesclaw:latest
+```
+
+Une fois l'image téléchargée, lancer HermesClaw :
+```bash
+cd ~/.hermesclaw && docker compose up -d
+hermesclaw chat "hello"
+```
+
+### 19.10 Skills recensés
+
+| Skill | Localisation | Status |
+|-------|-------------|--------|
+| `outscrapper` | `~/.hermes/skills/outscrapper/skill.md` | ✅ Existe |
+| `outreach-system` | `~/.hermes/skills/devops/outreach-system/SKILL.md` | ✅ Existe |
+| `loop-engineer` | `~/.hermes/skills/loop-engineer/SKILL.md` | ✅ Créé |
+
+---
+
+## 20. SEO Content Pipeline — Automatisation (via Hermes)
+
+### Concept
+
+Hermes connecte **Google Search Console API** → détecte les keyword gaps (pages classées mais sans article dédié) → rédige un article optimisé → déploie sur **Netlify** ou **WordPress** → monitor les performances.
+
+```
+Search Console API → détection keyword gaps → rédaction IA → déploiement → monitoring
+```
+
+### Prérequis — Configurations manuelles nécessaires (rien n'est encore possible)
+
+#### 20.1 Google Search Console
+
+- [ ] **Site ajouté à Search Console** — https://search.google.com/search-console
+  - Propriété : `marincie.homes` (et éventuels domaines clients)
+  - **Propriété vérifiée** — via TXT record DNS ou Google Analytics
+- [ ] **GCP Project créé** — https://console.cloud.google.com
+  - API : **Google Search Console API** activée
+  - OAuth 2.0 credentials : Client ID + Client Secret
+  - Scopes : `https://www.googleapis.com/auth/webmasters.readonly`
+- [ ] **Hermes configuré** pour utiliser Search Console :
+  - `GOOGLE_SEARCH_CONSOLE_CLIENT_ID`
+  - `GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET`
+  - Pas de skill Hermes natif pour Search Console — à créer ou utiliser `google-workspace` comme base
+
+#### 20.2 Destination de déploiement
+
+Choisir une des deux options (ou les deux) :
+
+- [ ] **Netlify** — Compte sur https://netlify.com
+  - `NETLIFY_AUTH_TOKEN` — Personal Access Token
+  - **Site créé** — `Netlify CLI` ou dashboard
+  - **Build command** — configurée pour le générateur de site (ex: Hugo, 11ty, ou HTML statique)
+  - Netlify CLI : `npm install -g netlify-cli && netlify login`
+
+- [ ] **WordPress** — Site WordPress existant ou nouveau
+  - **URL du site** + **Credentials API** (Application Password)
+  - `WORDPRESS_API_URL` — `https://monsite.com/wp-json/wp/v2/`
+  - `WORDPRESS_APP_USERNAME` + `WORDPRESS_APP_PASSWORD`
+  - **REST API activée** — désactiver l'authentification cookie si nécessaire
+
+#### 20.3 Pipeline Hermes (à configurer)
+
+- [ ] **Cron : Détection keyword gaps** — hebdomadaire
+  ```
+  Search Console API → récupérer les queries avec position 5-20
+  → filtrer celles sans page dédiée
+  → générer liste de keywords à cibler
+  ```
+- [ ] **Rédaction auto** — Sur chaque keyword détecté :
+  ```
+  → scraper les top 3 résultats Google pour le keyword
+  → analyser la structure (H2, H3, longueur, mots-clés)
+  → générer article optimisé (title, meta, headings, body, FAQ)
+  ```
+- [ ] **Relecture auto (loop-engineer)** — Boucle QC avant déploiement :
+  ```
+  Judge analyse : fautes, hallucinations, structure SEO, originalité
+  → FAIL → rebuild → loop max 3
+  → PASS → déploiement
+  ```
+- [ ] **Déploiement auto** :
+  ```
+  Netlify : git push → build → deploy
+  WordPress : wp-json/wp/v2/posts → POST
+  ```
+- [ ] **Monitoring** — Mensuel :
+  ```
+  Re-consulter Search Console API
+  → comparer positions avant/après publication
+  → rapport de performance
+  ```
+
+### Intervention manuelle nécessaire
+
+| Étape | Manuel ? | Pourquoi |
+|-------|----------|----------|
+| Setup initial Search Console + Netlify/WP | **Oui** | Une fois, configuration API |
+| Validation des keywords proposés | **Recommandé** | Éviter de cibler des keywords non pertinents |
+| Relecture éditoriale avant déploiement | **Recommandé** | Google pénalise le contenu AI non relu |
+| Approbation déploiement | **Optionnel** | Mode auto si confiance établie |
+| Correction des hard fails | **Oui** | Si la boucle QC échoue 3 fois |

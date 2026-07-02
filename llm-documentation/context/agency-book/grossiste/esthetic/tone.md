@@ -50,5 +50,5 @@ Toujours en bas des emails : prénom + nom, "Marin Agency", email, site. Pas de 
 ```
 Evan Nanguy
 Marin Agency
-evan@marinlite.agency | marinlite.agency
+evan@marincie.homes | marincie.homes
 ```

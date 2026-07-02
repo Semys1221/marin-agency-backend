@@ -10,6 +10,15 @@ Tout ce que tu construis doit exister dans ce diagramme. Si ce n'est pas dans le
 
 ## GATES (vérifier avant chaque build)
 
+### Gate 0: Tool Protocol lu
+```
+REQUIRED: Lire [METHOD.md §7](./METHOD.md) avant de builder.
+Le protocole définit quels outils CLI l'Agent utilise sans demander
+(git, curl, psql, etc.) et quand il DOIT demander au Human
+(ngrok avant webhooks, Bruno si curl ambigu, Docker Desktop).
+BLOCKER: Protocol non lu → STOP. Lire METHOD.md §7 d'abord.
+```
+
 ### Gate 1: Supabase déployé
 Tous les appels DB wrap dans try/catch. Si connexion échoue → rendre "Service indisponible", jamais de crash.
 
