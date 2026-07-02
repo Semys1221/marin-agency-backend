@@ -1,0 +1,30 @@
+{
+  "grossiste_materiel_chantier": {
+    "cold_email_variants": [
+      {
+        "subject": "Partenariat matériel chantier",
+        "body": "Bonjour,\n\nJe comptais vous appeler au {{phone}} mais un email m'a semblé plus simple.\n\nNous mettons en place un système qui vous apporte des prospects B2B prêts à acheter des volumes de commandes. Une garantie de 10 ventes entre 800 et 2 500 dans les 3 mois ou vous ne payez rien.\n\nSouhaitez-vous en savoir plus ?\n\n{{accountSignature}}"
+      },
+      {
+        "subject": "Partenariat matériel chantier",
+        "body": "Si nous pouvions vous aider à gagner plus de clients et automatiser votre acquisition B2B, seriez-vous intéressé ?\n\nPuis-je vous envoyer plus d'infos ?\n\n{{accountSignature}}"
+      },
+      {
+        "subject": "Partenariat matériel chantier",
+        "body": "Nous aidons les grossistes de matériel de chantier B2B à gagner plus de clients et à automatiser leur acquisition client.\n\nÇa vous intéresserait d’échanger rapidement ?\n\n{{accountSignature}}"
+      }
+    ],
+    "steps": [
+      {
+        "day": 0,
+        "subject": "Partenariat matériel chantier",
+        "body": "Bonjour,\n\nJe comptais vous appeler au {{phone}} mais un email m'a semblé plus simple.\n\nNous mettons en place un système qui vous apporte des prospects B2B prêts à acheter des volumes de commandes. Une garantie de 10 ventes entre 800 et 2 500 dans les 3 mois ou vous ne payez rien.\n\nSouhaitez-vous en savoir plus ?\n\n{{accountSignature}}"
+      },
+      {
+        "day": 3,
+        "subject": "Suite à mon précédent message",
+        "body": "Je me permets de revenir vers vous. Avez-vous eu le temps de réfléchir ?\n\nBien cordialement"
+      }
+    ]
+  }
+}
