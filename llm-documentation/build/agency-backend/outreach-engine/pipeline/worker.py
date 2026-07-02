@@ -131,7 +131,13 @@ def _save_cold_leads(tenant_id: str, leads: list[dict], campaign_id: str):
             "metadata": entry,
         }
         try:
-            sb.table("cold_leads").insert(record).execute()
+            existing = sb.table("cold_leads").select("id").eq("tenant_id", tenant_id).eq("email", email).execute()
+            data = getattr(existing, "data", None) or []
+            if data:
+                row_id = data[0]["id"]
+                sb.table("cold_leads").update(record).eq("id", row_id).execute()
+            else:
+                sb.table("cold_leads").insert(record).execute()
             count += 1
         except Exception:
             pass
