@@ -121,8 +121,20 @@ def main():
     parser.add_argument("--create-tenant", action="store_true", help="Create a new tenant interactively")
     parser.add_argument("--tenant", default=os.getenv("TENANT_ID", "marin"), help="Tenant ID")
     parser.add_argument("--config", help="Path to config.json (default: auto-detect)")
-    parser.add_argument("--once", action="store_true", help="Run one cycle (no scheduler)")
+    parser.add_argument("--once", action="store_true", help="Run one worker cycle and exit")
+    parser.add_argument("--mode", choices=["pipeline", "survivor"], help="Runner mode: pipeline or survivor")
     args = parser.parse_args()
+
+    if args.mode == "survivor":
+        from survivor_scheduler import run_until_target
+        run_until_target(
+            tenant_id=args.tenant,
+            target=2000,
+            max_cycles=20,
+            interval_seconds=60,
+            dry_run=args.demo,
+        )
+        return
 
     if args.create_tenant:
         phase_create_tenant(demo=args.demo)
