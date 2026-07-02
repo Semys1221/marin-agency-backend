@@ -99,8 +99,12 @@ def run_loop(demo: bool = False):
     print(f"  [cron] Scheduler démarré (toutes les {_INTERVAL_MINUTES} min)")
     print(f"  [cron] Ctrl+C pour arrêter")
     try:
+        try:
             from slack_notifier.transport.client import send_message
-        send_message(f"⏰ *Scheduler démarré* — rotation toutes les {_INTERVAL_MINUTES} min")
+        except Exception:
+            send_message = None
+        if send_message:
+            send_message(f"⏰ *Scheduler démarré* — rotation toutes les {_INTERVAL_MINUTES} min")
     except Exception:
         pass
 
