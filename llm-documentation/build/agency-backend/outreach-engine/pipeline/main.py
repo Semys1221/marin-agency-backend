@@ -138,7 +138,12 @@ def main():
 
     if args.mode == "survivor-cleaner":
         import sys
-        sys.argv = [sys.argv[0]]
+        sys.argv = [
+            sys.argv[0],
+            "--db",
+            "--tenant-id", args.tenant,
+            "--campaign-id", "grossiste_materiel_chantier-marin-agency",
+        ]
         from outreach_engine.email_validator.cleaner import main as cleaner_main
         cleaner_main()
         return
