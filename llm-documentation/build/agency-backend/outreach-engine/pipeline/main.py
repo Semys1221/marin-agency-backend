@@ -136,6 +136,13 @@ def main():
         )
         return
 
+    if args.mode == "survivor-cleaner":
+        import sys
+        sys.argv = [sys.argv[0]]
+        from outreach_engine.email_validator.cleaner import main as cleaner_main
+        cleaner_main()
+        return
+
     if args.create_tenant:
         phase_create_tenant(demo=args.demo)
         return
