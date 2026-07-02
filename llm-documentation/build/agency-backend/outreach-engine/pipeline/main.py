@@ -126,6 +126,8 @@ def main():
     args = parser.parse_args()
 
     if args.mode == "survivor":
+        from health import start as start_health
+        start_health()
         from survivor_scheduler import run_until_target
         run_until_target(
             tenant_id=args.tenant,
@@ -137,6 +139,8 @@ def main():
         return
 
     if args.mode == "survivor-cleaner":
+        from health import start as start_health
+        start_health()
         import sys
         sys.argv = [
             sys.argv[0],
