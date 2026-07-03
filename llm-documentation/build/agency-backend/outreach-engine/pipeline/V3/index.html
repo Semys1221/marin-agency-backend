@@ -13,47 +13,43 @@
         input, select { width: 100%; padding: 0.6rem 0.75rem; margin-bottom: 0.75rem; background: #1a1a1a; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; font-size: 0.95rem; }
         input:focus, select:focus { outline: none; border-color: #555; }
 
-        button { border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 1rem; cursor: pointer; width: 100%; margin-bottom: 0.5rem; }
+        button { border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 1rem; cursor: pointer; width: 100%; }
         button:hover { opacity: 0.9; }
         button:disabled { background: #333 !important; color: #666 !important; cursor: not-allowed; }
-        .btn-scrape { background: #fff; color: #000; }
-        .btn-clean1 { background: #2255aa; color: #fff; }
-        .btn-clean2 { background: #8844aa; color: #fff; }
-        .btn-push { background: #2a6e2a; color: #fff; }
+        .btn-launch { background: #fff; color: #000; }
 
         /* Steps */
-        .step { margin-top: 2rem; display: none; }
-        .step.visible { display: block; }
-        .step-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .step-number { background: #333; color: #aaa; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; }
-        .step-number.active { background: #fff; color: #000; }
-        .step-number.done { background: #2a6e2a; color: #fff; }
-        .step-title { font-size: 1rem; }
-        .step-desc { color: #666; font-size: 0.8rem; margin-bottom: 0.75rem; }
+        .steps { margin-top: 2rem; display: none; }
+        .steps.visible { display: block; }
+        .step { padding: 1rem; margin-bottom: 0.5rem; background: #1a1a1a; border-radius: 8px; border-left: 4px solid #333; }
+        .step.active { border-left-color: #fff; }
+        .step.done { border-left-color: #2a6e2a; }
+        .step.error { border-left-color: #c44; }
+        .step-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .step-desc { font-size: 0.8rem; color: #888; }
+        .step-stats { font-size: 0.85rem; margin-top: 0.5rem; }
+        .step-stats span { margin-right: 1rem; }
 
-        /* Progress */
-        .progress-bar { background: #1a1a1a; border-radius: 6px; overflow: hidden; height: 24px; margin-bottom: 0.5rem; }
-        .progress-fill { background: linear-gradient(90deg, #2a6e2a, #3a8e3a); height: 100%; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.8rem; }
-        .stats { display: flex; gap: 1rem; margin-bottom: 0.75rem; font-size: 0.85rem; }
-        .stat { background: #1a1a1a; padding: 0.5rem 0.75rem; border-radius: 6px; flex: 1; text-align: center; }
-        .stat-value { font-size: 1.25rem; font-weight: 600; color: #fff; }
-        .stat-label { color: #888; font-size: 0.7rem; margin-top: 0.15rem; }
-        .log-box { max-height: 250px; overflow-y: auto; background: #111; border-radius: 6px; padding: 0.75rem; font-family: monospace; font-size: 0.8rem; }
+        /* Global progress */
+        .global-progress { margin-top: 1.5rem; }
+        .progress-bar { background: #1a1a1a; border-radius: 6px; overflow: hidden; height: 28px; }
+        .progress-fill { background: linear-gradient(90deg, #2a6e2a, #3a8e3a); height: 100%; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 600; }
+
+        .log-box { max-height: 300px; overflow-y: auto; background: #111; border-radius: 6px; padding: 0.75rem; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; }
         .log-line { margin-bottom: 0.2rem; }
         .log-done { color: #6c6; }
         .log-info { color: #6af; }
         .log-warn { color: #ec6; }
         .log-error { color: #c66; }
 
-        .free-tag { background: #1a3a1a; color: #6c6; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; margin-left: 0.5rem; }
-        .paid-tag { background: #3a1a3a; color: #c6f; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; margin-left: 0.5rem; }
+        .free-tag { background: #1a3a1a; color: #6c6; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; }
+        .paid-tag { background: #3a1a3a; color: #c6f; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; }
     </style>
 </head>
 <body>
     <h1>Mass Scraping V3</h1>
-    <div class="subtitle">Scrape → Clean 1 (DNS) → Clean 2 (Verifier) → Push Instantly</div>
+    <div class="subtitle">Scrape → Clean 1 (DNS) → Clean 2 (Verifier) → Push Instantly — tout auto</div>
 
-    <!-- Config -->
     <div>
         <label for="niche">Niche</label>
         <input type="text" id="niche" placeholder="ex: kinésithérapeute, agent immobilier">
@@ -67,71 +63,40 @@
         <select id="campaign"><option value="">Chargement...</option></select>
     </div>
 
-    <!-- Step 1: Scrape -->
-    <div class="step visible" id="step-1">
-        <div class="step-header">
-            <div class="step-number active" id="sn-1">1</div>
-            <div class="step-title">Scrape</div>
+    <button class="btn-launch" id="btn-launch">🚀 Lancer (scrape + clean + push)</button>
+
+    <!-- Pipeline steps -->
+    <div class="steps" id="steps">
+        <div class="step" id="step-scrape">
+            <div class="step-title">1. Scrape <span style="color:#666; font-weight:normal;">— Outscraper</span></div>
+            <div class="step-desc">Google Maps, 100 villes françaises</div>
+            <div class="step-stats" id="stats-scrape"></div>
         </div>
-        <div class="step-desc">Outscraper Google Maps — ~20 leads/ville, 100 villes françaises</div>
-        <button class="btn-scrape" id="btn-scrape">🚀 Lancer le scraping</button>
-        <div id="progress-scrape" style="display:none;">
-            <div class="progress-bar"><div class="progress-fill" id="pf-scrape" style="width:0%">0%</div></div>
-            <div class="stats">
-                <div class="stat"><div class="stat-value" id="sv-total">0</div><div class="stat-label">Leads</div></div>
-                <div class="stat"><div class="stat-value" id="sv-cities">0</div><div class="stat-label">Villes</div></div>
-            </div>
-            <div class="log-box" id="log-scrape"></div>
+        <div class="step" id="step-clean1">
+            <div class="step-title">2. Clean 1 — DNS MX <span class="free-tag">GRATUIT</span></div>
+            <div class="step-desc">Vérifie que le domaine a un MX record</div>
+            <div class="step-stats" id="stats-clean1"></div>
+        </div>
+        <div class="step" id="step-clean2">
+            <div class="step-title">3. Clean 2 — MyEmailVerifier <span class="paid-tag">PAYANT</span></div>
+            <div class="step-desc">Validation email par email</div>
+            <div class="step-stats" id="stats-clean2"></div>
+        </div>
+        <div class="step" id="step-push">
+            <div class="step-title">4. Push Instantly</div>
+            <div class="step-desc">Envoi vers la campagne sélectionnée</div>
+            <div class="step-stats" id="stats-push"></div>
         </div>
     </div>
 
-    <!-- Step 2: Clean 1 -->
-    <div class="step" id="step-2">
-        <div class="step-header">
-            <div class="step-number" id="sn-2">2</div>
-            <div class="step-title">Clean 1 — DNS MX <span class="free-tag">GRATUIT</span></div>
-        </div>
-        <div class="step-desc">Vérifie que le domaine a un MX record. Rapide, 0 coût. Élimine les domaines morts.</div>
-        <button class="btn-clean1" id="btn-clean1">🔍 Lancer Clean 1</button>
-        <div id="progress-clean1" style="display:none;">
-            <div class="progress-bar"><div class="progress-fill" id="pf-clean1" style="width:0%; background: linear-gradient(90deg, #2255aa, #4477cc);">0%</div></div>
-            <div class="stats">
-                <div class="stat"><div class="stat-value" id="sv-c1-total">0</div><div class="stat-label">Traités</div></div>
-                <div class="stat"><div class="stat-value" id="sv-c1-valid">0</div><div class="stat-label">Valides</div></div>
-                <div class="stat"><div class="stat-value" id="sv-c1-invalid">0</div><div class="stat-label">Invalides</div></div>
-            </div>
-            <div class="log-box" id="log-clean1"></div>
+    <!-- Global progress -->
+    <div class="global-progress" id="global-progress" style="display:none;">
+        <div class="progress-bar">
+            <div class="progress-fill" id="global-fill" style="width:0%">0%</div>
         </div>
     </div>
 
-    <!-- Step 3: Clean 2 -->
-    <div class="step" id="step-3">
-        <div class="step-header">
-            <div class="step-number" id="sn-3">3</div>
-            <div class="step-title">Clean 2 — MyEmailVerifier <span class="paid-tag">PAYANT</span></div>
-        </div>
-        <div class="step-desc">Validation email par email via API. Précis mais consomme des crédits. Optionnel.</div>
-        <button class="btn-clean2" id="btn-clean2">✉️ Lancer Clean 2</button>
-        <div id="progress-clean2" style="display:none;">
-            <div class="progress-bar"><div class="progress-fill" id="pf-clean2" style="width:0%; background: linear-gradient(90deg, #8844aa, #aa66cc);">0%</div></div>
-            <div class="stats">
-                <div class="stat"><div class="stat-value" id="sv-c2-total">0</div><div class="stat-label">Traités</div></div>
-                <div class="stat"><div class="stat-value" id="sv-c2-valid">0</div><div class="stat-label">Valides</div></div>
-                <div class="stat"><div class="stat-value" id="sv-c2-invalid">0</div><div class="stat-label">Invalides</div></div>
-            </div>
-            <div class="log-box" id="log-clean2"></div>
-        </div>
-    </div>
-
-    <!-- Step 4: Push -->
-    <div class="step" id="step-4">
-        <div class="step-header">
-            <div class="step-number" id="sn-4">4</div>
-            <div class="step-title">Push Instantly</div>
-        </div>
-        <div class="step-desc">Envoie les leads valides vers la campagne Instantly sélectionnée</div>
-        <button class="btn-push" id="btn-push">📤 Pusher vers Instantly</button>
-    </div>
+    <div class="log-box" id="log" style="display:none;"></div>
 
     <script>
         const $ = (id) => document.getElementById(id);
@@ -151,17 +116,17 @@
             }
         }
 
-        function addLog(boxId, msg, type = "done") {
-            const log = $(boxId);
-            log.innerHTML += `<div class="log-line log-${type}">${msg}</div>`;
-            log.scrollTop = log.scrollHeight;
+        function log(msg, type = "done") {
+            const el = $("log");
+            el.style.display = "block";
+            el.innerHTML += `<div class="log-line log-${type}">${msg}</div>`;
+            el.scrollTop = el.scrollHeight;
         }
 
-        function setProgress(fillId, current, total) {
-            const pct = total > 0 ? Math.min(100, Math.round((current / total) * 100)) : 0;
-            const el = $(fillId);
-            el.style.width = pct + "%";
-            el.textContent = pct + "%";
+        function setStep(stepId, state) {
+            const el = $(stepId);
+            el.classList.remove("active", "done", "error");
+            if (state) el.classList.add(state);
         }
 
         function readSSE(response, onEvent) {
@@ -185,152 +150,136 @@
             });
         }
 
-        // ── STEP 1: SCRAPE ──
-        $("btn-scrape").addEventListener("click", async () => {
+        // ── FULL PIPELINE ──
+        $("btn-launch").addEventListener("click", async () => {
             const niche = $("niche").value.trim();
             target = parseInt($("target").value) || 5000;
+            const campaignId = $("campaign").value;
+
             if (!niche) { alert("Niche requise"); return; }
+            if (!campaignId) { alert("Sélectionne une campagne Instantly"); return; }
 
-            $("btn-scrape").disabled = true;
-            $("progress-scrape").style.display = "block";
-            let citiesCount = 0;
-            totalScraped = 0;
+            $("btn-launch").disabled = true;
+            $("steps").classList.add("visible");
+            $("global-progress").style.display = "block";
+            $("log").innerHTML = "";
+            $("log").style.display = "none";
 
-            addLog("log-scrape", `🚀 ${niche} — target ${target}`, "info");
+            // Reset steps
+            ["step-scrape", "step-clean1", "step-clean2", "step-push"].forEach(s => setStep(s, null));
+            ["stats-scrape", "stats-clean1", "stats-clean2", "stats-push"].forEach(s => $(s).textContent = "");
 
             try {
-                const r = await fetch("/api/scrape-job", {
+                // ═══ STEP 1: SCRAPE ═══
+                setStep("step-scrape", "active");
+                log(`🚀 Démarrage: ${niche} (target: ${target})`, "info");
+
+                let citiesCount = 0;
+                totalScraped = 0;
+
+                const rScrape = await fetch("/api/scrape-job", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ niche, target }),
                 });
 
-                await readSSE(r, (data) => {
+                await readSSE(rScrape, (data) => {
                     if (data.type === "start") {
                         queueId = data.queue_id;
-                        addLog("log-scrape", `Queue: ${queueId}`, "info");
+                        log(`Queue: ${queueId}`, "info");
                     } else if (data.type === "progress") {
                         totalScraped = data.total;
                         citiesCount++;
-                        $("sv-total").textContent = totalScraped;
-                        $("sv-cities").textContent = citiesCount;
-                        setProgress("pf-scrape", totalScraped, target);
-                        addLog("log-scrape", `✓ ${data.city}: +${data.city_count}`, "done");
+                        $("stats-scrape").innerHTML = `<span>${totalScraped} leads</span><span>${citiesCount} villes</span>`;
+                        const pct = Math.min(100, Math.round((totalScraped / target) * 100));
+                        $("global-fill").style.width = (pct * 0.4) + "%"; // 40% for scrape
+                        $("global-fill").textContent = `Scrape: ${totalScraped}/${target}`;
                     } else if (data.type === "error") {
-                        addLog("log-scrape", `✗ ${data.city}: ${data.message}`, "error");
+                        log(`✗ ${data.city}: ${data.message}`, "error");
                     } else if (data.type === "done") {
-                        addLog("log-scrape", `✅ ${data.total} leads, ${data.cities} villes`, "done");
-                        $("sn-1").classList.add("done");
-                        $("sn-1").classList.remove("active");
-                        $("step-2").classList.add("visible");
-                        $("sn-2").classList.add("active");
+                        log(`✅ Scrape terminé: ${data.total} leads, ${data.cities} villes`, "done");
+                        $("stats-scrape").innerHTML = `<span>${data.total} leads</span><span>${data.cities} villes</span>`;
+                        setStep("step-scrape", "done");
                     }
                 });
-            } catch (e) {
-                addLog("log-scrape", `❌ ${e.message}`, "error");
-            } finally {
-                $("btn-scrape").disabled = false;
-            }
-        });
 
-        // ── STEP 2: CLEAN 1 ──
-        $("btn-clean1").addEventListener("click", async () => {
-            if (!queueId) return;
-            $("btn-clean1").disabled = true;
-            $("progress-clean1").style.display = "block";
+                // ═══ STEP 2: CLEAN 1 ═══
+                setStep("step-clean1", "active");
+                log("🔍 Clean 1 — DNS MX...", "info");
 
-            addLog("log-clean1", "🔍 DNS MX check...", "info");
-
-            try {
-                const r = await fetch("/api/clean-1", {
+                const rClean1 = await fetch("/api/clean-1", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ queue_id: queueId }),
                 });
 
-                await readSSE(r, (data) => {
+                await readSSE(rClean1, (data) => {
                     if (data.type === "start") {
-                        addLog("log-clean1", `${data.total} emails à vérifier`, "info");
+                        log(`${data.total} emails à vérifier (DNS MX)`, "info");
                     } else if (data.type === "progress") {
-                        $("sv-c1-total").textContent = data.processed;
-                        $("sv-c1-valid").textContent = data.valid;
-                        $("sv-c1-invalid").textContent = data.invalid;
-                        setProgress("pf-clean1", data.processed, data.total);
+                        $("stats-clean1").innerHTML = `<span>${data.processed}/${data.total}</span><span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                        const pct = 40 + Math.round((data.processed / data.total) * 20); // 40-60%
+                        $("global-fill").style.width = pct + "%";
+                        $("global-fill").textContent = `Clean 1: ${data.processed}/${data.total}`;
                     } else if (data.type === "done") {
-                        addLog("log-clean1", `✅ ${data.valid} valides / ${data.invalid} invalides sur ${data.total}`, "done");
-                        $("sn-2").classList.add("done");
-                        $("sn-2").classList.remove("active");
-                        $("step-3").classList.add("visible");
-                        $("sn-3").classList.add("active");
-                        $("step-4").classList.add("visible");
+                        log(`✅ Clean 1: ${data.valid} valides / ${data.invalid} invalides`, "done");
+                        $("stats-clean1").innerHTML = `<span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                        setStep("step-clean1", "done");
                     }
                 });
-            } catch (e) {
-                addLog("log-clean1", `❌ ${e.message}`, "error");
-            } finally {
-                $("btn-clean1").disabled = false;
-            }
-        });
 
-        // ── STEP 3: CLEAN 2 ──
-        $("btn-clean2").addEventListener("click", async () => {
-            if (!queueId) return;
-            if (!confirm("Clean 2 consomme des crédits MyEmailVerifier. Continuer ?")) return;
-            $("btn-clean2").disabled = true;
-            $("progress-clean2").style.display = "block";
+                // ═══ STEP 3: CLEAN 2 ═══
+                setStep("step-clean2", "active");
+                log("✉️ Clean 2 — MyEmailVerifier...", "info");
 
-            addLog("log-clean2", "✉️ MyEmailVerifier API...", "info");
-
-            try {
-                const r = await fetch("/api/clean-2", {
+                const rClean2 = await fetch("/api/clean-2", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ queue_id: queueId }),
                 });
 
-                await readSSE(r, (data) => {
+                await readSSE(rClean2, (data) => {
                     if (data.type === "start") {
-                        addLog("log-clean2", `${data.total} emails à vérifier`, "info");
+                        log(`${data.total} emails à vérifier (Verifier)`, "info");
                     } else if (data.type === "progress") {
-                        $("sv-c2-total").textContent = data.processed;
-                        $("sv-c2-valid").textContent = data.valid;
-                        $("sv-c2-invalid").textContent = data.invalid;
-                        setProgress("pf-clean2", data.processed, data.total);
+                        $("stats-clean2").innerHTML = `<span>${data.processed}/${data.total}</span><span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                        const pct = 60 + Math.round((data.processed / data.total) * 30); // 60-90%
+                        $("global-fill").style.width = pct + "%";
+                        $("global-fill").textContent = `Clean 2: ${data.processed}/${data.total}`;
                     } else if (data.type === "done") {
-                        addLog("log-clean2", `✅ ${data.valid} valides / ${data.invalid} invalides sur ${data.total}`, "done");
-                        $("sn-3").classList.add("done");
-                        $("sn-3").classList.remove("active");
+                        log(`✅ Clean 2: ${data.valid} valides / ${data.invalid} invalides`, "done");
+                        $("stats-clean2").innerHTML = `<span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                        setStep("step-clean2", "done");
                     }
                 });
-            } catch (e) {
-                addLog("log-clean2", `❌ ${e.message}`, "error");
-            } finally {
-                $("btn-clean2").disabled = false;
-            }
-        });
 
-        // ── STEP 4: PUSH ──
-        $("btn-push").addEventListener("click", async () => {
-            if (!queueId) return;
-            const campaignId = $("campaign").value;
-            if (!campaignId) { alert("Sélectionne une campagne Instantly"); return; }
+                // ═══ STEP 4: PUSH ═══
+                setStep("step-push", "active");
+                log("📤 Push vers Instantly...", "info");
+                $("global-fill").style.width = "90%";
+                $("global-fill").textContent = "Push...";
 
-            $("btn-push").disabled = true;
-            try {
-                const r = await fetch("/api/push-job", {
+                const rPush = await fetch("/api/push-job", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ queue_id: queueId, instantly_campaign_id: campaignId }),
                 });
-                const data = await r.json();
-                if (!r.ok) throw new Error(data.detail);
-                alert(`✅ ${data.pushed} leads pushés vers Instantly !`);
-                $("sn-4").classList.add("done");
-                $("sn-4").classList.remove("active");
+                const pushData = await rPush.json();
+                if (!rPush.ok) throw new Error(pushData.detail || "Erreur push");
+
+                log(`✅ ${pushData.pushed} leads pushés vers Instantly !`, "done");
+                $("stats-push").innerHTML = `<span>${pushData.pushed} leads pushés</span>`;
+                setStep("step-push", "done");
+
+                $("global-fill").style.width = "100%";
+                $("global-fill").textContent = "✅ Terminé !";
+
             } catch (e) {
-                alert("Erreur: " + e.message);
+                log(`❌ ${e.message}`, "error");
+                // Mark current active step as error
+                document.querySelectorAll(".step.active").forEach(el => setStep(el.id, "error"));
             } finally {
-                $("btn-push").disabled = false;
+                $("btn-launch").disabled = false;
             }
         });
 
