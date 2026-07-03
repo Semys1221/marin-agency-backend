@@ -3,91 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prospection Manuelle</title>
+    <title>Prospection Manuelle V3</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #0f0f0f;
-            color: #e0e0e0;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h1 { margin-bottom: 2rem; font-size: 1.5rem; }
-        h2 { margin: 1.5rem 0 1rem; font-size: 1.1rem; color: #888; }
-        label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: #aaa; }
-        input, textarea, select {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 1rem;
-        }
-        textarea { min-height: 80px; resize: vertical; }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #555;
-        }
-        .toggle-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        .toggle-row input[type="checkbox"] { width: auto; }
-        button {
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 2rem; max-width: 900px; margin: 0 auto; }
+        h1 { margin-bottom: 0.5rem; font-size: 1.5rem; }
+        .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.85rem; }
+        h2 { margin: 1.5rem 0 0.75rem; font-size: 1rem; color: #888; border-bottom: 1px solid #222; padding-bottom: 0.5rem; }
+        label { display: block; margin-bottom: 0.3rem; font-size: 0.85rem; color: #aaa; }
+        input, textarea, select { width: 100%; padding: 0.6rem 0.75rem; margin-bottom: 0.75rem; background: #1a1a1a; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; font-size: 0.95rem; }
+        textarea { min-height: 60px; resize: vertical; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #555; }
+        .row { display: flex; gap: 1rem; }
+        .row > div { flex: 1; }
+        .toggle-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .toggle-row input[type="checkbox"] { width: auto; margin: 0; }
+        .toggle-row label { margin: 0; }
+        button { background: #fff; color: #000; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-size: 0.9rem; cursor: pointer; margin-right: 0.5rem; margin-bottom: 0.5rem; }
         button:hover { background: #ddd; }
-        button:disabled { background: #444; color: #888; cursor: not-allowed; }
-        button.secondary { background: #333; color: #e0e0e0; }
-        button.secondary:hover { background: #444; }
-        button.danger { background: #a33; color: #fff; }
-        button.danger:hover { background: #c44; }
-        #results {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #1a1a1a;
-            border-radius: 6px;
-            display: none;
-        }
-        #results.visible { display: block; }
-        .stats { margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; }
-        .lead-list {
-            max-height: 400px;
-            overflow-y: auto;
-            font-size: 0.85rem;
-        }
-        .lead-item {
-            padding: 0.5rem;
-            border-bottom: 1px solid #333;
-        }
-        .lead-item:last-child { border-bottom: none; }
-        .lead-email { color: #7af; }
-        .lead-company { color: #aaa; font-size: 0.8rem; }
-        #log {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #111;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.8rem;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-        }
+        button:disabled { background: #333; color: #666; cursor: not-allowed; }
+        button.secondary { background: #2a2a2a; color: #ccc; }
+        button.secondary:hover { background: #3a3a3a; }
+        button.success { background: #2a6e2a; color: #fff; }
+        button.success:hover { background: #3a8e3a; }
+        .steps { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+
+        /* Queue list */
+        .queue-item { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; cursor: pointer; transition: border-color 0.2s; }
+        .queue-item:hover { border-color: #444; }
+        .queue-item.selected { border-color: #7af; }
+        .queue-niche { font-weight: 600; }
+        .queue-city { color: #888; font-size: 0.85rem; }
+        .queue-status { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; margin-left: 0.5rem; }
+        .status-pending { background: #443; color: #ec6; }
+        .status-scraping { background: #234; color: #6af; }
+        .status-scraped { background: #234; color: #6af; }
+        .status-cleaned { background: #243; color: #6c6; }
+        .status-done { background: #1a1a1a; color: #888; }
+
+        /* Leads table */
+        .leads-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 0.5rem; }
+        .leads-table th { text-align: left; padding: 0.4rem; border-bottom: 1px solid #333; color: #888; }
+        .leads-table td { padding: 0.4rem; border-bottom: 1px solid #1a1a1a; }
+        .leads-table .email { color: #7af; }
+
+        #log { margin-top: 1rem; padding: 1rem; background: #111; border-radius: 6px; font-family: monospace; font-size: 0.8rem; max-height: 200px; overflow-y: auto; display: none; }
         #log.visible { display: block; }
         .log-line { margin-bottom: 0.25rem; }
         .log-info { color: #aaa; }
@@ -96,46 +56,78 @@
     </style>
 </head>
 <body>
-    <h1>Prospection Manuelle</h1>
+    <h1>Prospection Manuelle V3</h1>
+    <div class="subtitle">Supabase + Smartlead — scrape, validate, push</div>
 
-    <div>
-        <label for="keywords">Keywords (un par ligne)</label>
-        <textarea id="keywords" placeholder="agent immobilier paris&#10;agence immobilière lyon"></textarea>
+    <!-- Step 1: Create Queue -->
+    <h2>1. Nouvelle prospection</h2>
+    <div class="row">
+        <div>
+            <label for="niche">Niche</label>
+            <input type="text" id="niche" placeholder="ex: agent immobilier">
+        </div>
+        <div>
+            <label for="city">Ville</label>
+            <input type="text" id="city" placeholder="ex: Paris">
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <label for="keywords">Keywords (optionnel, virgule)</label>
+            <input type="text" id="keywords" placeholder="ex: agence immobilière paris, immobilier paris">
+        </div>
+        <div>
+            <label for="exclude">Exclure (optionnel)</label>
+            <input type="text" id="exclude" placeholder="ex: location, étudiant">
+        </div>
+    </div>
+    <button id="btn-create">Créer la prospection</button>
+
+    <!-- Queue List -->
+    <h2>2. Prospections en cours</h2>
+    <div id="queue-list"></div>
+
+    <!-- Actions for selected queue -->
+    <div id="actions" style="display:none;">
+        <h2>3. Actions</h2>
+        <div class="row">
+            <div>
+                <label for="limit">Nombre de leads à scraper</label>
+                <input type="number" id="limit" value="20" min="1" max="200">
+            </div>
+            <div>
+                <label for="campaign">Campagne Smartlead</label>
+                <select id="campaign"><option value="">Chargement...</option></select>
+            </div>
+        </div>
+        <div class="toggle-row">
+            <input type="checkbox" id="validate" checked>
+            <label for="validate">Valider les emails après scrape</label>
+        </div>
+        <div class="steps">
+            <button id="btn-scrape" class="secondary">Scraper</button>
+            <button id="btn-validate" class="secondary" disabled>Valider emails</button>
+            <button id="btn-push" class="success" disabled>Pusher vers Smartlead</button>
+        </div>
     </div>
 
-    <div>
-        <label for="limit">Nombre de leads</label>
-        <input type="number" id="limit" value="20" min="1" max="100">
-    </div>
-
-    <div class="toggle-row">
-        <input type="checkbox" id="validate" checked>
-        <label for="validate" style="margin: 0;">Valider les emails avant push</label>
-    </div>
-
-    <div>
-        <label for="campaign">Campagne Instantly</label>
-        <select id="campaign">
-            <option value="">Chargement...</option>
-        </select>
-    </div>
-
-    <div>
-        <button id="btn-scrape">1. Scraper</button>
-        <button id="btn-push" class="secondary" disabled>2. Pusher</button>
-        <button id="btn-clear" class="danger">Effacer</button>
-    </div>
-
-    <div id="results">
-        <div class="stats" id="stats"></div>
-        <div class="lead-list" id="lead-list"></div>
+    <!-- Leads -->
+    <div id="leads-section" style="display:none;">
+        <h2>4. Leads</h2>
+        <div id="leads-stats" style="margin-bottom: 0.5rem; font-size: 0.85rem; color: #888;"></div>
+        <div style="max-height: 400px; overflow-y: auto;">
+            <table class="leads-table" id="leads-table">
+                <thead><tr><th>Email</th><th>Entreprise</th><th>Ville</th><th>Statut</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
     <div id="log"></div>
 
     <script>
         const $ = (id) => document.getElementById(id);
-        let currentLeads = [];
+        let selectedQueueId = null;
 
         function log(msg, type = "info") {
             const el = $("log");
@@ -144,100 +136,146 @@
             el.scrollTop = el.scrollHeight;
         }
 
-        function clearLog() {
-            $("log").innerHTML = "";
-            $("log").classList.remove("visible");
+        // Load queue list
+        async function loadQueue() {
+            try {
+                const r = await fetch("/api/queue");
+                const items = await r.json();
+                const list = $("queue-list");
+                if (!items.length) {
+                    list.innerHTML = '<div style="color:#666;font-size:0.85rem;">Aucune prospection. Crée-en une ci-dessus.</div>';
+                    return;
+                }
+                list.innerHTML = items.map(q => `
+                    <div class="queue-item ${q.id === selectedQueueId ? 'selected' : ''}" onclick="selectQueue('${q.id}')">
+                        <span class="queue-niche">${q.niche}</span>
+                        <span class="queue-city"> · ${q.city}</span>
+                        <span class="queue-status status-${q.status}">${q.status}</span>
+                        ${q.include_keywords ? `<div style="font-size:0.8rem;color:#666;margin-top:0.25rem;">kw: ${q.include_keywords}</div>` : ''}
+                    </div>
+                `).join("");
+            } catch (e) {
+                log("Erreur chargement queue: " + e.message, "error");
+            }
         }
 
-        // Charger les campagnes Instantly
+        async function selectQueue(id) {
+            selectedQueueId = id;
+            $("actions").style.display = "block";
+            loadQueue(); // refresh selection highlight
+            await loadLeads();
+        }
+
+        // Load campaigns
         async function loadCampaigns() {
             try {
                 const r = await fetch("/api/campaigns");
                 const campaigns = await r.json();
-                const select = $("campaign");
-                select.innerHTML = campaigns.length
+                $("campaign").innerHTML = campaigns.length
                     ? campaigns.map(c => `<option value="${c.id}">${c.name}</option>`).join("")
-                    : '<option value="">Aucune campagne trouvée</option>';
+                    : '<option value="">Aucune campagne</option>';
             } catch (e) {
-                log("Erreur chargement campagnes: " + e.message, "error");
+                log("Erreur campagnes: " + e.message, "error");
+                $("campaign").innerHTML = '<option value="">Erreur</option>';
             }
         }
 
-        // Scraper
-        $("btn-scrape").addEventListener("click", async () => {
-            const keywords = $("keywords").value.trim().split("\n").filter(k => k.trim());
-            const limit = parseInt($("limit").value) || 20;
+        // Create queue
+        $("btn-create").addEventListener("click", async () => {
+            const niche = $("niche").value.trim();
+            const city = $("city").value.trim();
+            if (!niche || !city) { log("Niche et ville requis", "error"); return; }
 
-            if (!keywords.length) {
-                log("Ajoute au moins un keyword", "error");
-                return;
+            try {
+                const r = await fetch("/api/queue", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        niche, city,
+                        include_keywords: $("keywords").value.trim() || null,
+                        exclude_keywords: $("exclude").value.trim() || null,
+                    }),
+                });
+                const q = await r.json();
+                log(`Prospection créée: ${niche} ${city} (${q.id})`, "success");
+                loadQueue();
+                $("niche").value = ""; $("city").value = ""; $("keywords").value = ""; $("exclude").value = "";
+            } catch (e) {
+                log("Erreur création: " + e.message, "error");
             }
+        });
 
+        // Scrape
+        $("btn-scrape").addEventListener("click", async () => {
+            if (!selectedQueueId) return;
             $("btn-scrape").disabled = true;
-            clearLog();
-            log(`Scraping: ${keywords.join(", ")} (limit ${limit})...`);
-
+            const limit = parseInt($("limit").value) || 20;
+            log(`Scraping ${limit} leads...`);
             try {
                 const r = await fetch("/api/scrape", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ keywords, limit }),
+                    body: JSON.stringify({ queue_id: selectedQueueId, limit }),
                 });
                 const data = await r.json();
+                if (!r.ok) throw new Error(data.detail);
+                log(`${data.scraped} leads scrapés`, "success");
 
-                if (!r.ok) throw new Error(data.detail || "Erreur API");
-
-                let leads = data.leads;
-                log(`${data.count} leads trouvés`, "success");
-
-                // Validation emails si cochée
-                if ($("validate").checked && leads.length > 0) {
-                    log("Validation des emails...");
-                    const r2 = await fetch("/api/validate", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ leads }),
-                    });
-                    const data2 = await r2.json();
-                    if (!r2.ok) throw new Error(data2.detail || "Erreur validation");
-                    leads = data2.leads;
-                    log(`${data2.valid}/${data2.total} emails valides`, "success");
+                // Auto-validate if checked
+                if ($("validate").checked && data.scraped > 0) {
+                    $("btn-validate").click();
                 }
-
-                currentLeads = leads;
-                renderLeads();
-                $("btn-push").disabled = leads.length === 0;
+                loadQueue();
+                await loadLeads();
             } catch (e) {
-                log("Erreur: " + e.message, "error");
+                log("Erreur scrape: " + e.message, "error");
             } finally {
                 $("btn-scrape").disabled = false;
             }
         });
 
+        // Validate
+        $("btn-validate").addEventListener("click", async () => {
+            if (!selectedQueueId) return;
+            $("btn-validate").disabled = true;
+            log("Validation des emails...");
+            try {
+                const r = await fetch("/api/validate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ queue_id: selectedQueueId }),
+                });
+                const data = await r.json();
+                if (!r.ok) throw new Error(data.detail);
+                log(`${data.valid}/${data.total} emails valides`, "success");
+                $("btn-push").disabled = data.valid === 0;
+                loadQueue();
+                await loadLeads();
+            } catch (e) {
+                log("Erreur validation: " + e.message, "error");
+            } finally {
+                $("btn-validate").disabled = false;
+            }
+        });
+
         // Push
         $("btn-push").addEventListener("click", async () => {
-            const campaignId = $("campaign").value;
-            if (!campaignId) {
-                log("Sélectionne une campagne", "error");
-                return;
-            }
-            if (!currentLeads.length) {
-                log("Aucun lead à pusher", "error");
-                return;
-            }
-
+            if (!selectedQueueId) return;
+            const campaignId = parseInt($("campaign").value);
+            if (!campaignId) { log("Sélectionne une campagne", "error"); return; }
             $("btn-push").disabled = true;
-            log(`Pushing ${currentLeads.length} leads...`);
-
+            log("Push vers Smartlead...");
             try {
                 const r = await fetch("/api/push", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ campaign_id: campaignId, leads: currentLeads }),
+                    body: JSON.stringify({ queue_id: selectedQueueId, smartlead_campaign_id: campaignId }),
                 });
                 const data = await r.json();
-                if (!r.ok) throw new Error(data.detail || "Erreur push");
-                log(`${data.pushed} leads pushés avec succès`, "success");
+                if (!r.ok) throw new Error(data.detail);
+                log(`${data.pushed} leads pushés vers Smartlead`, "success");
+                loadQueue();
+                await loadLeads();
             } catch (e) {
                 log("Erreur push: " + e.message, "error");
             } finally {
@@ -245,35 +283,41 @@
             }
         });
 
-        // Clear
-        $("btn-clear").addEventListener("click", () => {
-            currentLeads = [];
-            $("results").classList.remove("visible");
-            $("btn-push").disabled = true;
-            clearLog();
-        });
+        // Load leads for selected queue
+        async function loadLeads() {
+            if (!selectedQueueId) return;
+            try {
+                const r = await fetch(`/api/leads?queue_id=${selectedQueueId}`);
+                const leads = await r.json();
+                const section = $("leads-section");
+                if (!leads.length) {
+                    section.style.display = "none";
+                    return;
+                }
+                section.style.display = "block";
 
-        function renderLeads() {
-            const results = $("results");
-            const stats = $("stats");
-            const list = $("lead-list");
+                // Stats
+                const stats = {};
+                leads.forEach(l => { stats[l.status] = (stats[l.status] || 0) + 1; });
+                $("leads-stats").textContent = `${leads.length} leads — ${Object.entries(stats).map(([s,c]) => `${s}: ${c}`).join(", ")}`;
 
-            if (!currentLeads.length) {
-                results.classList.remove("visible");
-                return;
+                // Table
+                const tbody = $("leads-table").querySelector("tbody");
+                tbody.innerHTML = leads.map(l => `
+                    <tr>
+                        <td class="email">${l.email || "—"}</td>
+                        <td>${l.company_name || ""}</td>
+                        <td>${l.city || ""}</td>
+                        <td><span class="queue-status status-${l.status}">${l.status}</span></td>
+                    </tr>
+                `).join("");
+            } catch (e) {
+                log("Erreur leads: " + e.message, "error");
             }
-
-            results.classList.add("visible");
-            stats.textContent = `${currentLeads.length} leads prêts à pusher`;
-            list.innerHTML = currentLeads.map(l => `
-                <div class="lead-item">
-                    <div class="lead-email">${l.email || "—"}</div>
-                    <div class="lead-company">${l.company_name || ""} · ${l.location || ""}</div>
-                </div>
-            `).join("");
         }
 
         // Init
+        loadQueue();
         loadCampaigns();
     </script>
 </body>
