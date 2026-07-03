@@ -1,71 +1,140 @@
 #!/usr/bin/env python3
 """
-Service de Nettoyage — valide les emails de cold_leads vers clean_leads.
+Cleaner Service — valide les emails de cold_leads vers clean_leads.
 
-Dépendances : supabase, dnspython, httpx
 Variables d'env : SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY,
                    MYEMAILVERIFIER_API_KEY (optionnel),
                    TENANT_ID (optionnel, filtre)
-
-Mode Render cron (--once) :
-  python cleaner_service.py --once
-
-Lit cold_leads (non encore traité), valide les emails, écrit dans clean_leads.
 """
 
 import asyncio
 import os
 import sys
 import time
+import re
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger("cleaner_service")
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# ── Shared helpers ──────────────────────────────────────────
+
+
+def _get_supabase():
+    from supabase import create_client
+    return create_client(os.getenv("SUPABASE_URL", ""), os.getenv("SUPABASE_SERVICE_ROLE_KEY", ""))
+
+
+def _is_configured():
+    u = os.getenv("SUPABASE_URL", "")
+    k = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+    return bool(u and k and u != "..." and k != "...")
+
+
+def _list_tenants() -> list[dict]:
+    if not _is_configured():
+        return []
+    try:
+        result = _get_supabase().table("tenants").select("*").execute()
+        return [{"tenant_id": r.get("slug", "")} for r in (result.data or [])]
+    except Exception:
+        return []
+
+
+# ── Email validation (simplified, inline from email_validator) ─
+
+
+EMAIL_REGEX = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+ROLE_BASED = {"info", "contact", "support", "sales", "admin", "hello", "help",
+              "marketing", "billing", "team", "noreply", "no-reply", "dev",
+              "webmaster", "postmaster", "abuse", "careers", "jobs"}
+DISPOSABLE = {"mailinator.com", "guerrillamail.com", "10minutemail.com",
+              "tempmail.com", "throwaway.email", "yopmail.com", "sharklasers.com",
+              "maildrop.cc", "inboxbear.com", "temp-mail.org", "trashmail.com"}
+
+
+class ValidationResult:
+    def __init__(self, email: str):
+        self.email = email
+        self.valid_format = False
+        self.has_mx = False
+        self.is_disposable = False
+        self.is_role_based = False
+        self.is_catch_all = False
+        self.error = None
+
+    @property
+    def is_valid(self) -> bool:
+        return self.valid_format and not self.is_disposable and self.has_mx is not False
+
+    @property
+    def risk_score(self) -> str:
+        if not self.is_valid:
+            return "high"
+        if self.is_role_based or self.is_catch_all:
+            return "medium"
+        return "low"
+
+
+def _check_mx(domain: str) -> bool:
+    try:
+        import dns.resolver
+        answers = dns.resolver.resolve(domain, "MX", lifetime=5)
+        return len(answers) > 0
+    except Exception:
+        return False
+
+
+async def _validate_email(email: str) -> ValidationResult:
+    r = ValidationResult(email)
+    if not EMAIL_REGEX.match(email):
+        r.error = "invalid_format"
+        return r
+    r.valid_format = True
+    _, domain = email.split("@")
+    domain = domain.lower()
+    local_part = email.split("@")[0]
+    r.is_role_based = local_part.lower() in ROLE_BASED
+    r.is_disposable = domain in DISPOSABLE
+    if not _check_mx(domain):
+        r.error = "no_mx"
+        return r
+    r.has_mx = True
+    return r
+
+
+async def _clean_emails(emails: list[str]) -> list[ValidationResult]:
+    tasks = [_validate_email(e) for e in emails]
+    return await asyncio.gather(*tasks)
+
+
+# ── Main logic ──────────────────────────────────────────────
 
 
 def _push_pending(tenant_id: str):
-    """Pousse les leads depuis cold_leads vers clean_leads."""
-    from cli.db import get_supabase, is_configured
-    from outreach_engine.email_validator.cleaner import clean_emails
-
-    if not is_configured():
+    if not _is_configured():
         log.error("Supabase non configuré")
         return
-
-    sb = get_supabase()
-
-    # Lit les cold_leads non encore dans clean_leads
-    q = sb.table("cold_leads").select("*").eq("tenant_id", tenant_id)
-    data = q.execute()
+    sb = _get_supabase()
+    data = sb.table("cold_leads").select("*").eq("tenant_id", tenant_id).execute()
     rows = data.data or []
     if not rows:
-        log.info("  Aucun lead à cleaner dans cold_leads")
+        log.info("  Aucun lead à cleaner")
         return
 
     emails = [r["email"] for r in rows]
     log.info("  %d leads à valider", len(emails))
-
-    api_key = os.getenv("MYEMAILVERIFIER_API_KEY", "")
-    use_api = bool(api_key)
-
-    results = asyncio.run(clean_emails(emails, use_api=use_api, api_key=api_key, demo=False))
-
+    results = asyncio.run(_clean_emails(emails))
     inserted = 0
     for row, r in zip(rows, results):
         record = {
-            "tenant_id": tenant_id,
-            "campaign_id": row.get("campaign_id", ""),
-            "email": r.email,
-            "first_name": "",
-            "last_name": "",
+            "tenant_id": tenant_id, "campaign_id": row.get("campaign_id", ""),
+            "email": r.email, "first_name": "", "last_name": "",
             "company_name": row.get("company_name", "") or "",
-            "domain": row.get("domain", ""),
-            "phone": row.get("phone", "") or "",
+            "domain": row.get("domain", ""), "phone": row.get("phone", "") or "",
             "location": row.get("location", "") or "",
-            "is_role_based": r.is_role_based,
-            "risk_score": r.risk_score,
+            "is_role_based": r.is_role_based, "risk_score": r.risk_score,
             "status": "fresh" if r.is_valid else "invalid",
             "metadata": row.get("metadata", {}),
         }
@@ -81,11 +150,9 @@ def _push_pending(tenant_id: str):
             inserted += 1
         except Exception as e:
             log.warning("  Upsert error %s: %s", r.email, e)
-
     valid = sum(1 for r in results if r.is_valid)
     invalid = sum(1 for r in results if not r.is_valid)
-    log.info("  %d/%d écrits dans clean_leads (valid=%d, invalid=%d)",
-             inserted, len(results), valid, invalid)
+    log.info("  %d/%d écrits dans clean_leads (valid=%d, invalid=%d)", inserted, len(results), valid, invalid)
 
 
 def run_for_tenant(tenant_id: str):
@@ -94,44 +161,27 @@ def run_for_tenant(tenant_id: str):
 
 
 def run_all():
-    from cli.scraping.tenant import list_tenants
-
     log.info("═" * 50)
     log.info("  CLEANER SERVICE — %s", time.strftime("%Y-%m-%d %H:%M:%S UTC"))
     log.info("═" * 50)
-
     tenant_filter = os.getenv("TENANT_ID", "")
-    tenants = list_tenants()
-    if not tenants:
-        log.info("  Aucun tenant trouvé")
-        return
-
-    for config in tenants:
+    for config in _list_tenants():
         tid = config.get("tenant_id", "")
-        if not tid:
-            continue
-        if tenant_filter and tid != tenant_filter:
-            continue
-        run_for_tenant(tid)
-
-
-def run_once():
-    run_all()
+        if tid and (not tenant_filter or tid == tenant_filter):
+            run_for_tenant(tid)
 
 
 def run_survivor():
-    """Mode Render Web Service : health endpoint + boucle."""
     try:
         from health import start as start_health
         start_health()
     except Exception:
         pass
-
-    interval_minutes = int(os.getenv("CLEANER_INTERVAL_MINUTES", "5"))
-    log.info("  [cleaner] Mode survivor démarré (toutes les %d min)", interval_minutes)
+    interval = int(os.getenv("CLEANER_INTERVAL_MINUTES", "5"))
+    log.info("  Mode survivor (toutes les %d min)", interval)
     while True:
         run_all()
-        for _ in range(interval_minutes * 60):
+        for _ in range(interval * 60):
             time.sleep(1)
 
 
@@ -142,10 +192,9 @@ if __name__ == "__main__":
     parser.add_argument("--survivor", action="store_true", help="Survivor loop (Render)")
     parser.add_argument("--tenant", help="Tenant ID (override env)")
     args = parser.parse_args()
-
     if args.tenant:
         os.environ["TENANT_ID"] = args.tenant
     if args.survivor:
         run_survivor()
     else:
-        run_once()
+        run_all()
