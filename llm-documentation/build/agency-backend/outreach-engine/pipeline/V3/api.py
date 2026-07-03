@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
 """
-Prospection manuelle V3 — Supabase + Smartlead.
+Prospection V3 — Mass scraping France.
 
-Flow :
-  1. Créer une entrée campaign_queue (niche + city + keywords)  → status: pending
-  2. Scraper (Outscraper)                                       → leads status: scraped
-  3. Valider emails                                             → leads status: cleaned
-  4. Push Smartlead                                             → leads status: imported_smartlead
-                                                                  campaign_queue status: done
-
-Usage :
-  python api.py
-  → http://localhost:8000
+Workflow :
+  1. Scrape (Outscraper, ~20 leads/ville, 100 villes)
+  2. Clean 1 — DNS MX check (gratuit, rapide)
+  3. Clean 2 — MyEmailVerifier API (payant, précis)
+  4. Push vers Instantly
 """
 
 import os
@@ -24,7 +19,7 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -35,35 +30,45 @@ load_dotenv()
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 
-app = FastAPI(title="Prospection Manuelle V3")
+app = FastAPI(title="Prospection Mass Scrape V3")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+# ── Top 100 villes françaises ──
+FR_CITIES = [
+    "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier",
+    "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Angers",
+    "Grenoble", "Dijon", "Nîmes", "Aix-en-Provence", "Saint-Quentin-en-Yvelines", "Brest",
+    "Le Mans", "Amiens", "Tours", "Limoges", "Clermont-Ferrand", "Villeurbanne", "Besançon",
+    "Orléans", "Metz", "Rouen", "Caen", "Mulhouse", "Perpignan", "Nancy", "La Rochelle",
+    "Fort-de-France", "Saint-Denis", "Argenteuil", "Montreuil", "Dunkerque", "Tourcoing",
+    "Avignon", "Nanterre", "Créteil", "Poitiers", "Versailles", "Courbevoie", "Vitry-sur-Seine",
+    "Colombes", "Pau", "Aulnay-sous-Bois", "Asnières-sur-Seine", "Rueil-Malmaison", "Saint-Pierre",
+    "Champigny-sur-Marne", "La Courneuve", "Saint-Maur-des-Fossés", "Antibes", "Calais", "Béziers",
+    "Cannes", "Saint-Nazaire", "Colmar", "Bourges", "Drancy", "Mérignac", "La Seyne-sur-Mer",
+    "Noisy-le-Grand", "Issy-les-Moulineaux", "Levallois-Perret", "Quimper", "Ivry-sur-Seine",
+    "Vénissieux", "Cergy", "Cayenne", "Pessac", "Troyes", "Niort", "Valence", "Antony",
+    "Chambéry", "Montauban", "Sarcelles", "Les Abymes", "Lorient", "Villejuif", "Hyères",
+    "Saint-André", "Épinay-sur-Seine", "Pantin", "Maisons-Alfort", "Évreux", "Fontenay-sous-Bois",
+    "Bondy", "Chelles", "Clamart", "Cholet", "Vannes", "Arles", "Fréjus", "Sartrouville",
+    "Meaux", "Bayonne", "Grasse", "Laval", "Sevran", "Niort", "Albi",
+]
 
 
 # ── Models ──
 
-class CreateQueueRequest(BaseModel):
+class ScrapeJobRequest(BaseModel):
     niche: str
-    city: str
-    include_keywords: Optional[str] = None
-    exclude_keywords: Optional[str] = None
-    smartlead_campaign_id: Optional[int] = None
-    priority: int = 1
-
-
-class ScrapeRequest(BaseModel):
-    queue_id: str
-    limit: int = 20
+    target: int = 5000
 
 
 class PushRequest(BaseModel):
     queue_id: str
-    smartlead_campaign_id: int
+    instantly_campaign_id: str
 
 
 # ── Supabase helpers ──
 
 def _sb(method: str, path: str, json_data=None):
-    """Simple Supabase REST helper."""
     import httpx
     r = httpx.request(
         method,
@@ -88,12 +93,20 @@ def _sb_get(path: str):
     return r.json()
 
 
-def _update_queue_status(queue_id: str, status: str):
-    _sb("PATCH", f"campaign_queue?id=eq.{queue_id}",
-        {"status": status, "updated_at": datetime.now(timezone.utc).isoformat()})
+def _sb_patch(path: str, data: dict):
+    import httpx
+    r = httpx.patch(
+        f"{SUPABASE_URL}/rest/v1/{path}",
+        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}",
+                 "Content-Type": "application/json"},
+        json=data,
+        timeout=15,
+    )
+    r.raise_for_status()
+    return r.json() if r.text else []
 
 
-# ── Scrape ──
+# ── Scraping ──
 
 def _outscraper_search(keywords: list[str], limit: int) -> list[dict]:
     from outscraper import ApiClient
@@ -119,63 +132,67 @@ def _normalize_phone(raw: str) -> str:
     return raw
 
 
-# ── Validate ──
+# ── Cleaning 1: DNS MX check (gratuit) ──
 
-def _validate_emails(emails: list[str]) -> dict[str, bool]:
-    if not emails:
-        return {}
+def _clean_mx(email: str) -> bool:
+    """Vérifie que le domaine a un MX record. Rapide et gratuit."""
     import dns.resolver
-    api_key = os.getenv("MYEMAILVERIFIER_API_KEY", "")
-    if api_key:
-        import httpx
-        result = {}
-        for email in emails:
-            try:
-                r = httpx.get("https://api.myemailverifier.com/api/verifier/verify",
-                              params={"email": email},
-                              headers={"Authorization": f"Bearer {api_key}"}, timeout=10)
-                result[email] = r.json().get("status") == "valid"
-            except Exception:
-                result[email] = False
-        return result
-    # Fallback: MX check
-    result = {}
-    for email in emails:
-        domain = email.split("@")[-1] if "@" in email else ""
-        try:
-            dns.resolver.resolve(domain, "MX")
-            result[email] = True
-        except Exception:
-            result[email] = False
-    return result
+    domain = email.split("@")[-1] if "@" in email else ""
+    if not domain:
+        return False
+    try:
+        dns.resolver.resolve(domain, "MX")
+        return True
+    except Exception:
+        return False
 
 
-# ── Smartlead ──
+# ── Cleaning 2: MyEmailVerifier (payant, précis) ──
 
-def _smartlead_campaigns() -> list[dict]:
+def _clean_verifier(email: str) -> bool:
+    """Valide via MyEmailVerifier API. Précis mais coûteux."""
     import httpx
-    api_key = os.getenv("SMARTLEAD_API_KEY", "")
+    api_key = os.getenv("MYEMAILVERIFIER_API_KEY", "")
     if not api_key:
-        raise HTTPException(500, "SMARTLEAD_API_KEY non configurée")
-    r = httpx.get("https://api.smartlead.ai/v1/campaigns",
+        raise HTTPException(500, "MYEMAILVERIFIER_API_KEY non configurée")
+    try:
+        r = httpx.get(
+            "https://api.myemailverifier.com/api/verifier/verify",
+            params={"email": email},
+            headers={"Authorization": f"Bearer {api_key}"},
+            timeout=10,
+        )
+        return r.json().get("status") == "valid"
+    except Exception:
+        return False
+
+
+# ── Instantly ──
+
+def _instantly_campaigns() -> list[dict]:
+    import httpx
+    api_key = os.getenv("INSTANTLY_API_KEY", "")
+    if not api_key:
+        raise HTTPException(500, "INSTANTLY_API_KEY non configurée")
+    r = httpx.get("https://api.instantly.ai/api/v1/list_campaigns",
                   headers={"Authorization": f"Bearer {api_key}"}, timeout=10)
     r.raise_for_status()
     data = r.json()
-    campaigns = data.get("campaigns", [])
-    return [{"id": c["id"], "name": c.get("name", str(c["id"]))} for c in campaigns]
+    campaigns = data.get("results", [])
+    return [{"id": c["id"], "name": c.get("name", c["id"])} for c in campaigns]
 
 
-def _smartlead_push(campaign_id: int, leads: list[dict]) -> dict:
+def _instantly_push(campaign_id: str, leads: list[dict]) -> dict:
     import httpx
-    api_key = os.getenv("SMARTLEAD_API_KEY", "")
+    api_key = os.getenv("INSTANTLY_API_KEY", "")
     if not api_key:
-        raise HTTPException(500, "SMARTLEAD_API_KEY non configurée")
+        raise HTTPException(500, "INSTANTLY_API_KEY non configurée")
     payload = {
         "campaign_id": campaign_id,
-        "lead_list": [
+        "leads": [
             {
                 "email": l["email"],
-                "first_name": l.get("first_name", ""),
+                "first_name": "",
                 "last_name": "",
                 "company_name": l.get("company_name", ""),
                 "phone_number": l.get("phone", ""),
@@ -184,7 +201,7 @@ def _smartlead_push(campaign_id: int, leads: list[dict]) -> dict:
             for l in leads if l.get("email")
         ],
     }
-    r = httpx.post("https://api.smartlead.ai/v1/campaigns/add-leads",
+    r = httpx.post("https://api.instantly.ai/api/v1/add_leads",
                    json=payload,
                    headers={"Authorization": f"Bearer {api_key}"}, timeout=15)
     r.raise_for_status()
@@ -200,153 +217,214 @@ def index():
 
 @app.get("/api/campaigns")
 def get_campaigns():
-    """Smartlead campaigns."""
-    return _smartlead_campaigns()
+    return _instantly_campaigns()
 
 
-@app.get("/api/queue")
-def list_queue():
-    """Liste les campaign_queue entries."""
-    return _sb_get("campaign_queue?select=*&order=created_at.desc&limit=50")
+# ── STEP 1: Scrape ──
+
+@app.post("/api/scrape-job")
+async def scrape_job(req: ScrapeJobRequest):
+    """Mass scraping — streams progress. No validation, just raw scrape."""
+    async def generate():
+        queue = _sb("POST", "campaign_queue", {
+            "niche": req.niche,
+            "city": "France",
+            "status": "scraping",
+            "include_keywords": req.niche,
+            "batch": 1,
+            "priority": 1,
+        })
+        queue_id = queue[0]["id"]
+
+        yield f"data: {json.dumps({'type': 'start', 'queue_id': queue_id, 'target': req.target})}\n\n"
+
+        total_scraped = 0
+        cities_done = 0
+
+        for city in FR_CITIES:
+            if total_scraped >= req.target:
+                break
+
+            try:
+                keywords = [f"{req.niche} {city}"]
+                limit = min(20, req.target - total_scraped)
+
+                raw = _outscraper_search(keywords, limit)
+                count = 0
+
+                for entry in raw:
+                    email = entry.get("email", "")
+                    phone = _normalize_phone(entry.get("phone", ""))
+                    if not email and not phone:
+                        continue
+                    lead = {
+                        "campaign_queue_id": queue_id,
+                        "place_id": entry.get("place_id", ""),
+                        "email": email or f"no-email-{phone}",
+                        "first_name": entry.get("first_name", "") or "",
+                        "company_name": entry.get("name", "") or "",
+                        "domain": email.split("@")[-1] if "@" in email else "",
+                        "phone": phone,
+                        "location": entry.get("full_address", "") or "",
+                        "niche": req.niche,
+                        "status": "scraped",
+                        "valid": False,
+                        "city": city,
+                    }
+                    try:
+                        _sb("POST", "leads", lead)
+                        count += 1
+                    except Exception:
+                        pass  # duplicate
+
+                total_scraped += count
+                cities_done += 1
+                yield f"data: {json.dumps({'type': 'progress', 'total': total_scraped, 'city': city, 'city_count': count})}\n\n"
+
+            except Exception as e:
+                yield f"data: {json.dumps({'type': 'error', 'city': city, 'message': str(e)})}\n\n"
+
+        _sb_patch(f"campaign_queue?id=eq.{queue_id}",
+                  {"status": "scraped", "updated_at": datetime.now(timezone.utc).isoformat()})
+
+        yield f"data: {json.dumps({'type': 'done', 'total': total_scraped, 'cities': cities_done})}\n\n"
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
 
 
-@app.post("/api/queue")
-def create_queue(req: CreateQueueRequest):
-    """Crée une entrée campaign_queue (pending)."""
-    data = {
-        "niche": req.niche,
-        "city": req.city,
-        "status": "pending",
-        "smartlead_campaign_id": req.smartlead_campaign_id,
-        "batch": 1,
-        "priority": req.priority,
-        "include_keywords": req.include_keywords,
-        "exclude_keywords": req.exclude_keywords,
-    }
-    result = _sb("POST", "campaign_queue", data)
-    log.info("[queue] Créé: %s", result[0]["id"])
-    return result[0]
+# ── STEP 2: Clean 1 — DNS MX (gratuit, rapide) ──
 
-
-@app.post("/api/scrape")
-def scrape(req: ScrapeRequest):
-    """Scrape pour un campaign_queue → insère leads."""
-    # Fetch queue entry
-    queue = _sb_get(f"campaign_queue?id=eq.{req.queue_id}")
-    if not queue:
-        raise HTTPException(404, "Queue entry introuvable")
-    q = queue[0]
-
-    _update_queue_status(req.queue_id, "scraping")
-
-    # Build keywords
-    keywords = []
-    if q.get("include_keywords"):
-        keywords = [k.strip() for k in q["include_keywords"].split(",") if k.strip()]
-    if not keywords:
-        niche_city = f"{q['niche']} {q['city']}"
-        keywords = [niche_city]
-
-    log.info("[scrape] queue=%s keywords=%s limit=%d", req.queue_id, keywords, req.limit)
-    raw = _outscraper_search(keywords, req.limit)
-    log.info("[scrape] %d résultats bruts", len(raw))
-
-    # Insert leads
-    count = 0
-    for entry in raw:
-        email = entry.get("email", "")
-        phone = _normalize_phone(entry.get("phone", ""))
-        if not email and not phone:
-            continue
-        lead = {
-            "campaign_queue_id": req.queue_id,
-            "place_id": entry.get("place_id", ""),
-            "email": email or f"no-email-{phone}",
-            "first_name": entry.get("first_name", "") or "",
-            "company_name": entry.get("name", "") or "",
-            "domain": email.split("@")[-1] if "@" in email else "",
-            "phone": phone,
-            "location": entry.get("full_address", "") or "",
-            "niche": q["niche"],
-            "status": "scraped",
-            "valid": False,
-            "city": q["city"],
-        }
-        try:
-            _sb("POST", "leads", lead)
-            count += 1
-        except Exception:
-            pass  # duplicate
-
-    log.info("[scrape] %d leads insérés", count)
-    _update_queue_status(req.queue_id, "scraped")
-    return {"scraped": count, "queue_id": req.queue_id}
-
-
-@app.post("/api/validate")
-def validate(req: dict):
-    """Valide les emails scraped pour un queue_id."""
+@app.post("/api/clean-1")
+async def clean1(req: dict):
+    """DNS MX check sur les leads scraped. Stream progress."""
     queue_id = req["queue_id"]
-    leads = _sb_get(f"leads?campaign_queue_id=eq.{queue_id}&status=eq.scraped&select=*")
-    if not leads:
-        return {"validated": 0, "valid": 0}
 
-    emails = [l["email"] for l in leads if l.get("email") and not l["email"].startswith("no-email")]
-    results = _validate_emails(emails)
+    async def generate():
+        leads = _sb_get(f"leads?campaign_queue_id=eq.{queue_id}&status=eq.scraped&select=*")
+        # Filtrer les no-email
+        leads = [l for l in leads if l.get("email") and not l["email"].startswith("no-email")]
 
-    valid_count = 0
-    for lead in leads:
-        email = lead.get("email", "")
-        if email.startswith("no-email"):
-            continue
-        is_valid = results.get(email, False)
-        try:
-            _sb("PATCH", f"leads?id=eq.{lead['id']}",
-                {"valid": is_valid, "status": "cleaned" if is_valid else "invalid",
-                 "updated_at": datetime.now(timezone.utc).isoformat()})
+        total = len(leads)
+        valid_count = 0
+        invalid_count = 0
+
+        yield f"data: {json.dumps({'type': 'start', 'total': total})}\n\n"
+
+        # Cache MX par domaine (evite de requêter 50x le même domaine)
+        mx_cache = {}
+
+        for i, lead in enumerate(leads):
+            email = lead["email"]
+            domain = email.split("@")[-1]
+
+            if domain in mx_cache:
+                has_mx = mx_cache[domain]
+            else:
+                has_mx = _clean_mx(email)
+                mx_cache[domain] = has_mx
+
+            new_status = "cleaned_v1" if has_mx else "invalid"
+            try:
+                _sb_patch(f"leads?id=eq.{lead['id']}",
+                          {"status": new_status, "valid": has_mx,
+                           "updated_at": datetime.now(timezone.utc).isoformat()})
+            except Exception:
+                pass
+
+            if has_mx:
+                valid_count += 1
+            else:
+                invalid_count += 1
+
+            # Progress tous les 50 leads
+            if (i + 1) % 50 == 0 or i + 1 == total:
+                yield f"data: {json.dumps({'type': 'progress', 'processed': i + 1, 'total': total, 'valid': valid_count, 'invalid': invalid_count})}\n\n"
+
+        _sb_patch(f"campaign_queue?id=eq.{queue_id}",
+                  {"status": "cleaned_v1", "updated_at": datetime.now(timezone.utc).isoformat()})
+
+        yield f"data: {json.dumps({'type': 'done', 'total': total, 'valid': valid_count, 'invalid': invalid_count})}\n\n"
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
+
+
+# ── STEP 3: Clean 2 — MyEmailVerifier (payant, précis) ──
+
+@app.post("/api/clean-2")
+async def clean2(req: dict):
+    """MyEmailVerifier API sur les leads cleaned_v1. Stream progress."""
+    queue_id = req["queue_id"]
+
+    api_key = os.getenv("MYEMAILVERIFIER_API_KEY", "")
+    if not api_key:
+        raise HTTPException(500, "MYEMAILVERIFIER_API_KEY non configurée")
+
+    async def generate():
+        leads = _sb_get(f"leads?campaign_queue_id=eq.{queue_id}&status=eq.cleaned_v1&valid=eq.true&select=*")
+
+        total = len(leads)
+        valid_count = 0
+        invalid_count = 0
+
+        yield f"data: {json.dumps({'type': 'start', 'total': total})}\n\n"
+
+        for i, lead in enumerate(leads):
+            email = lead["email"]
+
+            is_valid = _clean_verifier(email)
+
+            new_status = "cleaned_v2" if is_valid else "invalid_v2"
+            try:
+                _sb_patch(f"leads?id=eq.{lead['id']}",
+                          {"status": new_status, "valid": is_valid,
+                           "updated_at": datetime.now(timezone.utc).isoformat()})
+            except Exception:
+                pass
+
             if is_valid:
                 valid_count += 1
-        except Exception:
-            pass
+            else:
+                invalid_count += 1
 
-    log.info("[validate] %d/%d valides", valid_count, len(emails))
-    return {"total": len(emails), "valid": valid_count, "queue_id": queue_id}
+            # Progress tous les 10 leads (API plus lente)
+            if (i + 1) % 10 == 0 or i + 1 == total:
+                yield f"data: {json.dumps({'type': 'progress', 'processed': i + 1, 'total': total, 'valid': valid_count, 'invalid': invalid_count})}\n\n"
+
+        _sb_patch(f"campaign_queue?id=eq.{queue_id}",
+                  {"status": "cleaned_v2", "updated_at": datetime.now(timezone.utc).isoformat()})
+
+        yield f"data: {json.dumps({'type': 'done', 'total': total, 'valid': valid_count, 'invalid': invalid_count})}\n\n"
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
 
 
-@app.get("/api/leads")
-def list_leads(queue_id: str, status: Optional[str] = None):
-    """Liste les leads pour un queue_id."""
-    query = f"leads?campaign_queue_id=eq.{queue_id}&select=*&order=created_at.desc"
-    if status:
-        query += f"&status=eq.{status}"
-    return _sb_get(query)
+# ── STEP 4: Push vers Instantly ──
 
-
-@app.post("/api/push")
-def push(req: PushRequest):
-    """Push leads cleaned vers Smartlead."""
-    leads = _sb_get(f"leads?campaign_queue_id=eq.{req.queue_id}&status=eq.cleaned&valid=eq.true&select=*")
+@app.post("/api/push-job")
+def push_job(req: PushRequest):
+    """Push leads valides vers Instantly. Utilise cleaned_v2 si disponible, sinon cleaned_v1."""
+    # Essayer cleaned_v2 d'abord, sinon cleaned_v1
+    leads = _sb_get(f"leads?campaign_queue_id=eq.{req.queue_id}&status=eq.cleaned_v2&valid=eq.true&select=*")
     if not leads:
-        raise HTTPException(400, "Aucun lead cleaned à pusher")
+        leads = _sb_get(f"leads?campaign_queue_id=eq.{req.queue_id}&status=eq.cleaned_v1&valid=eq.true&select=*")
 
-    log.info("[push] %d leads → smartlead campaign %d", len(leads), req.smartlead_campaign_id)
-    result = _smartlead_push(req.smartlead_campaign_id, leads)
+    if not leads:
+        raise HTTPException(400, "Aucun lead valide à pusher")
 
-    # Update leads status
+    log.info("[push] %d leads → instantly %s", len(leads), req.instantly_campaign_id)
+    result = _instantly_push(req.instantly_campaign_id, leads)
+
     for lead in leads:
         try:
-            _sb("PATCH", f"leads?id=eq.{lead['id']}",
-                {"status": "imported_smartlead",
-                 "updated_at": datetime.now(timezone.utc).isoformat()})
+            _sb_patch(f"leads?id=eq.{lead['id']}",
+                      {"status": "imported_instantly",
+                       "updated_at": datetime.now(timezone.utc).isoformat()})
         except Exception:
             pass
 
-    # Update queue
-    _sb("PATCH", f"campaign_queue?id=eq.{req.queue_id}",
-        {"status": "done", "smartlead_campaign_id": req.smartlead_campaign_id,
-         "updated_at": datetime.now(timezone.utc).isoformat()})
+    _sb_patch(f"campaign_queue?id=eq.{req.queue_id}",
+              {"status": "done", "updated_at": datetime.now(timezone.utc).isoformat()})
 
-    log.info("[push] OK: %d leads pushés", len(leads))
     return {"pushed": len(leads), "result": result}
 
 
