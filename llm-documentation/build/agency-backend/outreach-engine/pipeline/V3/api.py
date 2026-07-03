@@ -174,11 +174,11 @@ def _instantly_campaigns() -> list[dict]:
     api_key = os.getenv("INSTANTLY_API_KEY", "")
     if not api_key:
         raise HTTPException(500, "INSTANTLY_API_KEY non configurée")
-    r = httpx.get("https://api.instantly.ai/api/v1/list_campaigns",
+    r = httpx.get("https://api.instantly.ai/api/v2/campaigns",
                   headers={"Authorization": f"Bearer {api_key}"}, timeout=10)
     r.raise_for_status()
     data = r.json()
-    campaigns = data.get("results", [])
+    campaigns = data.get("items", [])
     return [{"id": c["id"], "name": c.get("name", c["id"])} for c in campaigns]
 
 
@@ -201,7 +201,7 @@ def _instantly_push(campaign_id: str, leads: list[dict]) -> dict:
             for l in leads if l.get("email")
         ],
     }
-    r = httpx.post("https://api.instantly.ai/api/v1/add_leads",
+    r = httpx.post("https://api.instantly.ai/api/v2/campaigns/add-leads",
                    json=payload,
                    headers={"Authorization": f"Bearer {api_key}"}, timeout=15)
     r.raise_for_status()
