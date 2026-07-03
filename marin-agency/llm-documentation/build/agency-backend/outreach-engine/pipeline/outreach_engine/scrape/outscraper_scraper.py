@@ -14,6 +14,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger("outscraper_scraper")
 
 API_KEY = os.getenv("OUTSCRAPER_API_KEY", "")
+OUTSCRAPER_COUNTRY = os.getenv("OUTSCRAPER_COUNTRY", "FR")
 
 FIELDS = [
     "name", "site", "phone", "email", "email_1", "email_2", "email_3",
@@ -25,20 +26,45 @@ FIELDS = [
 ]
 
 
+def normalize_phone(phone: str) -> str:
+    """Normalise un numéro de téléphone français au format +33.
+
+    - 06 12 34 56 78  → +33612345678
+    - +33612345678    → inchangé
+    - 0033612345678   → +33612345678
+    - Numéro étranger → inchangé
+    """
+    if not phone:
+        return ""
+    cleaned = phone.strip().replace(" ", "").replace(".", "").replace("-", "")
+    if cleaned.startswith("+33"):
+        return cleaned
+    if cleaned.startswith("0033"):
+        return "+33" + cleaned[4:]
+    if cleaned.startswith("0") and len(cleaned) >= 10 and cleaned[1:].isdigit():
+        return "+33" + cleaned[1:]
+    return cleaned
+
+
 def search_maps(query: str | list[str], limit: int = 100, language: str = "fr",
-                enrichment: list[str] | None = None, api_key: str = "") -> list[dict]:
+                enrichment: list[str] | None = None, api_key: str = "",
+                country: str = "") -> list[dict]:
     key = api_key or API_KEY
     if not key:
         log.error("OUTSCRAPER_API_KEY not set")
         return []
 
     client = OutscraperClient(api_key=key)
-    results = client.google_maps_search(
-        query if isinstance(query, list) else [query],
-        limit=limit,
-        language=language,
-        enrichment=enrichment or [],
-    )
+    kwargs = {
+        "query": query if isinstance(query, list) else [query],
+        "limit": limit,
+        "language": language,
+    }
+    if enrichment:
+        kwargs["enrichment"] = enrichment
+    kwargs["country"] = country or OUTSCRAPER_COUNTRY
+
+    results = client.google_maps_search(**kwargs)
     items = []
     for page in results:
         if isinstance(page, list):
@@ -79,13 +105,19 @@ def upsert_cold_leads(items: list[dict], tenant: str, campaign_id: str = ""):
         email = extract_email(entry)
         if not email:
             continue
+        raw_phone = entry.get("phone", "")
+        address = entry.get("full_address", "") or ""
+        if not address:
+            parts = [entry.get("city", ""), entry.get("postal_code", ""), entry.get("country_code", "")]
+            address = ", ".join(p for p in parts if p)
         record = {
             "tenant_id": tenant,
             "email": email,
             "company_name": entry.get("name", "") or "",
             "domain": _domain(entry.get("site", "")),
-            "phone": entry.get("phone", ""),
-            "location": entry.get("full_address", "") or "",
+            "phone": normalize_phone(raw_phone),
+            "location": address,
+            "country_code": entry.get("country_code", ""),
             "source": "outscraper",
             "campaign_id": campaign_id,
             "metadata": entry,

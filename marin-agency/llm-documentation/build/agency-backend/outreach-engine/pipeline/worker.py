@@ -18,7 +18,6 @@ import asyncio
 import json
 import logging
 import os
-import sys
 import time
 from pathlib import Path
 from datetime import datetime, timezone
@@ -39,8 +38,6 @@ for _ in range(10):
         load_dotenv(_dotenv_path / ".env.local")
         break
     _dotenv_path = _dotenv_path.parent
-
-sys.path.insert(0, str(_script_dir))
 
 
 def _push_pending_leads(tenant_id: str, dry_run: bool = False):
@@ -114,18 +111,26 @@ def _scrape_niche(tenant_id: str, niche: dict, campaign_id: str, dry_run: bool =
 
 def _save_cold_leads(tenant_id: str, leads: list[dict], campaign_id: str):
     from cli.db import get_supabase
+    from outreach_engine.scrape.outscraper_scraper import normalize_phone
+
     sb = get_supabase()
     if not sb:
         return
     count = 0
     for entry in leads:
         email = entry.get("email", "")
+        raw_phone = entry.get("phone", "")
+        address = entry.get("full_address", "") or ""
+        if not address:
+            parts = [entry.get("city", ""), entry.get("postal_code", ""), entry.get("country_code", "")]
+            address = ", ".join(p for p in parts if p)
         record = {
             "tenant_id": tenant_id,
-            "email": email or f"no-email-{entry.get('phone', '')}",
+            "email": email or f"no-email-{raw_phone}",
             "company_name": entry.get("name", "") or "",
-            "phone": entry.get("phone", "") or "",
-            "location": entry.get("full_address", "") or "",
+            "phone": normalize_phone(raw_phone),
+            "location": address,
+            "country_code": entry.get("country_code", ""),
             "source": "outscraper",
             "campaign_id": campaign_id,
             "metadata": entry,
@@ -147,6 +152,8 @@ def _save_cold_leads(tenant_id: str, leads: list[dict], campaign_id: str):
 def _save_to_clean_leads(tenant_id: str, raw_leads: list[dict],
                           clean_results: list, campaign_id: str, niche_name: str):
     from cli.db import get_supabase
+    from outreach_engine.scrape.outscraper_scraper import normalize_phone
+
     sb = get_supabase()
     if not sb:
         return
@@ -163,6 +170,12 @@ def _save_to_clean_leads(tenant_id: str, raw_leads: list[dict],
             continue
         cr = valid_emails_map[email]
 
+        raw_phone = entry.get("phone", "")
+        address = entry.get("full_address", "") or ""
+        if not address:
+            parts = [entry.get("city", ""), entry.get("postal_code", ""), entry.get("country_code", "")]
+            address = ", ".join(p for p in parts if p)
+
         record = {
             "tenant_id": tenant_id,
             "campaign_id": campaign_id,
@@ -171,8 +184,9 @@ def _save_to_clean_leads(tenant_id: str, raw_leads: list[dict],
             "last_name": "",
             "company_name": entry.get("name", "") or "",
             "domain": cr.email.split("@")[-1] if "@" in cr.email else "",
-            "phone": entry.get("phone", "") or "",
-            "location": entry.get("full_address", "") or "",
+            "phone": normalize_phone(raw_phone),
+            "location": address,
+            "country_code": entry.get("country_code", ""),
             "is_role_based": cr.is_role_based,
             "risk_score": cr.risk_score,
             "status": "fresh",
@@ -217,7 +231,7 @@ def _notify_worker_done(tenant_id: str, decisions: list[dict], pushed: int):
 
 
 def run_for_tenant(tenant_id: str, dry_run: bool = False):
-    from cli.tenants import get_tenant
+    from cli.scraping.tenant import get_tenant
     from rotation_engine.rotation_engine import decide
 
     config = get_tenant(tenant_id)
@@ -249,7 +263,7 @@ def run_for_tenant(tenant_id: str, dry_run: bool = False):
             continue
 
         if action == "scrape":
-            campaign_id = f"{niche_name}-{tenant_id}"
+            campaign_id = niche_cfg.get("instantly_campaign_id") or f"{niche_name}-{tenant_id}"
             _scrape_niche(tenant_id, niche_cfg, campaign_id, dry_run=dry_run)
         elif action == "close":
             log.info("  Fermeture niche: %s — %s", niche_name, d.get("reason", ""))
@@ -258,7 +272,7 @@ def run_for_tenant(tenant_id: str, dry_run: bool = False):
 
 
 def run_all(dry_run: bool = False, tenant_filter: str | None = None):
-    from cli.tenants import list_tenants
+    from cli.scraping.tenant import list_tenants
 
     log.info("=" * 50)
     log.info("  WORKER — %s", datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"))
