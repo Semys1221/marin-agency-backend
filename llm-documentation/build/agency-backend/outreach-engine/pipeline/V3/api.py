@@ -22,6 +22,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 
+from . import outscraper_client, queue_manager, lead_writer
+
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger("v3")
 
@@ -29,6 +31,47 @@ load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+
+def _sb(method: str, path: str, json_data=None):
+    """Requête Supabase REST (conservé pour compatibilité cleaning/push)."""
+    import httpx
+    r = httpx.request(
+        method,
+        f"{SUPABASE_URL}/rest/v1/{path}",
+        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}",
+                 "Content-Type": "application/json", "Prefer": "return=representation"},
+        json=json_data,
+        timeout=15,
+    )
+    r.raise_for_status()
+    return r.json()
+
+
+def _sb_get(path: str):
+    """GET Supabase REST (conservé pour compatibilité cleaning/push)."""
+    import httpx
+    r = httpx.get(
+        f"{SUPABASE_URL}/rest/v1/{path}",
+        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+        timeout=15,
+    )
+    r.raise_for_status()
+    return r.json()
+
+
+def _sb_patch(path: str, data: dict):
+    """PATCH Supabase REST (conservé pour compatibilité cleaning/push)."""
+    import httpx
+    r = httpx.patch(
+        f"{SUPABASE_URL}/rest/v1/{path}",
+        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}",
+                 "Content-Type": "application/json"},
+        json=data,
+        timeout=15,
+    )
+    r.raise_for_status()
+    return r.json() if r.text else []
+
 
 app = FastAPI(title="Prospection Mass Scrape V3")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -68,68 +111,25 @@ class PushRequest(BaseModel):
 
 # ── Supabase helpers ──
 
-def _sb(method: str, path: str, json_data=None):
-    import httpx
-    r = httpx.request(
-        method,
-        f"{SUPABASE_URL}/rest/v1/{path}",
-        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}",
-                 "Content-Type": "application/json", "Prefer": "return=representation"},
-        json=json_data,
-        timeout=15,
-    )
-    r.raise_for_status()
-    return r.json()
 
 
-def _sb_get(path: str):
-    import httpx
-    r = httpx.get(
-        f"{SUPABASE_URL}/rest/v1/{path}",
-        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
-        timeout=15,
-    )
-    r.raise_for_status()
-    return r.json()
 
 
-def _sb_patch(path: str, data: dict):
-    import httpx
-    r = httpx.patch(
-        f"{SUPABASE_URL}/rest/v1/{path}",
-        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}",
-                 "Content-Type": "application/json"},
-        json=data,
-        timeout=15,
-    )
-    r.raise_for_status()
-    return r.json() if r.text else []
+
+
+
 
 
 # ── Scraping ──
 
 def _outscraper_search(keywords: list[str], limit: int) -> list[dict]:
-    from outscraper import ApiClient
-    api_key = os.getenv("OUTSCRAPER_API_KEY", "")
-    if not api_key:
-        raise HTTPException(500, "OUTSCRAPER_API_KEY non configurée")
-    enrichment = os.getenv("OUTSCRAPER_ENRICHMENT", "contacts_n_leads").split(",")
-    client = ApiClient(api_key=api_key)
-    results = client.google_maps_search(query=keywords, limit=limit, language="fr", enrichment=enrichment)
-    if results and isinstance(results[0], list):
-        results = results[0]
-    return results or []
+    """Délègue à outscraper_client.search()."""
+    return outscraper_client.search(keywords, limit)
 
 
 def _normalize_phone(raw: str) -> str:
-    if not raw:
-        return ""
-    digits = "".join(c for c in raw if c.isdigit())
-    if len(digits) == 10 and digits.startswith("0"):
-        return "+33" + digits[1:]
-    if digits.startswith("33"):
-        return "+" + digits
-    return raw
+    """Délègue à outscraper_client.normalize_phone()."""
+    return outscraper_client.normalize_phone(raw)
 
 
 # ── Cleaning 1: DNS MX check (gratuit) ──
@@ -426,6 +426,22 @@ def push_job(req: PushRequest):
               {"status": "done", "updated_at": datetime.now(timezone.utc).isoformat()})
 
     return {"pushed": len(leads), "result": result}
+
+
+
+@app.get("/api/clean-queue")
+def clean_queue():
+    """Supprime toutes les entrees de campaign_queue.
+    Utile quand le format de la table a change et qu'on veut repartir a zero."""
+    deleted = queue_manager.clean()
+    if deleted is None:
+        return {"error": "Impossible d'acceder a la base"}
+    return {"deleted": deleted, "message": f"{deleted} entrees supprimees"}
+
+@app.get("/api/queue-status")
+def queue_status():
+    """Liste les queues actives."""
+    return {"active": queue_manager.list_active()}
 
 
 if __name__ == "__main__":

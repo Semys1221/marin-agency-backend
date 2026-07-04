@@ -3,102 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mass Scraping V3</title>
+    <title>Scraping V3</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 2rem; max-width: 800px; margin: 0 auto; }
-        h1 { margin-bottom: 0.5rem; font-size: 1.5rem; }
-        .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.85rem; }
-        label { display: block; margin-bottom: 0.3rem; font-size: 0.85rem; color: #aaa; }
-        input, select { width: 100%; padding: 0.6rem 0.75rem; margin-bottom: 0.75rem; background: #1a1a1a; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; font-size: 0.95rem; }
-        input:focus, select:focus { outline: none; border-color: #555; }
-
-        button { border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 1rem; cursor: pointer; width: 100%; }
-        button:hover { opacity: 0.9; }
-        button:disabled { background: #333 !important; color: #666 !important; cursor: not-allowed; }
-        .btn-launch { background: #fff; color: #000; }
-
-        /* Steps */
-        .steps { margin-top: 2rem; display: none; }
-        .steps.visible { display: block; }
-        .step { padding: 1rem; margin-bottom: 0.5rem; background: #1a1a1a; border-radius: 8px; border-left: 4px solid #333; }
-        .step.active { border-left-color: #fff; }
-        .step.done { border-left-color: #2a6e2a; }
-        .step.error { border-left-color: #c44; }
-        .step-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .step-desc { font-size: 0.8rem; color: #888; }
-        .step-stats { font-size: 0.85rem; margin-top: 0.5rem; }
-        .step-stats span { margin-right: 1rem; }
-
-        /* Global progress */
-        .global-progress { margin-top: 1.5rem; }
-        .progress-bar { background: #1a1a1a; border-radius: 6px; overflow: hidden; height: 28px; }
-        .progress-fill { background: linear-gradient(90deg, #2a6e2a, #3a8e3a); height: 100%; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 600; }
-
-        .log-box { max-height: 300px; overflow-y: auto; background: #111; border-radius: 6px; padding: 0.75rem; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; }
-        .log-line { margin-bottom: 0.2rem; }
-        .log-done { color: #6c6; }
-        .log-info { color: #6af; }
-        .log-warn { color: #ec6; }
-        .log-error { color: #c66; }
-
-        .free-tag { background: #1a3a1a; color: #6c6; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; }
-        .paid-tag { background: #3a1a3a; color: #c6f; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 { margin-bottom: 0.5rem; color: #fff; }
+        .subtitle { color: #888; margin-bottom: 2rem; font-size: 0.9rem; }
+        
+        label { display: block; margin-bottom: 0.5rem; color: #ccc; font-size: 0.9rem; }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4a9eff;
+        }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .radio-option:hover {
+            border-color: #555;
+        }
+        .radio-option input[type="radio"] {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+        .radio-option input[type="radio"]:checked + span {
+            color: #4a9eff;
+            font-weight: 600;
+        }
+        .radio-option:has(input:checked) {
+            border-color: #4a9eff;
+            background: #1a2a3a;
+        }
+        
+        .tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .free-tag { background: #2a4a2a; color: #6fcf6f; }
+        .paid-tag { background: #4a2a2a; color: #ff6b6b; }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: #4a9eff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover:not(:disabled) {
+            background: #3a8eef;
+        }
+        button:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+        
+        .steps {
+            margin-top: 2rem;
+            display: none;
+        }
+        .step {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .step.active {
+            border-color: #4a9eff;
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.2);
+        }
+        .step.done {
+            border-color: #6fcf6f;
+            background: #1a2a1a;
+        }
+        .step.error {
+            border-color: #ff6b6b;
+            background: #2a1a1a;
+        }
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .step-stats {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .global-progress {
+            margin-top: 2rem;
+            display: none;
+        }
+        .progress-bar {
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a9eff, #6fcf6f);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .log-box {
+            margin-top: 2rem;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: "Courier New", monospace;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .log-line {
+            padding: 0.25rem 0;
+            color: #888;
+        }
+        .log-line.info { color: #4a9eff; }
+        .log-line.success { color: #6fcf6f; }
+        .log-line.error { color: #ff6b6b; }
+        .log-line.done { color: #6fcf6f; font-weight: 600; }
     </style>
 </head>
 <body>
-    <h1>Mass Scraping V3</h1>
-    <div class="subtitle">Scrape → Clean 1 (DNS) → Clean 2 (Verifier) → Push Instantly — tout auto</div>
+    <h1>Scraping V3</h1>
+    <p class="subtitle">Scrape → Clean → Push en un clic</p>
 
-    <div>
+    <div class="form-group">
         <label for="niche">Niche</label>
-        <input type="text" id="niche" placeholder="ex: kinésithérapeute, agent immobilier">
+        <input type="text" id="niche" placeholder="ex: Plombier, Électricien...">
     </div>
-    <div>
-        <label for="target">Target leads</label>
-        <input type="number" id="target" value="5000" min="100" max="20000" step="500">
-    </div>
-    <div>
+
+    <div class="form-group">
         <label for="campaign">Campagne Instantly</label>
-        <select id="campaign"><option value="">Chargement...</option></select>
+        <select id="campaign">
+            <option value="">Chargement...</option>
+        </select>
     </div>
 
-    <button class="btn-launch" id="btn-launch">🚀 Lancer (scrape + clean + push)</button>
+    <div class="form-group">
+        <label for="target">Nombre de leads à scraper</label>
+        <input type="number" id="target" value="1000" min="100" max="10000" step="100">
+    </div>
 
-    <!-- Pipeline steps -->
+    <div class="form-group">
+        <label>Mode de nettoyage</label>
+        <div class="radio-group">
+            <label class="radio-option">
+                <input type="radio" name="clean-mode" value="both" checked>
+                <span>Les deux</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="clean-mode" value="dns-only">
+                <span>DNS MX uniquement</span>
+                <span class="tag free-tag">GRATUIT</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="clean-mode" value="verifier-only">
+                <span>MyEmailVerifier uniquement</span>
+                <span class="tag paid-tag">PAYANT</span>
+            </label>
+        </div>
+    </div>
+
+    <button id="btn-launch">🚀 Lancer (scrape + clean + push)</button>
+
     <div class="steps" id="steps">
         <div class="step" id="step-scrape">
-            <div class="step-title">1. Scrape <span style="color:#666; font-weight:normal;">— Outscraper</span></div>
-            <div class="step-desc">Google Maps, 100 villes françaises</div>
+            <div class="step-title">🔍 Scrape</div>
             <div class="step-stats" id="stats-scrape"></div>
         </div>
         <div class="step" id="step-clean1">
-            <div class="step-title">2. Clean 1 — DNS MX <span class="free-tag">GRATUIT</span></div>
-            <div class="step-desc">Vérifie que le domaine a un MX record</div>
+            <div class="step-title">🧹 Clean 1 - DNS MX <span class="tag free-tag">GRATUIT</span></div>
             <div class="step-stats" id="stats-clean1"></div>
         </div>
         <div class="step" id="step-clean2">
-            <div class="step-title">3. Clean 2 — MyEmailVerifier <span class="paid-tag">PAYANT</span></div>
-            <div class="step-desc">Validation email par email</div>
+            <div class="step-title">✉️ Clean 2 - MyEmailVerifier <span class="tag paid-tag">PAYANT</span></div>
             <div class="step-stats" id="stats-clean2"></div>
         </div>
         <div class="step" id="step-push">
-            <div class="step-title">4. Push Instantly</div>
-            <div class="step-desc">Envoi vers la campagne sélectionnée</div>
+            <div class="step-title">🚀 Push vers Instantly</div>
             <div class="step-stats" id="stats-push"></div>
         </div>
     </div>
 
-    <!-- Global progress -->
-    <div class="global-progress" id="global-progress" style="display:none;">
+    <div class="global-progress" id="global-progress">
         <div class="progress-bar">
-            <div class="progress-fill" id="global-fill" style="width:0%">0%</div>
+            <div class="progress-fill" id="global-fill"></div>
         </div>
+        <div class="progress-text" id="global-text">0%</div>
     </div>
 
-    <div class="log-box" id="log" style="display:none;"></div>
+    <div class="log-box" id="log"></div>
 
     <script>
+        const API_BASE = "https://standalone-scraper-v1.onrender.com";
         const $ = (id) => document.getElementById(id);
         let queueId = null;
         let totalScraped = 0;
@@ -106,20 +258,22 @@
 
         async function loadCampaigns() {
             try {
-                const r = await fetch("/api/campaigns");
+                const r = await fetch(`${API_BASE}/api/campaigns`);
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
                 const campaigns = await r.json();
                 $("campaign").innerHTML = campaigns.length
                     ? campaigns.map(c => `<option value="${c.id}">${c.name}</option>`).join("")
                     : '<option value="">Aucune campagne</option>';
             } catch (e) {
-                $("campaign").innerHTML = '<option value="">Erreur</option>';
+                console.error("loadCampaigns error:", e);
+                $("campaign").innerHTML = `<option value="">Erreur: ${e.message}</option>`;
             }
         }
 
         function log(msg, type = "done") {
             const el = $("log");
             el.style.display = "block";
-            el.innerHTML += `<div class="log-line log-${type}">${msg}</div>`;
+            el.innerHTML += `<div class="log-line ${type}">${msg}</div>`;
             el.scrollTop = el.scrollHeight;
         }
 
@@ -155,6 +309,7 @@
             const niche = $("niche").value.trim();
             target = parseInt($("target").value) || 5000;
             const campaignId = $("campaign").value;
+            const cleanMode = document.querySelector('input[name="clean-mode"]:checked').value;
 
             if (!niche) { alert("Niche requise"); return; }
             if (!campaignId) { alert("Sélectionne une campagne Instantly"); return; }
@@ -164,6 +319,10 @@
             $("global-progress").style.display = "block";
             $("log").innerHTML = "";
             $("log").style.display = "none";
+
+            // Show/hide steps based on clean mode
+            $("step-clean1").style.display = cleanMode === "verifier-only" ? "none" : "block";
+            $("step-clean2").style.display = cleanMode === "dns-only" ? "none" : "block";
 
             // Reset steps
             ["step-scrape", "step-clean1", "step-clean2", "step-push"].forEach(s => setStep(s, null));
@@ -177,7 +336,7 @@
                 let citiesCount = 0;
                 totalScraped = 0;
 
-                const rScrape = await fetch("/api/scrape-job", {
+                const rScrape = await fetch(`${API_BASE}/api/scrape-job`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ niche, target }),
@@ -192,8 +351,8 @@
                         citiesCount++;
                         $("stats-scrape").innerHTML = `<span>${totalScraped} leads</span><span>${citiesCount} villes</span>`;
                         const pct = Math.min(100, Math.round((totalScraped / target) * 100));
-                        $("global-fill").style.width = (pct * 0.4) + "%"; // 40% for scrape
-                        $("global-fill").textContent = `Scrape: ${totalScraped}/${target}`;
+                        $("global-fill").style.width = (pct * 0.4) + "%";
+                        $("global-text").textContent = `Scrape: ${totalScraped}/${target}`;
                     } else if (data.type === "error") {
                         log(`✗ ${data.city}: ${data.message}`, "error");
                     } else if (data.type === "done") {
@@ -203,63 +362,67 @@
                     }
                 });
 
-                // ═══ STEP 2: CLEAN 1 ═══
-                setStep("step-clean1", "active");
-                log("🔍 Clean 1 — DNS MX...", "info");
+                // ═══ STEP 2: CLEAN 1 (if not verifier-only) ═══
+                if (cleanMode !== "verifier-only") {
+                    setStep("step-clean1", "active");
+                    log("🔍 Clean 1 — DNS MX...", "info");
 
-                const rClean1 = await fetch("/api/clean-1", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ queue_id: queueId }),
-                });
+                    const rClean1 = await fetch(`${API_BASE}/api/clean-1`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ queue_id: queueId }),
+                    });
 
-                await readSSE(rClean1, (data) => {
-                    if (data.type === "start") {
-                        log(`${data.total} emails à vérifier (DNS MX)`, "info");
-                    } else if (data.type === "progress") {
-                        $("stats-clean1").innerHTML = `<span>${data.processed}/${data.total}</span><span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
-                        const pct = 40 + Math.round((data.processed / data.total) * 20); // 40-60%
-                        $("global-fill").style.width = pct + "%";
-                        $("global-fill").textContent = `Clean 1: ${data.processed}/${data.total}`;
-                    } else if (data.type === "done") {
-                        log(`✅ Clean 1: ${data.valid} valides / ${data.invalid} invalides`, "done");
-                        $("stats-clean1").innerHTML = `<span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
-                        setStep("step-clean1", "done");
-                    }
-                });
+                    await readSSE(rClean1, (data) => {
+                        if (data.type === "start") {
+                            log(`${data.total} emails à vérifier (DNS MX)`, "info");
+                        } else if (data.type === "progress") {
+                            $("stats-clean1").innerHTML = `<span>${data.processed}/${data.total}</span><span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                            const pct = 40 + Math.round((data.processed / data.total) * 20);
+                            $("global-fill").style.width = pct + "%";
+                            $("global-text").textContent = `Clean 1: ${data.processed}/${data.total}`;
+                        } else if (data.type === "done") {
+                            log(`✅ Clean 1: ${data.valid} valides / ${data.invalid} invalides`, "done");
+                            $("stats-clean1").innerHTML = `<span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                            setStep("step-clean1", "done");
+                        }
+                    });
+                }
 
-                // ═══ STEP 3: CLEAN 2 ═══
-                setStep("step-clean2", "active");
-                log("✉️ Clean 2 — MyEmailVerifier...", "info");
+                // ═══ STEP 3: CLEAN 2 (if not dns-only) ═══
+                if (cleanMode !== "dns-only") {
+                    setStep("step-clean2", "active");
+                    log("✉️ Clean 2 — MyEmailVerifier...", "info");
 
-                const rClean2 = await fetch("/api/clean-2", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ queue_id: queueId }),
-                });
+                    const rClean2 = await fetch(`${API_BASE}/api/clean-2`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ queue_id: queueId }),
+                    });
 
-                await readSSE(rClean2, (data) => {
-                    if (data.type === "start") {
-                        log(`${data.total} emails à vérifier (Verifier)`, "info");
-                    } else if (data.type === "progress") {
-                        $("stats-clean2").innerHTML = `<span>${data.processed}/${data.total}</span><span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
-                        const pct = 60 + Math.round((data.processed / data.total) * 30); // 60-90%
-                        $("global-fill").style.width = pct + "%";
-                        $("global-fill").textContent = `Clean 2: ${data.processed}/${data.total}`;
-                    } else if (data.type === "done") {
-                        log(`✅ Clean 2: ${data.valid} valides / ${data.invalid} invalides`, "done");
-                        $("stats-clean2").innerHTML = `<span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
-                        setStep("step-clean2", "done");
-                    }
-                });
+                    await readSSE(rClean2, (data) => {
+                        if (data.type === "start") {
+                            log(`${data.total} emails à vérifier (Verifier)`, "info");
+                        } else if (data.type === "progress") {
+                            $("stats-clean2").innerHTML = `<span>${data.processed}/${data.total}</span><span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                            const pct = 60 + Math.round((data.processed / data.total) * 30);
+                            $("global-fill").style.width = pct + "%";
+                            $("global-text").textContent = `Clean 2: ${data.processed}/${data.total}`;
+                        } else if (data.type === "done") {
+                            log(`✅ Clean 2: ${data.valid} valides / ${data.invalid} invalides`, "done");
+                            $("stats-clean2").innerHTML = `<span>${data.valid} valides</span><span>${data.invalid} invalides</span>`;
+                            setStep("step-clean2", "done");
+                        }
+                    });
+                }
 
                 // ═══ STEP 4: PUSH ═══
                 setStep("step-push", "active");
                 log("📤 Push vers Instantly...", "info");
                 $("global-fill").style.width = "90%";
-                $("global-fill").textContent = "Push...";
+                $("global-text").textContent = "Push...";
 
-                const rPush = await fetch("/api/push-job", {
+                const rPush = await fetch(`${API_BASE}/api/push-job`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ queue_id: queueId, instantly_campaign_id: campaignId }),
@@ -272,11 +435,10 @@
                 setStep("step-push", "done");
 
                 $("global-fill").style.width = "100%";
-                $("global-fill").textContent = "✅ Terminé !";
+                $("global-text").textContent = "✅ Terminé !";
 
             } catch (e) {
                 log(`❌ ${e.message}`, "error");
-                // Mark current active step as error
                 document.querySelectorAll(".step.active").forEach(el => setStep(el.id, "error"));
             } finally {
                 $("btn-launch").disabled = false;
