@@ -26,7 +26,7 @@ def _req(method: str, path: str, json_data=None) -> list[dict] | dict:
     import httpx
     url = f"{SUPABASE_URL}/rest/v1/{path}"
     try:
-        r = httpx.request(method, url, headers=_headers(), json=json_data, timeout=15)
+        r = httpx.request(method, url, headers={**_headers(), "Prefer": "return=representation"}, json=json_data, timeout=15)
         r.raise_for_status()
         data = r.json() if r.text else []
         return data if isinstance(data, list) else [data]

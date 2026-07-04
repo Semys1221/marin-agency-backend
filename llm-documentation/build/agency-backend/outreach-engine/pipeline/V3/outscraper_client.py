@@ -72,7 +72,6 @@ def to_lead(entry: dict, queue_id: str, niche: str, city: str) -> dict:
     email = entry.get("email", "")
     return {
         "campaign_queue_id": queue_id,
-        "place_id": entry.get("place_id", ""),
         "email": email or f"no-email-{entry.get('phone', '')}",
         "first_name": entry.get("first_name", "") or "",
         "company_name": entry.get("name", "") or "",
